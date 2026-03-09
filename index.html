@@ -330,6 +330,13 @@
     grid-template-rows: 1fr 1fr;
     gap: 12px;
     position: relative;
+    min-height: 0;
+  }
+
+  .finance-col .card {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
   }
 
   /* The blur overlay — sits on top of both finance cards */
@@ -340,16 +347,22 @@
     z-index: 10;
     backdrop-filter: blur(12px) brightness(0.5);
     -webkit-backdrop-filter: blur(12px) brightness(0.5);
-    border-radius: 0;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 12px;
     text-align: center;
     background: rgba(11,11,12,0.3);
+    /* keep out of grid flow */
+    grid-column: 1;
+    grid-row: 1;
+    pointer-events: none;
   }
 
-  .finance-blur-overlay.active { display: flex; }
+  .finance-blur-overlay.active {
+    display: flex;
+    pointer-events: all;
+  }
 
   .blur-lock { font-size: 36px; opacity: 0.7; margin-bottom: 4px; }
 
@@ -825,6 +838,7 @@ const WMO_SHORT = {
 let currentMode = null;
 
 function getMode() {
+  return 'full'; // TEMP: force full mode for testing — remove this line when done
   const now = new Date();
   const h = now.getHours() + now.getMinutes() / 60;
   if (h < FULL_DASHBOARD_START || h >= AMBIENT_END) return 'ambient';
