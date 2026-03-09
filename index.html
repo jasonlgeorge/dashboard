@@ -798,46 +798,51 @@ loadWeather();
 setInterval(loadWeather, 600000);
 
 // ═══════════════════════════════════════════
-//  NEWS — using RSS feeds via rss2json
+//  NEWS — direct RSS via corsproxy.io
 // ═══════════════════════════════════════════
 const NEWS_FEEDS = [
-  { url: 'https://feeds.npr.org/1001/rss.xml',             name: 'NPR' },
-  { url: 'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml', name: 'NYT' },
-  { url: 'https://feeds.bbci.co.uk/news/rss.xml',          name: 'BBC' },
+  { url: 'https://feeds.npr.org/1001/rss.xml',                         name: 'NPR' },
+  { url: 'https://feeds.bbci.co.uk/news/rss.xml',                      name: 'BBC' },
+  { url: 'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',  name: 'NYT' },
+  { url: 'https://feeds.reuters.com/reuters/topNews',                   name: 'Reuters' },
 ];
 
 let currentHeadlines = [];
+let feedIndex = 0;
+
+async function fetchFeed(feedUrl) {
+  const proxy = 'https://corsproxy.io/?' + encodeURIComponent(feedUrl);
+  const r = await fetch(proxy);
+  if (!r.ok) throw new Error('fetch failed');
+  const text = await r.text();
+  const xml  = new DOMParser().parseFromString(text, 'text/xml');
+  const items = Array.from(xml.querySelectorAll('item')).slice(0, 5);
+  if (!items.length) throw new Error('no items');
+  return items.map(item => ({
+    title: item.querySelector('title')?.textContent?.trim() || 'No title',
+    link:  item.querySelector('link')?.textContent?.trim()
+        || item.querySelector('guid')?.textContent?.trim()
+        || '#',
+  }));
+}
 
 async function loadNews() {
-  const feed    = NEWS_FEEDS[Math.floor(Math.random() * NEWS_FEEDS.length)];
-  const apiUrl  = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}&count=5`;
-  try {
-    const r    = await fetch(apiUrl);
-    const data = await r.json();
-    if (data.status !== 'ok' || !data.items?.length) throw new Error('bad feed');
-
-    currentHeadlines = data.items.slice(0, 5).map(item => ({
-      title: item.title,
-      link:  item.link,
-      src:   feed.name
-    }));
-
-    renderNews();
-    document.getElementById('news-dot').classList.add('on');
-    setRefreshTime();
-  } catch(e) {
-    // Try fallback feed
+  // Try feeds in rotation, fall back to next if one fails
+  for (let attempt = 0; attempt < NEWS_FEEDS.length; attempt++) {
+    const feed = NEWS_FEEDS[feedIndex % NEWS_FEEDS.length];
+    feedIndex++;
     try {
-      const fallback = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://feeds.bbci.co.uk/news/rss.xml')}&count=5`;
-      const r2   = await fetch(fallback);
-      const d2   = await r2.json();
-      if (d2.status === 'ok' && d2.items?.length) {
-        currentHeadlines = d2.items.slice(0,5).map(i => ({ title: i.title, link: i.link, src: 'BBC' }));
-        renderNews();
-        document.getElementById('news-dot').classList.add('on');
-      }
-    } catch { document.getElementById('news-list').innerHTML = '<div class="news-loading">Headlines unavailable</div>'; }
+      const items = await fetchFeed(feed.url);
+      currentHeadlines = items.map(i => ({ ...i, src: feed.name }));
+      renderNews();
+      document.getElementById('news-dot').classList.add('on');
+      setRefreshTime();
+      return;
+    } catch(e) {
+      console.warn('Feed failed:', feed.name, e.message);
+    }
   }
+  document.getElementById('news-list').innerHTML = '<div class="news-loading">Headlines unavailable — check connection</div>';
 }
 
 function renderNews() {
