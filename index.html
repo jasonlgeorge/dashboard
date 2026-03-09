@@ -4,21 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jason's Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inconsolata:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --black: #0b0b0c;
+    --black: #0a0a0b;
     --surface: #111114;
-    --card: #16161a;
-    --border: #2a2a30;
-    --border-accent: #3d3428;
+    --card: #17171b;
+    --border: #28282f;
+    --border-gold: #3d3020;
     --gold: #c9a84c;
     --gold-dim: #7a5f28;
-    --cream: #e8dfc8;
-    --muted: #5a5a60;
-    --text: #ccc5b5;
+    --cream: #ede5d0;
+    --muted: #555560;
+    --text: #c8c0b0;
     --green: #4a9e6b;
     --red: #b05050;
   }
@@ -28,164 +28,169 @@
   body {
     background: var(--black);
     color: var(--text);
-    font-family: 'Inconsolata', monospace;
-    font-weight: 300;
-    position: relative;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
   }
 
+  /* grain */
   body::before {
     content: '';
     position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 0; opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.5;
   }
 
+  /* gold top line */
   body::after {
     content: '';
-    position: fixed; top: 0; left: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
-    z-index: 10;
+    position: fixed; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--gold-dim) 30%, var(--gold) 50%, var(--gold-dim) 70%, transparent 100%);
+    z-index: 100;
   }
 
-  .page { }
-  .page.hidden { display: none; }
+  .page { position: relative; z-index: 1; }
+  .page.hidden { display: none !important; }
 
   /* ════════════════════════════════════════
      AMBIENT MODE
   ════════════════════════════════════════ */
   #ambient {
-    position: relative; z-index: 1;
     width: 100vw; height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr auto;
-    padding: 56px 68px 36px;
+    padding: 52px 64px 32px;
   }
 
-  .ambient-left {
+  .amb-left {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-right: 52px;
     border-right: 1px solid var(--border);
-    padding-right: 56px;
   }
 
-  .ambient-clock {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(120px, 16vw, 220px);
-    font-weight: 400;
+  .amb-clock {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(110px, 15vw, 200px);
     color: var(--cream);
     line-height: 1;
-    letter-spacing: -3px;
+    letter-spacing: -2px;
     font-variant-numeric: tabular-nums;
   }
 
-  .ambient-ampm {
-    font-size: 20px;
+  .amb-ampm {
+    font-size: 22px;
+    font-weight: 600;
     letter-spacing: 6px;
     color: var(--gold);
     text-transform: uppercase;
-    margin-top: 14px;
-    font-weight: 400;
+    margin-top: 16px;
   }
 
-  .ambient-date {
-    font-size: 16px;
+  .amb-date {
+    font-size: 15px;
+    font-weight: 500;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--muted);
-    margin-top: 20px;
+    margin-top: 18px;
   }
 
-  .ambient-right {
+  .amb-right {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 56px;
-    gap: 40px;
+    padding-left: 52px;
+    gap: 36px;
   }
 
-  .ambient-temp {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(80px, 10vw, 148px);
-    font-weight: 400;
+  .amb-temp {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(80px, 11vw, 156px);
     color: var(--cream);
     line-height: 1;
   }
 
-  .ambient-condition { font-size: 22px; color: var(--text); margin-top: 6px; font-weight: 400; }
-  .ambient-meta { font-size: 15px; color: var(--muted); margin-top: 8px; line-height: 1.8; }
+  .amb-condition {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text);
+    margin-top: 6px;
+  }
 
-  .ambient-forecast {
+  .amb-meta {
+    font-size: 15px;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.9;
+    font-weight: 400;
+  }
+
+  .amb-forecast {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    padding-top: 20px;
+    gap: 6px;
+    padding-top: 18px;
     border-top: 1px solid var(--border);
   }
 
-  .forecast-item { text-align: center; }
-  .forecast-day { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-  .forecast-icon {
-    font-size: 13px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 5px;
-    font-weight: 500;
-  }
-  .forecast-temp { font-size: 15px; color: var(--text); font-weight: 400; }
+  .amb-forecast .f-item { text-align: center; }
+  .amb-forecast .f-day  { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .amb-forecast .f-icon { font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; }
+  .amb-forecast .f-temp { font-size: 16px; font-weight: 500; color: var(--cream); }
 
-  .ambient-quote { border-top: 1px solid var(--border); padding-top: 24px; }
+  .amb-quote { border-top: 1px solid var(--border); padding-top: 22px; }
 
-  .ambient-quote-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(18px, 1.9vw, 26px);
+  .amb-quote-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(17px, 1.8vw, 24px);
     font-style: italic;
-    font-weight: 300;
     color: var(--cream);
     line-height: 1.6;
   }
 
-  .ambient-quote-author {
+  .amb-quote-author {
     font-size: 12px;
+    font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--muted);
-    margin-top: 14px;
+    margin-top: 12px;
   }
 
-  .ambient-footer {
+  .amb-footer {
     grid-column: 1 / 3;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 18px;
+    padding-top: 16px;
     border-top: 1px solid var(--border);
     font-size: 11px;
+    font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--muted);
   }
 
   .mode-badge {
-    font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
-    padding: 4px 12px; border: 1px solid var(--border); color: var(--muted);
+    font-size: 9px; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; padding: 5px 14px;
+    border: 1px solid var(--border); color: var(--muted);
   }
 
   /* ════════════════════════════════════════
-     DASHBOARD
+     DASHBOARD MODE
   ════════════════════════════════════════ */
   #dashboard {
-    position: relative; z-index: 1;
     width: 100vw; height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
-    padding: 24px 32px 18px;
-    gap: 16px;
+    padding: 24px 30px 18px;
+    gap: 14px;
   }
 
-  /* ── HEADER ── */
+  /* HEADER */
   header {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -195,9 +200,8 @@
   }
 
   .greeting {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(52px, 6vw, 88px);
-    font-weight: 400;
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(44px, 5.5vw, 80px);
     color: var(--cream);
     line-height: 1;
   }
@@ -205,8 +209,9 @@
   .greeting span { color: var(--gold); font-style: italic; }
 
   .date-line {
-    margin-top: 6px;
+    margin-top: 7px;
     font-size: 14px;
+    font-weight: 500;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--muted);
@@ -215,34 +220,32 @@
   .clock-block { text-align: right; }
 
   .clock {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(64px, 8vw, 116px);
-    font-weight: 400;
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(58px, 7.8vw, 112px);
     color: var(--cream);
     line-height: 1;
-    letter-spacing: -1px;
     font-variant-numeric: tabular-nums;
   }
 
   .clock-ampm {
     font-size: 15px;
+    font-weight: 600;
     letter-spacing: 4px;
     color: var(--gold);
     text-transform: uppercase;
-    margin-top: 4px;
-    font-weight: 400;
+    margin-top: 5px;
   }
 
-  /* ── MAIN GRID ── */
+  /* MAIN GRID */
   .main {
     display: grid;
-    grid-template-columns: 1.1fr 1fr 1fr 0.9fr;
+    grid-template-columns: 1.1fr 1fr 1fr 0.95fr;
     grid-template-rows: 1fr 1fr;
     gap: 12px;
     min-height: 0;
   }
 
-  /* ── CARD BASE ── */
+  /* CARD */
   .card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -251,7 +254,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    animation: fadeUp 0.5s ease both;
+    animation: fadeUp 0.45s ease both;
   }
 
   .card::before {
@@ -262,24 +265,24 @@
     opacity: 0; transition: opacity 0.2s;
   }
 
-  .card:hover { border-color: var(--border-accent); }
+  .card:hover { border-color: var(--border-gold); }
   .card:hover::before { opacity: 1; }
 
-  .card:nth-child(1) { animation-delay: 0.05s; }
-  .card:nth-child(2) { animation-delay: 0.10s; }
-  .card:nth-child(3) { animation-delay: 0.15s; }
-  .card:nth-child(4) { animation-delay: 0.20s; }
-  .card:nth-child(5) { animation-delay: 0.25s; }
-  .card:nth-child(6) { animation-delay: 0.30s; }
-  .card:nth-child(7) { animation-delay: 0.35s; }
+  .card:nth-child(1) { animation-delay: 0.04s; }
+  .card:nth-child(2) { animation-delay: 0.08s; }
+  .card:nth-child(3) { animation-delay: 0.12s; }
+  .card:nth-child(4) { animation-delay: 0.16s; }
+  .card:nth-child(5) { animation-delay: 0.20s; }
+  .card:nth-child(6) { animation-delay: 0.24s; }
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
   .card-label {
     font-size: 10px;
+    font-weight: 600;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--gold);
@@ -287,20 +290,19 @@
     flex-shrink: 0;
   }
 
-  /* ── WEATHER ── */
+  /* WEATHER */
   .card-weather { grid-column: 1; grid-row: 1; }
 
-  .weather-main { display: flex; align-items: flex-end; gap: 14px; margin-bottom: 8px; }
+  .weather-main { display: flex; align-items: flex-end; gap: 12px; margin-bottom: 8px; }
 
   .weather-temp {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(72px, 7.5vw, 108px);
-    font-weight: 400;
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(68px, 7vw, 100px);
     line-height: 1; color: var(--cream);
   }
 
-  .weather-condition { font-size: 19px; color: var(--text); margin-bottom: 5px; font-weight: 400; }
-  .weather-meta { font-size: 14px; color: var(--muted); line-height: 1.8; }
+  .weather-condition { font-size: 19px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+  .weather-meta      { font-size: 13px; color: var(--muted); line-height: 1.9; }
 
   .weather-forecast {
     display: grid; grid-template-columns: repeat(4, 1fr);
@@ -308,21 +310,28 @@
     border-top: 1px solid var(--border);
   }
 
-  /* ── QUOTE ── */
+  .f-item  { text-align: center; }
+  .f-day   { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+  .f-icon  { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .f-temp  { font-size: 14px; font-weight: 500; color: var(--cream); }
+
+  /* QUOTE */
   .card-quote { grid-column: 1; grid-row: 2; justify-content: center; }
 
   .quote-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(17px, 1.7vw, 23px);
-    font-weight: 300; font-style: italic;
-    color: var(--cream); line-height: 1.65; flex: 1;
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(16px, 1.6vw, 22px);
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.65;
+    flex: 1;
   }
 
-  .quote-rule { width: 32px; height: 1px; background: var(--gold-dim); margin: 12px 0 8px; flex-shrink: 0; }
-  .quote-author { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); flex-shrink: 0; font-weight: 400; }
-  .quote-source { font-size: 11px; color: var(--gold-dim); letter-spacing: 1px; margin-top: 3px; flex-shrink: 0; }
+  .quote-rule   { width: 28px; height: 1px; background: var(--gold-dim); margin: 12px 0 8px; flex-shrink: 0; }
+  .quote-author { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); flex-shrink: 0; }
+  .quote-source { font-size: 10px; color: var(--gold-dim); letter-spacing: 1px; margin-top: 3px; flex-shrink: 0; }
 
-  /* ── FINANCE WRAPPER — handles blur overlay ── */
+  /* FINANCE COLUMN */
   .finance-col {
     grid-column: 2;
     grid-row: 1 / 3;
@@ -330,69 +339,32 @@
     grid-template-rows: 1fr 1fr;
     gap: 12px;
     position: relative;
-    min-height: 0;
   }
 
-  .finance-col .card {
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  /* The blur overlay — sits on top of both finance cards */
+  /* Blur overlay */
   .finance-blur-overlay {
     display: none;
     position: absolute;
     inset: 0;
-    z-index: 10;
-    backdrop-filter: blur(12px) brightness(0.5);
-    -webkit-backdrop-filter: blur(12px) brightness(0.5);
+    z-index: 20;
+    backdrop-filter: blur(14px) brightness(0.45);
+    -webkit-backdrop-filter: blur(14px) brightness(0.45);
+    background: rgba(10, 10, 11, 0.25);
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    gap: 12px;
     text-align: center;
-    background: rgba(11,11,12,0.3);
-    /* keep out of grid flow */
-    grid-column: 1;
-    grid-row: 1;
-    pointer-events: none;
+    gap: 10px;
   }
 
-  .finance-blur-overlay.active {
-    display: flex;
-    pointer-events: all;
-  }
+  .finance-blur-overlay.active { display: flex; }
 
-  .blur-lock { font-size: 36px; opacity: 0.7; margin-bottom: 4px; }
+  .blur-icon  { font-size: 40px; opacity: 0.6; margin-bottom: 6px; }
+  .blur-title { font-size: 15px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--cream); opacity: 0.85; }
+  .blur-sub   { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+  .blur-time  { font-size: 12px; color: var(--gold-dim); letter-spacing: 1px; margin-top: 8px; }
 
-  .blur-label {
-    font-size: 13px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--cream);
-    opacity: 0.8;
-  }
-
-  .blur-sub {
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-
-  .blur-time {
-    font-size: 12px;
-    color: var(--gold-dim);
-    letter-spacing: 1px;
-    margin-top: 6px;
-  }
-
-  /* ── FINANCE CARDS ── */
-  .card-personal { }
-  .card-shop     { }
-
+  /* Finance cards */
   .account-list { display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
 
   .account-item {
@@ -400,18 +372,18 @@
     padding: 10px 0; border-bottom: 1px solid var(--border);
   }
 
-  .account-item:last-child { border-bottom: none; padding-bottom: 0; }
   .account-item:first-child { padding-top: 0; }
+  .account-item:last-child  { border-bottom: none; padding-bottom: 0; }
 
-  .account-name { font-size: 14px; color: var(--muted); margin-bottom: 3px; }
-  .account-type { font-size: 10px; color: var(--gold-dim); letter-spacing: 2px; text-transform: uppercase; }
+  .account-name { font-size: 14px; font-weight: 400; color: var(--muted); margin-bottom: 3px; }
+  .account-type { font-size: 10px; font-weight: 600; color: var(--gold-dim); letter-spacing: 2px; text-transform: uppercase; }
 
   .account-balance {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 32px; font-weight: 400; color: var(--cream); text-align: right;
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px; color: var(--cream); text-align: right;
   }
 
-  .account-change { font-size: 12px; text-align: right; margin-top: 2px; letter-spacing: 1px; }
+  .account-change { font-size: 12px; text-align: right; margin-top: 2px; font-weight: 500; }
   .change-pos { color: var(--green); }
   .change-neg { color: var(--red); }
   .change-neu { color: var(--muted); }
@@ -419,44 +391,45 @@
   .connect-cta {
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    flex: 1; text-align: center; gap: 10px;
+    flex: 1; text-align: center; gap: 12px;
   }
 
-  .connect-icon { font-size: 24px; opacity: 0.35; }
-  .connect-text { font-size: 13px; color: var(--muted); line-height: 1.6; max-width: 190px; }
+  .connect-icon { font-size: 28px; opacity: 0.3; }
+
+  .connect-text { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 190px; }
 
   .connect-btn {
-    padding: 7px 18px;
+    padding: 8px 20px;
     border: 1px solid var(--gold-dim); color: var(--gold);
-    font-family: 'Inconsolata', monospace; font-size: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600;
     letter-spacing: 2px; text-transform: uppercase;
     cursor: pointer; background: transparent; transition: all 0.2s;
   }
 
   .connect-btn:hover { background: var(--gold-dim); color: var(--cream); }
 
-  /* ── CALENDAR ── */
+  /* CALENDAR */
   .card-calendar { grid-column: 3; grid-row: 1 / 3; }
 
   .events-list { display: flex; flex-direction: column; flex: 1; overflow-y: auto; }
 
   .event-item {
-    display: grid; grid-template-columns: 95px 1fr;
+    display: grid; grid-template-columns: 90px 1fr;
     gap: 12px; align-items: start;
     padding: 13px 0; border-bottom: 1px solid var(--border);
   }
 
   .event-item:last-child { border-bottom: none; }
-  .event-time { font-size: 16px; color: var(--gold); letter-spacing: 1px; padding-top: 2px; font-weight: 400; }
-  .event-name { font-size: 17px; color: var(--text); line-height: 1.3; font-weight: 400; }
-  .event-cal  { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+  .event-time { font-size: 15px; font-weight: 600; color: var(--gold); letter-spacing: 1px; padding-top: 2px; }
+  .event-name { font-size: 16px; font-weight: 500; color: var(--text); line-height: 1.3; }
+  .event-cal  { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
 
   .no-events {
-    font-size: 14px; color: var(--muted); font-style: italic;
+    font-size: 14px; color: var(--muted);
     padding: 20px 0; flex: 1; display: flex; align-items: center; gap: 8px;
   }
 
-  /* ── TODO ── */
+  /* TODO */
   .card-todo { grid-column: 4; grid-row: 1 / 3; }
 
   .todo-header {
@@ -464,12 +437,13 @@
     margin-bottom: 12px; flex-shrink: 0;
   }
 
-  .todo-progress { font-size: 12px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-left: 10px; }
+  .todo-progress { font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-left: 10px; }
 
   .todo-add-btn {
     background: transparent; border: 1px solid var(--border); color: var(--muted);
-    font-family: 'Inconsolata', monospace; font-size: 11px; letter-spacing: 2px;
-    text-transform: uppercase; padding: 6px 14px; cursor: pointer; transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 6px 14px; cursor: pointer; transition: all 0.2s;
   }
 
   .todo-add-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
@@ -477,7 +451,7 @@
   .todo-list { display: flex; flex-direction: column; flex: 1; overflow-y: auto; }
 
   .todo-item {
-    display: flex; align-items: flex-start; gap: 14px;
+    display: flex; align-items: flex-start; gap: 13px;
     padding: 12px 0; border-bottom: 1px solid var(--border);
     animation: fadeUp 0.25s ease both;
   }
@@ -496,10 +470,11 @@
   .todo-check:checked::after {
     content: '✓'; position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
-    font-size: 12px; color: var(--cream); line-height: 20px; text-align: center; width: 100%;
+    font-size: 12px; font-weight: 700; color: var(--cream);
+    line-height: 1; text-align: center;
   }
 
-  .todo-text { font-size: 15px; color: var(--text); flex: 1; line-height: 1.4; transition: all 0.2s; font-weight: 400; }
+  .todo-text { font-size: 15px; font-weight: 400; color: var(--text); flex: 1; line-height: 1.4; transition: all 0.2s; }
   .todo-item.done .todo-text { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--gold-dim); }
 
   .todo-delete {
@@ -510,23 +485,23 @@
 
   .todo-item:hover .todo-delete { opacity: 1; }
   .todo-delete:hover { color: var(--red); }
-  .todo-empty { font-size: 14px; color: var(--muted); font-style: italic; padding: 20px 0; }
+  .todo-empty { font-size: 14px; color: var(--muted); padding: 20px 0; }
 
   .todo-clear-done {
     margin-top: 10px; background: transparent; border: none;
-    color: var(--muted); font-family: 'Inconsolata', monospace;
-    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); font-family: 'DM Sans', sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
     cursor: pointer; transition: color 0.15s; padding: 0; flex-shrink: 0;
   }
 
   .todo-clear-done:hover { color: var(--red); }
 
-  /* ── STATUS BAR ── */
+  /* STATUS BAR */
   .status-bar {
     display: flex; justify-content: space-between; align-items: center;
     padding-top: 10px; border-top: 1px solid var(--border);
-    font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted);
-    flex-shrink: 0;
+    font-size: 11px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--muted); flex-shrink: 0;
   }
 
   .status-dot {
@@ -536,32 +511,32 @@
 
   .status-dot.live { background: var(--green); box-shadow: 0 0 6px var(--green); }
 
-  /* ── TODO PANEL ── */
+  /* TODO PANEL */
   .todo-panel {
     display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.88); z-index: 200;
+    background: rgba(0,0,0,0.9); z-index: 200;
     align-items: center; justify-content: center;
   }
 
   .todo-panel.open { display: flex; }
 
   .todo-panel-inner {
-    background: var(--card); border: 1px solid var(--border-accent);
+    background: var(--card); border: 1px solid var(--border-gold);
     padding: 44px; width: 640px; max-width: 92vw; position: relative;
   }
 
-  .todo-panel-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .todo-panel-label { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
 
   .todo-panel-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 40px; font-weight: 400; color: var(--cream); margin-bottom: 28px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px; color: var(--cream); margin-bottom: 28px;
   }
 
   .todo-input-row { display: flex; gap: 10px; margin-bottom: 24px; }
 
   .todo-input {
     flex: 1; background: var(--surface); border: 1px solid var(--border);
-    color: var(--cream); font-family: 'Inconsolata', monospace;
+    color: var(--cream); font-family: 'DM Sans', sans-serif;
     font-size: 16px; padding: 13px 16px; outline: none; transition: border-color 0.2s;
   }
 
@@ -570,8 +545,9 @@
 
   .todo-submit {
     background: var(--gold-dim); border: 1px solid var(--gold-dim); color: var(--cream);
-    font-family: 'Inconsolata', monospace; font-size: 12px; letter-spacing: 2px;
-    text-transform: uppercase; padding: 13px 22px; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 13px 22px; cursor: pointer; transition: all 0.2s; white-space: nowrap;
   }
 
   .todo-submit:hover { background: var(--gold); border-color: var(--gold); }
@@ -604,43 +580,43 @@
 </head>
 <body>
 
-<!-- ══════════════════════════════════════
-     AMBIENT MODE (before 6am / after 10pm)
-══════════════════════════════════════ -->
+<!-- ══════════════════════════
+     AMBIENT MODE
+══════════════════════════ -->
 <div id="ambient" class="page hidden">
-  <div class="ambient-left">
-    <div class="ambient-clock" id="amb-clock">--:--</div>
-    <div class="ambient-ampm"  id="amb-ampm">--</div>
-    <div class="ambient-date"  id="amb-date">--</div>
+  <div class="amb-left">
+    <div class="amb-clock" id="amb-clock">--:--</div>
+    <div class="amb-ampm"  id="amb-ampm">--</div>
+    <div class="amb-date"  id="amb-date">--</div>
   </div>
-  <div class="ambient-right">
+  <div class="amb-right">
     <div>
-      <div class="ambient-temp"      id="amb-temp">--°</div>
-      <div class="ambient-condition" id="amb-condition">Loading...</div>
-      <div class="ambient-meta"      id="amb-meta">--</div>
-      <div class="ambient-forecast"  id="amb-forecast"></div>
+      <div class="amb-temp"      id="amb-temp">--°</div>
+      <div class="amb-condition" id="amb-condition">Loading...</div>
+      <div class="amb-meta"      id="amb-meta">--</div>
+      <div class="amb-forecast"  id="amb-forecast"></div>
     </div>
-    <div class="ambient-quote">
-      <div class="ambient-quote-text"   id="amb-quote"></div>
-      <div class="ambient-quote-author" id="amb-author"></div>
+    <div class="amb-quote">
+      <div class="amb-quote-text"   id="amb-quote-text"></div>
+      <div class="amb-quote-author" id="amb-quote-author"></div>
     </div>
   </div>
-  <div class="ambient-footer">
+  <div class="amb-footer">
     <div>Jason's Dashboard</div>
     <div class="mode-badge">Ambient Mode</div>
     <div id="amb-status">--</div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     FULL / PRIVACY DASHBOARD
-══════════════════════════════════════ -->
+<!-- ══════════════════════════
+     DASHBOARD
+══════════════════════════ -->
 <div id="dashboard" class="page hidden">
 
   <header>
     <div>
       <div class="greeting" id="greeting">Good morning, <span>Jason</span>.</div>
-      <div class="date-line" id="full-date">Loading...</div>
+      <div class="date-line" id="full-date">--</div>
     </div>
     <div class="clock-block">
       <div class="clock"      id="clock">--:--</div>
@@ -654,7 +630,7 @@
     <div class="card card-weather">
       <div class="card-label">Benton Harbor, MI</div>
       <div class="weather-main">
-        <div class="weather-temp" id="weather-temp">--°</div>
+        <div class="weather-temp"      id="weather-temp">--°</div>
         <div>
           <div class="weather-condition" id="weather-condition">Loading...</div>
           <div class="weather-meta"      id="weather-meta">--</div>
@@ -672,22 +648,21 @@
       <div class="quote-source" id="quote-source"></div>
     </div>
 
-    <!-- FINANCE COLUMN — blur overlay lives here -->
+    <!-- FINANCE COLUMN -->
     <div class="finance-col">
 
-      <!-- Blur overlay (shown in privacy mode) -->
       <div class="finance-blur-overlay" id="finance-blur">
-        <div class="blur-lock">&#x1F512;</div>
-        <div class="blur-label">Financial Data Hidden</div>
-        <div class="blur-sub">Privacy mode active</div>
-        <div class="blur-time">Visible 6:00 – 9:30 AM</div>
+        <div class="blur-icon">&#128274;</div>
+        <div class="blur-title">Financial Data Hidden</div>
+        <div class="blur-sub">Privacy Mode Active</div>
+        <div class="blur-time">Visible daily 6:00 – 9:30 AM</div>
       </div>
 
-      <!-- PERSONAL FINANCES -->
-      <div class="card card-personal">
+      <!-- PERSONAL -->
+      <div class="card">
         <div class="card-label">Personal — Ally Bank</div>
         <div class="connect-cta" id="personal-connect">
-          <div class="connect-icon">&#x1F517;</div>
+          <div class="connect-icon">&#128279;</div>
           <div class="connect-text">Connect Ally accounts via Plaid to see live balances.</div>
           <button class="connect-btn" onclick="showPlaidInfo()">How to connect</button>
         </div>
@@ -707,11 +682,11 @@
         </div>
       </div>
 
-      <!-- SHOP FINANCES -->
-      <div class="card card-shop">
+      <!-- SHOP -->
+      <div class="card">
         <div class="card-label">St. Joe Wine Shoppe</div>
         <div class="connect-cta" id="shop-connect">
-          <div class="connect-icon">&#x1F377;</div>
+          <div class="connect-icon">&#127863;</div>
           <div class="connect-text">Connect wine shop accounts to monitor deposits.</div>
           <button class="connect-btn" onclick="showPlaidInfo()">How to connect</button>
         </div>
@@ -738,12 +713,12 @@
       <div class="card-label">Today's Schedule</div>
       <div class="events-list" id="calendar-events">
         <div class="no-events">Connect Google Calendar to see your schedule →
-          <a href="https://calendar.google.com" target="_blank" style="color:var(--gold);text-decoration:none;">Open ↗</a>
+          <a href="https://calendar.google.com" target="_blank" style="color:var(--gold);text-decoration:none;margin-left:4px;">Open ↗</a>
         </div>
       </div>
     </div>
 
-    <!-- TO-DO -->
+    <!-- TODO -->
     <div class="card card-todo">
       <div class="todo-header">
         <div style="display:flex;align-items:center;">
@@ -758,7 +733,7 @@
       <button class="todo-clear-done" id="clear-done-btn" onclick="clearDone()" style="display:none;">Clear completed</button>
     </div>
 
-  </div>
+  </div><!-- /main -->
 
   <div class="status-bar">
     <div><span class="status-dot" id="weather-dot"></span>Weather</div>
@@ -766,16 +741,16 @@
     <div id="mode-label">Jason's Dashboard</div>
   </div>
 
-</div>
+</div><!-- /dashboard -->
 
 <!-- TODO PANEL -->
 <div class="todo-panel" id="todo-panel">
   <div class="todo-panel-inner">
-    <button class="todo-panel-close" onclick="closeTodoPanel()">×</button>
+    <button class="todo-panel-close" onclick="closeTodoPanel()">&#215;</button>
     <div class="todo-panel-label">Task Manager</div>
-    <div class="todo-panel-title">Add Tomorrow's Tasks</div>
+    <div class="todo-panel-title">Add Tasks</div>
     <div class="todo-input-row">
-      <input class="todo-input" id="todo-input" type="text" placeholder="e.g. Drop off taxes at Hungerford Nichols..." maxlength="160" />
+      <input class="todo-input" id="todo-input" type="text" placeholder="e.g. Call HVAC contractor..." maxlength="160" />
       <button class="todo-submit" onclick="addTodo()">Add</button>
     </div>
     <div class="todo-panel-list" id="todo-panel-list"></div>
@@ -783,66 +758,62 @@
 </div>
 
 <!-- PLAID MODAL -->
-<div id="modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:300;align-items:center;justify-content:center;">
-  <div style="background:var(--card);border:1px solid var(--border-accent);padding:44px;max-width:520px;width:90%;position:relative;">
-    <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Connecting Ally Bank</div>
-    <div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;color:var(--cream);margin-bottom:20px;">How to add live balances</div>
-    <div style="font-size:14px;color:var(--text);line-height:1.8;margin-bottom:28px;">
-      The cleanest approach is <strong style="color:var(--cream);">Plaid</strong>, which securely connects to Ally and returns balances via API.<br><br>
+<div id="modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:300;align-items:center;justify-content:center;">
+  <div style="background:var(--card);border:1px solid var(--border-gold);padding:44px;max-width:520px;width:90%;position:relative;">
+    <div style="font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Connecting Ally Bank</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:32px;color:var(--cream);margin-bottom:20px;">How to add live balances</div>
+    <div style="font-size:14px;color:var(--text);line-height:1.85;margin-bottom:28px;">
+      The cleanest approach is <strong style="color:var(--cream);">Plaid</strong> — it securely connects to Ally and returns balances via API.<br><br>
       <strong style="color:var(--gold);">Steps:</strong><br>
       1. Sign up at <a href="https://plaid.com" target="_blank" style="color:var(--gold);">plaid.com</a> (free developer tier)<br>
       2. Get your <code style="color:var(--green);font-size:13px;">client_id</code> and <code style="color:var(--green);font-size:13px;">secret</code><br>
-      3. Share them with Claude and they'll be wired in directly<br><br>
-      Your credentials stay local — nothing leaves your machine.
+      3. Share them with Claude — they'll be wired in directly<br><br>
+      Your credentials stay local. Nothing leaves your machine.
     </div>
     <button class="connect-btn" onclick="closeModal()">Got it</button>
   </div>
 </div>
 
 <script>
-// ══════════════════════════════════════════════════════
-//  SCHEDULE CONFIGURATION
-// ══════════════════════════════════════════════════════
-const FULL_DASHBOARD_START = 6;    // 6:00 AM  — full dashboard with bank info
-const PRIVACY_MODE_START   = 9.5;  // 9:30 AM  — bank info blurs
-const AMBIENT_END          = 22;   // 10:00 PM — ambient kicks back in
+// ══════════════════════════════════════════════════
+//  SCHEDULE — adjust these two values anytime
+// ══════════════════════════════════════════════════
+const FULL_START    = 6;    // 6:00 AM  — full dashboard with bank info
+const PRIVACY_START = 9.5;  // 9:30 AM  — bank blurs out
+const AMBIENT_START = 22;   // 10:00 PM — ambient clock kicks in
 
-// ══════════════════════════════════════════════════════
-//  WEATHER ICON MAP — text abbreviations (no emoji)
-//  Chromium on Pi can have emoji rendering issues
-// ══════════════════════════════════════════════════════
-const WMO_CODES = {
-  0:'Clear',1:'Mostly Clear',2:'Partly Cloudy',3:'Overcast',
-  45:'Fog',48:'Icy Fog',
-  51:'Lt Drizzle',53:'Drizzle',55:'Hvy Drizzle',
-  61:'Lt Rain',63:'Rain',65:'Hvy Rain',
-  71:'Lt Snow',73:'Snow',75:'Hvy Snow',
-  80:'Showers',81:'Rain Showers',82:'Storm Showers',85:'Snow Showers',
-  95:'Thunderstorm',96:'Tstorm+Hail',99:'Severe Tstorm'
+// ══════════════════════════════════════════════════
+//  WEATHER CODES
+// ══════════════════════════════════════════════════
+const WMO_LABEL = {
+  0:'Clear', 1:'Mostly Clear', 2:'Partly Cloudy', 3:'Overcast',
+  45:'Fog', 48:'Icy Fog',
+  51:'Light Drizzle', 53:'Drizzle', 55:'Heavy Drizzle',
+  61:'Light Rain', 63:'Rain', 65:'Heavy Rain',
+  71:'Light Snow', 73:'Snow', 75:'Heavy Snow',
+  80:'Showers', 81:'Rain Showers', 82:'Heavy Showers', 85:'Snow Showers',
+  95:'Thunderstorm', 96:'Tstorm + Hail', 99:'Severe Tstorm'
 };
 
-// Short icon labels — styled gold text instead of emoji
 const WMO_SHORT = {
-  0:'SUN',1:'SUN',2:'PTLY',3:'CLDY',
-  45:'FOG',48:'FOG',
-  51:'DRZL',53:'DRZL',55:'DRZL',
-  61:'RAIN',63:'RAIN',65:'RAIN',
-  71:'SNOW',73:'SNOW',75:'SNOW',
-  80:'SHWR',81:'SHWR',82:'SHWR',85:'SNOW',
-  95:'STRM',96:'STRM',99:'STRM'
+  0:'CLR', 1:'CLR', 2:'PTLY', 3:'OVCT',
+  45:'FOG', 48:'FOG',
+  51:'DRZL', 53:'DRZL', 55:'DRZL',
+  61:'RAIN', 63:'RAIN', 65:'RAIN',
+  71:'SNOW', 73:'SNOW', 75:'SNOW',
+  80:'SHWR', 81:'SHWR', 82:'SHWR', 85:'SNOW',
+  95:'STRM', 96:'STRM', 99:'STRM'
 };
 
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
 //  MODE MANAGER
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
 let currentMode = null;
 
 function getMode() {
-  return 'full'; // TEMP: force full mode for testing — remove this line when done
-  const now = new Date();
-  const h = now.getHours() + now.getMinutes() / 60;
-  if (h < FULL_DASHBOARD_START || h >= AMBIENT_END) return 'ambient';
-  if (h < PRIVACY_MODE_START) return 'full';
+  const h = new Date().getHours() + new Date().getMinutes() / 60;
+  if (h < FULL_START || h >= AMBIENT_START) return 'ambient';
+  if (h < PRIVACY_START) return 'full';
   return 'privacy';
 }
 
@@ -850,35 +821,28 @@ function applyMode(mode) {
   if (mode === currentMode) return;
   currentMode = mode;
 
-  const ambient    = document.getElementById('ambient');
-  const dashboard  = document.getElementById('dashboard');
-  const blurOverlay = document.getElementById('finance-blur');
-  const modeLabel  = document.getElementById('mode-label');
+  const isAmbient = mode === 'ambient';
+  document.getElementById('ambient').classList.toggle('hidden', !isAmbient);
+  document.getElementById('dashboard').classList.toggle('hidden', isAmbient);
 
-  if (mode === 'ambient') {
-    ambient.classList.remove('hidden');
-    dashboard.classList.add('hidden');
-  } else {
-    ambient.classList.add('hidden');
-    dashboard.classList.remove('hidden');
-  }
+  const overlay   = document.getElementById('finance-blur');
+  const modeLabel = document.getElementById('mode-label');
 
   if (mode === 'full') {
-    blurOverlay.classList.remove('active');
+    overlay.classList.remove('active');
     modeLabel.textContent = "Jason's Dashboard";
   } else if (mode === 'privacy') {
-    blurOverlay.classList.add('active');
+    overlay.classList.add('active');
     modeLabel.textContent = 'Privacy Mode Active';
   }
 }
 
-function checkMode() { applyMode(getMode()); }
-setInterval(checkMode, 30000);
-checkMode();
+setInterval(() => applyMode(getMode()), 30000);
+applyMode(getMode());
 
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
 //  QUOTES
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
 const QUOTES = [
   { text: "You have power over your mind, not outside events. Realize this, and you will find strength.", author: "Marcus Aurelius", source: "Meditations" },
   { text: "The impediment to action advances action. What stands in the way becomes the way.", author: "Marcus Aurelius", source: "Meditations" },
@@ -901,7 +865,7 @@ const QUOTES = [
   { text: "It is not death that a man should fear, but he should fear never beginning to live.", author: "Marcus Aurelius", source: "Meditations" },
   { text: "To the mind that is still, the whole universe surrenders.", author: "Lao Tzu", source: "" },
   { text: "He who conquers others is strong. He who conquers himself is mighty.", author: "Lao Tzu", source: "Tao Te Ching" },
-  { text: "Flow with whatever may happen and let your mind be free. Stay centered by accepting whatever you are doing.", author: "Zhuangzi", source: "" },
+  { text: "Flow with whatever may happen and let your mind be free.", author: "Zhuangzi", source: "" },
   { text: "Sell your cleverness and buy bewilderment.", author: "Rumi", source: "" },
   { text: "In the middle of difficulty lies opportunity.", author: "Albert Einstein", source: "" },
   { text: "A man who has not passed through the inferno of his passions has never overcome them.", author: "Carl Jung", source: "" },
@@ -913,185 +877,160 @@ const QUOTES = [
 ];
 
 function initQuote() {
-  const idx = Math.floor(Date.now() / 86400000) % QUOTES.length;
-  const q = QUOTES[idx];
+  const q = QUOTES[Math.floor(Date.now() / 86400000) % QUOTES.length];
   document.getElementById('quote-text').textContent   = `"${q.text}"`;
   document.getElementById('quote-author').textContent = `— ${q.author}`;
   const src = document.getElementById('quote-source');
-  src.textContent    = q.source || '';
-  src.style.display  = q.source ? 'block' : 'none';
-  document.getElementById('amb-quote').textContent  = `"${q.text}"`;
-  document.getElementById('amb-author').textContent = `— ${q.author}`;
+  src.textContent = q.source; src.style.display = q.source ? 'block' : 'none';
+  document.getElementById('amb-quote-text').textContent   = `"${q.text}"`;
+  document.getElementById('amb-quote-author').textContent = `— ${q.author}`;
 }
 initQuote();
 
-// ══════════════════════════════════════════════════════
-//  CLOCK & DATE
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
+//  CLOCK
+// ══════════════════════════════════════════════════
+const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
 function updateClock() {
   const now  = new Date();
   const h    = now.getHours();
-  const m    = now.getMinutes().toString().padStart(2, '0');
+  const m    = now.getMinutes().toString().padStart(2,'0');
   const ampm = h >= 12 ? 'PM' : 'AM';
-  const h12  = (h % 12 || 12).toString().padStart(2, '0');
-  const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const dateStr = `${DAYS[now.getDay()]}  ·  ${MONTHS[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+  const h12  = (h % 12 || 12).toString().padStart(2,'0');
+  const ds   = `${DAYS[now.getDay()]}  ·  ${MONTHS[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
 
   document.getElementById('clock').textContent     = `${h12}:${m}`;
   document.getElementById('ampm').textContent      = ampm;
-  document.getElementById('full-date').textContent = dateStr;
+  document.getElementById('full-date').textContent = ds;
   document.getElementById('amb-clock').textContent = `${h12}:${m}`;
   document.getElementById('amb-ampm').textContent  = ampm;
-  document.getElementById('amb-date').textContent  = dateStr;
+  document.getElementById('amb-date').textContent  = ds;
 
-  let greet = 'Good morning';
-  if (h >= 12 && h < 17) greet = 'Good afternoon';
-  else if (h >= 17)       greet = 'Good evening';
-  document.getElementById('greeting').innerHTML = `${greet}, <span>Jason</span>.`;
+  let g = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('greeting').innerHTML = `${g}, <span>Jason</span>.`;
 }
 setInterval(updateClock, 1000);
 updateClock();
 
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
 //  WEATHER
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
 async function loadWeather() {
   try {
-    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=42.116&longitude=-86.454&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph&forecast_days=5&timezone=America%2FChicago');
-    const d = await res.json();
+    const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=42.116&longitude=-86.454&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph&forecast_days=5&timezone=America%2FChicago');
+    const d = await r.json();
     const c = d.current;
-    const condText = WMO_CODES[c.weather_code] || 'Unknown';
-    const metaText = `Feels like ${Math.round(c.apparent_temperature)}°  ·  Humidity ${c.relative_humidity_2m}%  ·  Wind ${Math.round(c.wind_speed_10m)} mph`;
 
-    document.getElementById('weather-temp').textContent      = `${Math.round(c.temperature_2m)}°`;
-    document.getElementById('weather-condition').textContent = condText;
-    document.getElementById('weather-meta').textContent      = metaText;
-    document.getElementById('amb-temp').textContent          = `${Math.round(c.temperature_2m)}°`;
-    document.getElementById('amb-condition').textContent     = condText;
-    document.getElementById('amb-meta').textContent          = metaText;
+    const cond = WMO_LABEL[c.weather_code] || 'Unknown';
+    const meta = `Feels like ${Math.round(c.apparent_temperature)}°  ·  Humidity ${c.relative_humidity_2m}%  ·  Wind ${Math.round(c.wind_speed_10m)} mph`;
 
-    const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    ['weather-temp','amb-temp'].forEach(id => document.getElementById(id).textContent = `${Math.round(c.temperature_2m)}°`);
+    ['weather-condition','amb-condition'].forEach(id => document.getElementById(id).textContent = cond);
+    ['weather-meta','amb-meta'].forEach(id => document.getElementById(id).textContent = meta);
+
+    const DAY_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     let html = '';
     for (let i = 1; i <= 4; i++) {
-      const date    = new Date(d.daily.time[i] + 'T12:00:00');
-      const dayName = DAY_NAMES[date.getDay()];
-      const icon    = WMO_SHORT[d.daily.weather_code[i]] || '---';
-      const hi      = Math.round(d.daily.temperature_2m_max[i]);
-      const lo      = Math.round(d.daily.temperature_2m_min[i]);
-      html += `<div class="forecast-item"><div class="forecast-day">${dayName}</div><div class="forecast-icon">${icon}</div><div class="forecast-temp">${hi}° / ${lo}°</div></div>`;
+      const dt   = new Date(d.daily.time[i] + 'T12:00:00');
+      const icon = WMO_SHORT[d.daily.weather_code[i]] || '---';
+      const hi   = Math.round(d.daily.temperature_2m_max[i]);
+      const lo   = Math.round(d.daily.temperature_2m_min[i]);
+      html += `<div class="f-item"><div class="f-day">${DAY_SHORT[dt.getDay()]}</div><div class="f-icon">${icon}</div><div class="f-temp">${hi}° / ${lo}°</div></div>`;
     }
     document.getElementById('forecast').innerHTML     = html;
     document.getElementById('amb-forecast').innerHTML = html;
 
     document.getElementById('weather-dot').classList.add('live');
-    const t = new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
+    const t = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
     document.getElementById('last-updated').textContent = `Refreshed ${t}`;
     document.getElementById('amb-status').textContent   = `Refreshed ${t}`;
-  } catch(e) {
-    document.getElementById('weather-condition').textContent = 'Unable to load';
-    document.getElementById('amb-condition').textContent     = 'Unable to load';
+  } catch {
+    ['weather-condition','amb-condition'].forEach(id => document.getElementById(id).textContent = 'Unable to load');
   }
 }
 loadWeather();
-setInterval(loadWeather, 10 * 60 * 1000);
+setInterval(loadWeather, 600000);
 
-// ══════════════════════════════════════════════════════
-//  TO-DO
-// ══════════════════════════════════════════════════════
-const STORAGE_KEY = 'jason_dashboard_todos';
-function getTodos() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; } }
-function saveTodos(t) { localStorage.setItem(STORAGE_KEY, JSON.stringify(t)); }
+// ══════════════════════════════════════════════════
+//  TODO
+// ══════════════════════════════════════════════════
+const SK = 'jason_todos_v2';
+const getTodos  = () => { try { return JSON.parse(localStorage.getItem(SK)) || []; } catch { return []; } };
+const saveTodos = t  => localStorage.setItem(SK, JSON.stringify(t));
 
 function renderTodos() {
-  const todos    = getTodos();
-  const listEl   = document.getElementById('todo-list');
-  const emptyEl  = document.getElementById('todo-empty');
-  const progress = document.getElementById('todo-progress');
-  const clearBtn = document.getElementById('clear-done-btn');
+  const todos  = getTodos();
+  const listEl = document.getElementById('todo-list');
+  const empty  = document.getElementById('todo-empty');
+  const prog   = document.getElementById('todo-progress');
+  const clrBtn = document.getElementById('clear-done-btn');
 
-  if (todos.length === 0) {
-    emptyEl.style.display = 'block';
-    listEl.innerHTML = '';
-    listEl.appendChild(emptyEl);
-    progress.textContent   = '';
-    clearBtn.style.display = 'none';
-    return;
+  if (!todos.length) {
+    empty.style.display = 'block';
+    listEl.innerHTML = ''; listEl.appendChild(empty);
+    prog.textContent = ''; clrBtn.style.display = 'none'; return;
   }
 
-  emptyEl.style.display = 'none';
+  empty.style.display = 'none';
   const done = todos.filter(t => t.done).length;
-  progress.textContent   = `· ${done}/${todos.length}`;
-  clearBtn.style.display = done > 0 ? 'block' : 'none';
+  prog.textContent      = `· ${done}/${todos.length}`;
+  clrBtn.style.display  = done ? 'block' : 'none';
   listEl.innerHTML = '';
 
-  todos.forEach((todo, i) => {
-    const item = document.createElement('div');
-    item.className = `todo-item${todo.done ? ' done' : ''}`;
-    item.innerHTML = `<input type="checkbox" class="todo-check" ${todo.done?'checked':''} onchange="toggleTodo(${i})"><span class="todo-text">${escapeHtml(todo.text)}</span><button class="todo-delete" onclick="deleteTodo(${i})">×</button>`;
-    listEl.appendChild(item);
+  todos.forEach((t, i) => {
+    const el = document.createElement('div');
+    el.className = `todo-item${t.done ? ' done' : ''}`;
+    el.innerHTML = `<input type="checkbox" class="todo-check" ${t.done?'checked':''} onchange="toggleTodo(${i})"><span class="todo-text">${esc(t.text)}</span><button class="todo-delete" onclick="deleteTodo(${i})">&#215;</button>`;
+    listEl.appendChild(el);
   });
   renderPanelList();
 }
 
 function renderPanelList() {
   const todos = getTodos();
-  const panelList = document.getElementById('todo-panel-list');
-  panelList.innerHTML = '';
-  if (todos.length === 0) {
-    panelList.innerHTML = '<div style="font-size:13px;color:var(--muted);padding:12px 0;">No tasks yet.</div>';
-    return;
-  }
-  todos.forEach((todo, i) => {
-    const el = document.createElement('div');
-    el.className = 'todo-panel-item';
-    el.innerHTML = `<span style="${todo.done?'color:var(--muted);text-decoration:line-through;':''}">${escapeHtml(todo.text)}</span><button class="todo-panel-delete" onclick="deleteTodo(${i})">×</button>`;
-    panelList.appendChild(el);
-  });
+  const el    = document.getElementById('todo-panel-list');
+  el.innerHTML = !todos.length
+    ? '<div style="font-size:13px;color:var(--muted);padding:12px 0;">No tasks yet.</div>'
+    : todos.map((t,i) => `<div class="todo-panel-item"><span style="${t.done?'color:var(--muted);text-decoration:line-through':''}"> ${esc(t.text)}</span><button class="todo-panel-delete" onclick="deleteTodo(${i})">&#215;</button></div>`).join('');
 }
 
-function toggleTodo(i) { const t=getTodos(); t[i].done=!t[i].done; saveTodos(t); renderTodos(); }
-function deleteTodo(i) { const t=getTodos(); t.splice(i,1); saveTodos(t); renderTodos(); }
-function clearDone()   { saveTodos(getTodos().filter(t=>!t.done)); renderTodos(); }
+const toggleTodo = i => { const t=getTodos(); t[i].done=!t[i].done; saveTodos(t); renderTodos(); };
+const deleteTodo = i => { const t=getTodos(); t.splice(i,1); saveTodos(t); renderTodos(); };
+const clearDone  = () => { saveTodos(getTodos().filter(t=>!t.done)); renderTodos(); };
 
 function addTodo() {
-  const input = document.getElementById('todo-input');
-  const text  = input.value.trim();
+  const inp  = document.getElementById('todo-input');
+  const text = inp.value.trim();
   if (!text) return;
-  const todos = getTodos();
-  todos.push({ text, done: false, created: Date.now() });
-  saveTodos(todos);
-  input.value = '';
-  input.focus();
-  renderTodos();
+  const t = getTodos(); t.push({ text, done: false });
+  saveTodos(t); inp.value = ''; inp.focus(); renderTodos();
 }
 
-function openTodoPanel() {
+const openTodoPanel = () => {
   document.getElementById('todo-panel').classList.add('open');
-  setTimeout(() => document.getElementById('todo-input').focus(), 100);
   renderPanelList();
-}
+  setTimeout(() => document.getElementById('todo-input').focus(), 80);
+};
 
-function closeTodoPanel() {
+const closeTodoPanel = () => {
   document.getElementById('todo-panel').classList.remove('open');
   renderTodos();
-}
+};
 
-document.getElementById('todo-input').addEventListener('keydown', e => { if (e.key === 'Enter') addTodo(); });
-document.getElementById('todo-panel').addEventListener('click', function(e) { if (e.target === this) closeTodoPanel(); });
+document.getElementById('todo-input').addEventListener('keydown', e => { if (e.key==='Enter') addTodo(); });
+document.getElementById('todo-panel').addEventListener('click',   e => { if (e.target===document.getElementById('todo-panel')) closeTodoPanel(); });
 
-function escapeHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 renderTodos();
 
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
 //  MODAL
-// ══════════════════════════════════════════════════════
-function showPlaidInfo() { document.getElementById('modal-overlay').style.display = 'flex'; }
-function closeModal()    { document.getElementById('modal-overlay').style.display = 'none'; }
-document.getElementById('modal-overlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+// ══════════════════════════════════════════════════
+const showPlaidInfo = () => document.getElementById('modal-overlay').style.display = 'flex';
+const closeModal    = () => document.getElementById('modal-overlay').style.display = 'none';
+document.getElementById('modal-overlay').addEventListener('click', e => { if (e.target===document.getElementById('modal-overlay')) closeModal(); });
 </script>
 </body>
 </html>
