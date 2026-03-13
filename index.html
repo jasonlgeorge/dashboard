@@ -944,14 +944,16 @@ async function loadNews() {
   for (let i = 0; i < FEEDS.length; i++) {
     const f = FEEDS[fi % FEEDS.length]; fi++;
     try {
-      const r = await fetch('https://corsproxy.io/?' + encodeURIComponent(f.url));
+      const r = await fetch(
+        'https://api.rss2json.com/v1/api.json?rss_url=' +
+        encodeURIComponent(f.url) + '&count=5'
+      );
       if (!r.ok) throw 0;
-      const xml   = new DOMParser().parseFromString(await r.text(), 'text/xml');
-      const items = Array.from(xml.querySelectorAll('item')).slice(0, 5);
-      if (!items.length) throw 0;
-      headlines = items.map(el => ({
-        title: el.querySelector('title')?.textContent?.trim() || '',
-        link:  el.querySelector('link')?.textContent?.trim() || '#',
+      const d = await r.json();
+      if (d.status !== 'ok' || !d.items?.length) throw 0;
+      headlines = d.items.map(item => ({
+        title: item.title?.trim() || '',
+        link:  item.link  || '#',
         src:   f.name
       }));
       document.getElementById('news-list').innerHTML = headlines.map((h,i) =>
