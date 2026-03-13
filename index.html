@@ -24,15 +24,13 @@
 }
 
 html, body {
-  width: 1280px;
-  height: 800px;
+  width: 1280px; height: 800px;
   overflow: hidden;
   background: var(--bg);
   color: var(--white);
   font-family: 'Space Grotesk', sans-serif;
 }
 
-/* scanlines */
 body::before {
   content: '';
   position: fixed; inset: 0;
@@ -40,7 +38,6 @@ body::before {
   pointer-events: none; z-index: 1000;
 }
 
-/* cyan top bar glow */
 body::after {
   content: '';
   position: fixed; top: 0; left: 0; right: 0; height: 2px;
@@ -49,41 +46,27 @@ body::after {
   z-index: 900;
 }
 
-/* ═══════════════════════════════════════
-   SCREEN MANAGEMENT
-═══════════════════════════════════════ */
+/* ── SCREEN MANAGEMENT ── */
 .screen { position: absolute; inset: 0; width: 1280px; height: 800px; }
 .screen.hidden { display: none !important; }
 
-/* ═══════════════════════════════════════
-   MAIN DASHBOARD  —  1280 × 800
-   topbar:  56px
-   main:    510px
-   bottom:  210px
-   status:  24px
-═══════════════════════════════════════ */
-#dash {
-  display: grid;
-  grid-template-rows: 56px 510px 210px 24px;
-}
+/* ════════════════════════════════════
+   SCREEN 1 — MAIN DASHBOARD
+════════════════════════════════════ */
+#dash { display: grid; grid-template-rows: 56px 510px 210px 24px; }
 
-/* ── TOP BAR ── */
 .topbar {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  padding: 0 28px;
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; padding: 0 28px;
   border-bottom: 1px solid var(--border);
   background: var(--panel);
 }
-
 .tb-left {
   font-family: 'DM Mono', monospace;
   font-size: 12px; color: var(--grey);
   letter-spacing: 3px; text-transform: uppercase;
 }
 .tb-left span { color: var(--cyan); margin-right: 10px; }
-
 .tb-clock {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 44px; color: var(--white);
@@ -95,483 +78,411 @@ body::after {
   color: var(--cyan); letter-spacing: 3px;
   margin-left: 8px; vertical-align: middle;
 }
-
 .tb-right {
-  text-align: right;
-  font-family: 'DM Mono', monospace;
+  text-align: right; font-family: 'DM Mono', monospace;
   font-size: 12px; color: var(--grey); letter-spacing: 1px;
 }
 
-/* ── MAIN ROW ── */
+/* MAIN ROW */
 .main {
-  display: grid;
-  grid-template-columns: 320px 1fr 250px;
+  display: grid; grid-template-columns: 320px 1fr 250px;
   border-bottom: 1px solid var(--border);
 }
 
-/* TODAY */
 .today {
   border-right: 1px solid var(--border);
   padding: 26px 26px 20px;
-  display: flex; flex-direction: column;
-  justify-content: space-between;
-  background: var(--panel);
-  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: space-between;
+  background: var(--panel); position: relative; overflow: hidden;
 }
-
 .today::before {
-  content: '';
-  position: absolute; top: -60px; left: -60px;
+  content: ''; position: absolute; top: -60px; left: -60px;
   width: 220px; height: 220px;
   background: radial-gradient(circle, #00e5ff14 0%, transparent 70%);
   pointer-events: none;
 }
-
 .loc-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px; font-weight: 500;
-  letter-spacing: 3px; text-transform: uppercase;
-  color: var(--cyan); margin-bottom: 4px;
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px;
 }
-
 .big-temp {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 170px; line-height: 0.88;
-  color: var(--white); letter-spacing: -3px;
+  font-size: 170px; line-height: 0.88; color: var(--white); letter-spacing: -3px;
 }
 .big-temp-unit {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 64px; color: var(--cyan);
-  vertical-align: super; line-height: 1;
+  font-size: 64px; color: var(--cyan); vertical-align: super; line-height: 1;
 }
-
 .cond-label {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 18px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 3px;
-  color: var(--white); margin: 8px 0 6px;
+  font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 3px; color: var(--white); margin: 8px 0 6px;
 }
+.meta-text { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--grey); line-height: 2; }
+.hilo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--grey); letter-spacing: 2px; margin-top: 10px; }
 
-.meta-text {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px; color: var(--grey); line-height: 2;
-}
+.middle { display: grid; grid-template-rows: 1fr 2px 200px; border-right: 1px solid var(--border); }
 
-.hilo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 26px; color: var(--grey);
-  letter-spacing: 2px; margin-top: 10px;
-}
-
-/* MIDDLE */
-.middle {
-  display: grid;
-  grid-template-rows: 1fr 2px 200px;
-  border-right: 1px solid var(--border);
-}
-
-.quote-block {
-  padding: 28px 30px 20px;
-  display: flex; flex-direction: column; justify-content: center;
-}
-
+.quote-block { padding: 28px 30px 20px; display: flex; flex-direction: column; justify-content: center; }
 .q-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; font-weight: 500;
-  letter-spacing: 4px; text-transform: uppercase;
-  color: var(--cyan); margin-bottom: 12px; opacity: 0.7;
+  font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
+  letter-spacing: 4px; text-transform: uppercase; color: var(--cyan); margin-bottom: 12px; opacity: 0.7;
 }
-
 .q-text {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 22px; font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600;
   color: var(--white); line-height: 1.55;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
-
-.q-author {
-  margin-top: 14px;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px; color: var(--cyan); letter-spacing: 2px;
-}
+.q-author { margin-top: 14px; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--cyan); letter-spacing: 2px; }
 
 .divider { background: var(--border); }
 
-/* FORECAST STRIP */
-.forecast {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-}
-
+.forecast { display: grid; grid-template-columns: repeat(4, 1fr); }
 .fc {
-  padding: 16px 14px;
-  border-right: 1px solid var(--border);
+  padding: 16px 14px; border-right: 1px solid var(--border);
   display: flex; flex-direction: column; justify-content: space-between;
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
-  position: relative;
+  cursor: pointer; transition: background 0.2s; position: relative;
 }
 .fc:last-child { border-right: none; }
-.fc:hover { background: var(--cyan-dim); border-color: var(--cyan-mid); }
+.fc:hover { background: var(--cyan-dim); }
 .fc:hover .fc-day { color: var(--cyan); }
-
-/* tap hint */
 .fc::after {
   content: 'TAP FOR HOURLY';
-  position: absolute;
-  bottom: 6px; right: 8px;
-  font-family: 'DM Mono', monospace;
-  font-size: 7px; letter-spacing: 1px;
-  color: var(--cyan-mid);
-  opacity: 0;
-  transition: opacity 0.2s;
+  position: absolute; bottom: 6px; right: 8px;
+  font-family: 'DM Mono', monospace; font-size: 7px; letter-spacing: 1px;
+  color: var(--cyan-mid); opacity: 0; transition: opacity 0.2s;
 }
 .fc:hover::after { opacity: 1; }
-
 .fc-day {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px; font-weight: 500;
-  letter-spacing: 3px; text-transform: uppercase;
-  color: var(--grey); transition: color 0.2s;
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--grey); transition: color 0.2s;
 }
-
 .fc-badge {
-  display: inline-block;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--cyan);
-  padding: 3px 7px;
-  border: 1px solid var(--cyan-mid);
-  margin: 8px 0 4px;
-  line-height: 1;
+  display: inline-block; font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--cyan); padding: 3px 7px; border: 1px solid var(--cyan-mid); margin: 8px 0 4px; line-height: 1;
 }
+.fc-hi { font-family: 'Bebas Neue', sans-serif; font-size: 54px; color: var(--white); line-height: 1; letter-spacing: 1px; }
+.fc-lo { font-family: 'DM Mono', monospace; font-size: 14px; color: var(--grey); margin-top: 3px; }
+.fc-cond { font-size: 11px; font-weight: 500; color: var(--grey); margin-top: 8px; line-height: 1.3; }
 
-.fc-hi {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 54px; color: var(--white);
-  line-height: 1; letter-spacing: 1px;
-}
-
-.fc-lo {
-  font-family: 'DM Mono', monospace;
-  font-size: 14px; color: var(--grey); margin-top: 3px;
-}
-
-.fc-cond {
-  font-size: 11px; font-weight: 500;
-  color: var(--grey); margin-top: 8px; line-height: 1.3;
-}
-
-/* DATE BLOCK */
-.dateblock {
-  padding: 26px 20px;
-  display: flex; flex-direction: column; justify-content: space-between;
-  background: var(--panel);
-}
-
-.d-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 96px; line-height: 0.88;
-  color: var(--white); letter-spacing: 1px;
-}
-.d-month {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 44px; color: var(--cyan); letter-spacing: 4px; margin-top: 4px;
-}
-.d-year {
-  font-family: 'DM Mono', monospace;
-  font-size: 13px; color: var(--grey); letter-spacing: 3px; margin-top: 6px;
-}
+.dateblock { padding: 26px 20px; display: flex; flex-direction: column; justify-content: space-between; background: var(--panel); }
+.d-num { font-family: 'Bebas Neue', sans-serif; font-size: 96px; line-height: 0.88; color: var(--white); letter-spacing: 1px; }
+.d-month { font-family: 'Bebas Neue', sans-serif; font-size: 44px; color: var(--cyan); letter-spacing: 4px; margin-top: 4px; }
+.d-year { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--grey); letter-spacing: 3px; margin-top: 6px; }
 .d-weekday {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px; font-weight: 700;
-  letter-spacing: 5px; text-transform: uppercase;
-  color: var(--white); text-align: center;
-  padding: 10px 12px;
+  font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700;
+  letter-spacing: 5px; text-transform: uppercase; color: var(--white);
+  text-align: center; padding: 10px 12px;
+  border: 1px solid var(--cyan-mid); background: var(--cyan-dim); margin-top: auto;
+}
+
+/* BOTTOM ROW */
+.bottom { display: grid; grid-template-columns: 1fr 480px; }
+
+/* CHESS LAUNCH PANEL */
+.chess-launch {
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 16px; padding: 20px;
+  background: var(--panel);
+  position: relative; overflow: hidden;
+}
+.chess-launch::before {
+  content: '';
+  position: absolute; bottom: -40px; left: -40px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, #2979ff18 0%, transparent 70%);
+  pointer-events: none;
+}
+.chess-launch-label {
+  font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
+  letter-spacing: 4px; text-transform: uppercase; color: var(--cyan); opacity: 0.7;
+}
+.chess-launch-btn {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 32px;
   border: 1px solid var(--cyan-mid);
   background: var(--cyan-dim);
-  margin-top: auto;
+  color: var(--white);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px; letter-spacing: 4px;
+  cursor: pointer; transition: all 0.2s;
+  text-transform: uppercase;
+}
+.chess-launch-btn:hover {
+  background: var(--cyan); color: var(--bg);
+  box-shadow: 0 0 30px var(--cyan-mid);
+}
+.chess-launch-btn .chess-icon { font-size: 32px; line-height: 1; }
+.chess-launch-meta {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  color: var(--grey); letter-spacing: 2px; text-transform: uppercase;
+}
+.chess-launch-rating {
+  font-family: 'Bebas Neue', sans-serif; font-size: 20px;
+  color: var(--cyan); letter-spacing: 2px;
 }
 
-/* ── BOTTOM ROW ── */
-.bottom {
-  display: grid;
-  grid-template-columns: 1fr 480px;
-}
-
-.news-panel {
-  border-right: 1px solid var(--border);
-  padding: 14px 24px 28px;
-  display: flex; flex-direction: column; overflow: hidden;
-}
-
+.markets-panel { padding: 14px 24px 28px; display: flex; flex-direction: column; }
 .panel-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; font-weight: 500;
+  font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
   letter-spacing: 4px; text-transform: uppercase;
   color: var(--cyan); margin-bottom: 10px; flex-shrink: 0; opacity: 0.8;
 }
-
-.news-list { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
-
-.news-item {
-  display: flex; align-items: baseline; gap: 12px;
-  padding: 6px 0; border-bottom: 1px solid var(--border);
-  cursor: pointer; transition: all 0.15s; flex-shrink: 0;
-}
-.news-item:last-child { border-bottom: none; }
-.news-item:hover .news-hl { color: var(--cyan); }
-
-.news-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px; color: var(--cyan);
-  flex-shrink: 0; line-height: 1; width: 22px;
-}
-.news-hl {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 14px; font-weight: 500; color: var(--white);
-  flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  transition: color 0.15s;
-}
-.news-src {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; color: var(--grey); flex-shrink: 0; letter-spacing: 1px;
-}
-.news-empty { font-size: 12px; color: var(--grey); padding: 8px 0; font-family: 'DM Mono', monospace; }
-
-.markets-panel { padding: 14px 24px 28px; display: flex; flex-direction: column; }
-
-.mkt-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0; flex: 1;
-}
-
+.mkt-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; flex: 1; }
 .mkt {
   display: flex; flex-direction: column; justify-content: center;
-  padding: 6px 10px;
-  border-right: 1px solid var(--border);
+  padding: 6px 10px; border-right: 1px solid var(--border);
 }
 .mkt:last-child { border-right: none; }
-
-.mkt-name {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; font-weight: 500;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--grey); margin-bottom: 4px;
-}
-.mkt-price {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px; color: var(--white);
-  line-height: 1; letter-spacing: 1px;
-}
-.mkt-chg {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px; font-weight: 500; margin-top: 2px;
-}
-
+.mkt-name { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--grey); margin-bottom: 4px; }
+.mkt-price { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--white); line-height: 1; letter-spacing: 1px; }
+.mkt-chg { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; margin-top: 2px; }
 .up   { color: var(--green); }
 .down { color: var(--red); }
 .flat { color: var(--grey); }
 
-/* ── STATUS BAR ── */
+/* STATUS BAR */
 .statusbar {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 0 24px;
-  background: var(--panel); border-top: 1px solid var(--border);
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; color: var(--grey);
+  padding: 0 24px; background: var(--panel); border-top: 1px solid var(--border);
+  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--grey);
   letter-spacing: 2px; text-transform: uppercase;
 }
 .sdot {
-  display: inline-block; width: 5px; height: 5px;
-  border-radius: 50%; background: var(--grey);
-  margin-right: 6px; vertical-align: middle;
+  display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--grey); margin-right: 6px; vertical-align: middle;
 }
 .sdot.on { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
 
-/* ═══════════════════════════════════════
-   HOURLY DETAIL SCREEN
-═══════════════════════════════════════ */
-#hourly {
-  display: grid;
-  grid-template-rows: 80px 1fr 24px;
-  background: var(--bg);
-}
+/* ════════════════════════════════════
+   SCREEN 2 — HOURLY FORECAST
+════════════════════════════════════ */
+#hourly { display: grid; grid-template-rows: 80px 1fr 24px; background: var(--bg); }
 
 .hourly-header {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 24px;
-  padding: 0 32px;
-  border-bottom: 1px solid var(--border);
-  background: var(--panel);
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: center; gap: 24px; padding: 0 32px;
+  border-bottom: 1px solid var(--border); background: var(--panel);
 }
-
 .back-btn {
-  display: flex; align-items: center; gap: 10px;
-  cursor: pointer;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 14px; font-weight: 700;
-  letter-spacing: 3px; text-transform: uppercase;
-  color: var(--cyan);
-  padding: 12px 20px;
-  border: 1px solid var(--cyan-mid);
-  background: var(--cyan-dim);
-  transition: all 0.2s;
-  user-select: none;
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--cyan);
+  padding: 12px 20px; border: 1px solid var(--cyan-mid); background: var(--cyan-dim);
+  transition: all 0.2s; user-select: none;
 }
 .back-btn:hover { background: var(--cyan); color: var(--bg); }
 .back-arrow { font-size: 20px; line-height: 1; }
+.hourly-title { text-align: center; }
+.hourly-day-name { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--white); letter-spacing: 4px; line-height: 1; }
+.hourly-day-date { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--grey); letter-spacing: 3px; text-transform: uppercase; margin-top: 4px; }
+.hourly-summary { text-align: right; }
+.hourly-hi-lo { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--white); letter-spacing: 2px; }
+.hourly-cond-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--cyan); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
 
-.hourly-title {
-  text-align: center;
-}
-.hourly-day-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 48px; color: var(--white);
-  letter-spacing: 4px; line-height: 1;
-}
-.hourly-day-date {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px; color: var(--grey);
-  letter-spacing: 3px; text-transform: uppercase;
-  margin-top: 4px;
-}
-
-.hourly-summary {
-  text-align: right;
-}
-.hourly-hi-lo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 36px; color: var(--white); letter-spacing: 2px;
-}
-.hourly-cond-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px; color: var(--cyan);
-  letter-spacing: 2px; text-transform: uppercase; margin-top: 4px;
-}
-
-/* Hourly grid */
-.hourly-body {
-  padding: 20px 24px 16px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
+.hourly-body { padding: 20px 24px 16px; overflow: hidden; display: flex; flex-direction: column; }
 .hourly-section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; font-weight: 500;
-  letter-spacing: 4px; text-transform: uppercase;
-  color: var(--cyan); margin-bottom: 14px; opacity: 0.7;
+  font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
+  letter-spacing: 4px; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; opacity: 0.7;
 }
-
-.hourly-grid {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 8px;
-  flex: 1;
-}
+.hourly-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; flex: 1; }
 
 .hour-card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  padding: 14px 10px;
-  display: flex; flex-direction: column;
+  background: var(--panel); border: 1px solid var(--border);
+  padding: 14px 10px; display: flex; flex-direction: column;
   align-items: center; justify-content: space-between;
-  transition: border-color 0.15s, background 0.15s;
+  transition: border-color 0.15s, background 0.15s; position: relative;
+}
+.hour-card:hover { border-color: var(--cyan-mid); background: var(--cyan-dim); }
+.hour-card.is-now { border-color: var(--cyan); background: var(--cyan-dim); }
+.hour-card.is-now::before {
+  content: 'NOW'; position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+  background: var(--cyan); color: var(--bg);
+  font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 700; letter-spacing: 2px; padding: 2px 6px; line-height: 1.4;
+}
+.h-time { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; color: var(--grey); letter-spacing: 1px; text-align: center; }
+.h-icon {
+  font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--cyan);
+  padding: 2px 5px; border: 1px solid var(--cyan-mid); margin: 6px 0; line-height: 1; text-align: center;
+}
+.h-temp { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--white); line-height: 1; letter-spacing: 1px; }
+.h-divider { width: 100%; height: 1px; background: var(--border); margin: 6px 0; }
+.h-precip { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--grey); margin-top: 4px; text-align: center; }
+.h-wind { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--grey); text-align: center; }
+.hourly-loading {
+  display: flex; align-items: center; justify-content: center; flex: 1;
+  font-family: 'DM Mono', monospace; font-size: 14px; color: var(--grey);
+  letter-spacing: 3px; text-transform: uppercase;
+}
+
+/* ════════════════════════════════════
+   SCREEN 3 — CHESS PUZZLE
+════════════════════════════════════ */
+#chess-screen { display: grid; grid-template-rows: 80px 1fr 24px; background: var(--bg); }
+
+.chess-header {
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: center; gap: 24px; padding: 0 32px;
+  border-bottom: 1px solid var(--border); background: var(--panel);
+}
+.chess-title-block { text-align: center; }
+.chess-screen-title { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--white); letter-spacing: 6px; line-height: 1; }
+.chess-screen-sub { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey); letter-spacing: 3px; text-transform: uppercase; margin-top: 4px; }
+.chess-header-meta { text-align: right; }
+.chess-rating-big { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--cyan); letter-spacing: 3px; line-height: 1; }
+.chess-rating-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--grey); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+
+.chess-body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* BOARD AREA */
+.chess-board-area {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 24px 32px;
+  border-right: 1px solid var(--border);
+  background: var(--panel);
+}
+
+.board-coords-wrap {
+  display: flex; flex-direction: column; align-items: center;
+}
+
+.board-row-labels {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: space-around;
+  height: 512px; /* 8 * 64px */
+  margin-right: 6px;
+  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey);
+}
+
+.board-with-labels { display: flex; flex-direction: row; align-items: flex-start; }
+
+.chess-board-full {
+  display: grid;
+  grid-template-columns: repeat(8, 64px);
+  grid-template-rows: repeat(8, 64px);
+  border: 2px solid var(--cyan-mid);
+  box-shadow: 0 0 30px var(--cyan-dim), 0 0 60px rgba(0,229,255,0.06);
+}
+
+.sq {
+  width: 64px; height: 64px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px; line-height: 1;
+  cursor: pointer; user-select: none;
+  transition: background 0.1s;
   position: relative;
 }
+.sq.light { background: #1e2d42; }
+.sq.dark  { background: #0f1a28; }
+.sq.selected { background: rgba(0,229,255,0.25) !important; outline: 2px solid var(--cyan); outline-offset: -2px; }
+.sq.hint     { background: rgba(0,230,118,0.25) !important; }
+.sq.hint::after { content: ''; position: absolute; width: 22px; height: 22px; border-radius: 50%; background: rgba(0,230,118,0.5); }
+.sq.last-from { background: rgba(255,171,0,0.15) !important; }
+.sq.last-to   { background: rgba(255,171,0,0.25) !important; }
 
-.hour-card:hover {
-  border-color: var(--cyan-mid);
-  background: var(--cyan-dim);
+.board-col-labels {
+  display: flex; flex-direction: row; justify-content: space-around;
+  width: 512px; /* 8 * 64px */
+  margin-top: 6px;
+  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey);
 }
 
-.hour-card.is-now {
-  border-color: var(--cyan);
-  background: var(--cyan-dim);
+/* PUZZLE SIDEBAR */
+.chess-sidebar {
+  padding: 32px 40px;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
 }
 
-.hour-card.is-now::before {
-  content: 'NOW';
-  position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
-  background: var(--cyan); color: var(--bg);
-  font-family: 'DM Mono', monospace;
-  font-size: 8px; font-weight: 700; letter-spacing: 2px;
-  padding: 2px 6px; line-height: 1.4;
+.puzzle-turn-label {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 4px; text-transform: uppercase; color: var(--cyan);
+  opacity: 0.8; margin-bottom: 10px;
+}
+.puzzle-turn {
+  font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--white);
+  letter-spacing: 3px; line-height: 1; margin-bottom: 4px;
+}
+.puzzle-turn .turn-color { color: var(--cyan); }
+
+.puzzle-instruction {
+  font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 500;
+  color: var(--grey); line-height: 1.5; margin-top: 8px;
 }
 
-.h-time {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px; font-weight: 500;
-  color: var(--grey); letter-spacing: 1px;
-  text-align: center;
-}
+.puzzle-divider { width: 100%; height: 1px; background: var(--border); margin: 20px 0; }
 
-.h-icon {
+.puzzle-msg {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 10px; font-weight: 700;
+  font-size: 20px; font-weight: 700;
+  color: var(--white); line-height: 1.4;
+  min-height: 60px;
+}
+.puzzle-msg.correct { color: var(--green); }
+.puzzle-msg.wrong   { color: var(--red); }
+.puzzle-msg.solved  { color: var(--cyan); }
+
+.puzzle-progress {
+  font-family: 'DM Mono', monospace; font-size: 12px; color: var(--grey);
+  letter-spacing: 2px; text-transform: uppercase; margin-top: 8px;
+}
+
+.puzzle-divider2 { width: 100%; height: 1px; background: var(--border); margin: 20px 0; }
+
+.puzzle-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.pz-btn {
+  padding: 12px 20px;
+  border: 1px solid var(--border);
+  background: transparent; color: var(--grey);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; transition: all 0.15s;
+}
+.pz-btn:hover { border-color: var(--cyan-mid); color: var(--cyan); }
+.pz-btn.primary {
+  border-color: var(--cyan-mid); background: var(--cyan-dim); color: var(--cyan);
+}
+.pz-btn.primary:hover { background: var(--cyan); color: var(--bg); }
+
+.puzzle-themes {
+  margin-top: 16px;
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.theme-tag {
+  font-family: 'DM Mono', monospace; font-size: 10px;
   letter-spacing: 1px; text-transform: uppercase;
-  color: var(--cyan);
-  padding: 2px 5px;
-  border: 1px solid var(--cyan-mid);
-  margin: 6px 0;
-  line-height: 1;
-  text-align: center;
-}
-
-.h-temp {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 36px; color: var(--white);
-  line-height: 1; letter-spacing: 1px;
-}
-
-.h-precip {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; color: var(--grey);
-  margin-top: 4px; text-align: center;
-}
-
-.h-wind {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; color: var(--grey);
-  text-align: center;
-}
-
-.h-divider {
-  width: 100%; height: 1px;
-  background: var(--border); margin: 6px 0;
-}
-
-/* loading state */
-.hourly-loading {
-  display: flex; align-items: center; justify-content: center;
-  flex: 1;
-  font-family: 'DM Mono', monospace;
-  font-size: 14px; color: var(--grey);
-  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--grey); padding: 3px 8px;
+  border: 1px solid var(--border);
 }
 
 /* animations */
 @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
 @keyframes slideIn { from { opacity:0; transform:translateX(30px); } to { opacity:1; transform:translateX(0); } }
+@keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 
-#dash   { animation: fadeIn 0.4s ease both; }
-#hourly { animation: slideIn 0.3s ease both; }
+#dash         { animation: fadeIn  0.4s ease both; }
+#hourly       { animation: slideIn 0.3s ease both; }
+#chess-screen { animation: slideUp 0.3s ease both; }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════
+<!-- ════════════════════════════
      SCREEN 1: MAIN DASHBOARD
-═══════════════════════════════════ -->
+════════════════════════════ -->
 <div id="dash" class="screen">
 
   <div class="topbar">
@@ -581,7 +492,6 @@ body::after {
   </div>
 
   <div class="main">
-
     <div class="today">
       <div>
         <div class="loc-tag">&#9632; Benton Harbor, MI</div>
@@ -600,41 +510,25 @@ body::after {
       </div>
       <div class="divider"></div>
       <div class="forecast">
-        <div class="fc" onclick="showHourly(1)" id="fc-1">
+        <div class="fc" onclick="showHourly(1)">
           <div class="fc-day"  id="d1-name">--</div>
           <div><span class="fc-badge" id="d1-icon">---</span></div>
-          <div>
-            <div class="fc-hi"   id="d1-hi">--</div>
-            <div class="fc-lo"   id="d1-lo">--</div>
-            <div class="fc-cond" id="d1-cond"></div>
-          </div>
+          <div><div class="fc-hi" id="d1-hi">--</div><div class="fc-lo" id="d1-lo">--</div><div class="fc-cond" id="d1-cond"></div></div>
         </div>
-        <div class="fc" onclick="showHourly(2)" id="fc-2">
+        <div class="fc" onclick="showHourly(2)">
           <div class="fc-day"  id="d2-name">--</div>
           <div><span class="fc-badge" id="d2-icon">---</span></div>
-          <div>
-            <div class="fc-hi"   id="d2-hi">--</div>
-            <div class="fc-lo"   id="d2-lo">--</div>
-            <div class="fc-cond" id="d2-cond"></div>
-          </div>
+          <div><div class="fc-hi" id="d2-hi">--</div><div class="fc-lo" id="d2-lo">--</div><div class="fc-cond" id="d2-cond"></div></div>
         </div>
-        <div class="fc" onclick="showHourly(3)" id="fc-3">
+        <div class="fc" onclick="showHourly(3)">
           <div class="fc-day"  id="d3-name">--</div>
           <div><span class="fc-badge" id="d3-icon">---</span></div>
-          <div>
-            <div class="fc-hi"   id="d3-hi">--</div>
-            <div class="fc-lo"   id="d3-lo">--</div>
-            <div class="fc-cond" id="d3-cond"></div>
-          </div>
+          <div><div class="fc-hi" id="d3-hi">--</div><div class="fc-lo" id="d3-lo">--</div><div class="fc-cond" id="d3-cond"></div></div>
         </div>
-        <div class="fc" onclick="showHourly(4)" id="fc-4">
+        <div class="fc" onclick="showHourly(4)">
           <div class="fc-day"  id="d4-name">--</div>
           <div><span class="fc-badge" id="d4-icon">---</span></div>
-          <div>
-            <div class="fc-hi"   id="d4-hi">--</div>
-            <div class="fc-lo"   id="d4-lo">--</div>
-            <div class="fc-cond" id="d4-cond"></div>
-          </div>
+          <div><div class="fc-hi" id="d4-hi">--</div><div class="fc-lo" id="d4-lo">--</div><div class="fc-cond" id="d4-cond"></div></div>
         </div>
       </div>
     </div>
@@ -647,65 +541,51 @@ body::after {
       </div>
       <div class="d-weekday"   id="d-weekday">---</div>
     </div>
-
-  </div><!-- /main -->
+  </div>
 
   <div class="bottom">
 
-    <div class="news-panel">
-      <div class="panel-label">// headlines</div>
-      <div class="news-list" id="news-list">
-        <div class="news-empty">Loading...</div>
+    <!-- CHESS LAUNCH -->
+    <div class="chess-launch">
+      <div class="chess-launch-label">// daily challenge</div>
+      <button class="chess-launch-btn" onclick="showChess()">
+        <span class="chess-icon">♟</span>
+        PLAY CHESS PUZZLE OF THE DAY
+      </button>
+      <div class="chess-launch-meta">
+        Today's Rating: <span class="chess-launch-rating" id="launch-rating">Loading...</span>
       </div>
     </div>
 
+    <!-- MARKETS -->
     <div class="markets-panel">
       <div class="panel-label">// markets</div>
       <div class="mkt-grid">
-        <div class="mkt">
-          <div class="mkt-name">S&amp;P 500</div>
-          <div class="mkt-price" id="sp-price">--</div>
-          <div class="mkt-chg flat" id="sp-chg">--</div>
-        </div>
-        <div class="mkt">
-          <div class="mkt-name">Nasdaq</div>
-          <div class="mkt-price" id="nq-price">--</div>
-          <div class="mkt-chg flat" id="nq-chg">--</div>
-        </div>
-        <div class="mkt">
-          <div class="mkt-name">Dow</div>
-          <div class="mkt-price" id="dj-price">--</div>
-          <div class="mkt-chg flat" id="dj-chg">--</div>
-        </div>
-        <div class="mkt">
-          <div class="mkt-name">Bitcoin</div>
-          <div class="mkt-price" id="btc-price">--</div>
-          <div class="mkt-chg flat" id="btc-chg">--</div>
-        </div>
+        <div class="mkt"><div class="mkt-name">S&amp;P 500</div><div class="mkt-price" id="sp-price">--</div><div class="mkt-chg flat" id="sp-chg">--</div></div>
+        <div class="mkt"><div class="mkt-name">Nasdaq</div><div class="mkt-price" id="nq-price">--</div><div class="mkt-chg flat" id="nq-chg">--</div></div>
+        <div class="mkt"><div class="mkt-name">Dow</div><div class="mkt-price" id="dj-price">--</div><div class="mkt-chg flat" id="dj-chg">--</div></div>
+        <div class="mkt"><div class="mkt-name">Bitcoin</div><div class="mkt-price" id="btc-price">--</div><div class="mkt-chg flat" id="btc-chg">--</div></div>
       </div>
     </div>
 
-  </div><!-- /bottom -->
+  </div>
 
   <div class="statusbar">
     <span><span class="sdot" id="dot-w"></span>WEATHER</span>
     <span><span class="sdot" id="dot-m"></span>MARKETS</span>
-    <span><span class="sdot" id="dot-n"></span>NEWS</span>
+    <span><span class="sdot" id="dot-c"></span>PUZZLE</span>
     <span id="refreshed">--</span>
     <span>DASHBOARD v3.0</span>
   </div>
 
-</div><!-- /dash -->
+</div>
 
-<!-- ═══════════════════════════════════
+<!-- ════════════════════════════
      SCREEN 2: HOURLY FORECAST
-═══════════════════════════════════ -->
+════════════════════════════ -->
 <div id="hourly" class="screen hidden">
-
   <div class="hourly-header">
-    <div class="back-btn" onclick="showDash()">
-      <span class="back-arrow">&#8592;</span> BACK
-    </div>
+    <div class="back-btn" onclick="showDash()"><span class="back-arrow">&#8592;</span> BACK</div>
     <div class="hourly-title">
       <div class="hourly-day-name" id="h-dayname">--</div>
       <div class="hourly-day-date" id="h-daydate">--</div>
@@ -715,43 +595,97 @@ body::after {
       <div class="hourly-cond-label" id="h-cond">--</div>
     </div>
   </div>
-
   <div class="hourly-body">
     <div class="hourly-section-label">// hour by hour forecast</div>
     <div class="hourly-grid" id="hourly-grid">
       <div class="hourly-loading">Loading hourly data...</div>
     </div>
   </div>
-
   <div class="statusbar">
     <span>HOURLY FORECAST</span>
-    <span id="h-location">Benton Harbor, MI</span>
+    <span>Benton Harbor, MI</span>
     <span id="h-refreshed">--</span>
     <span>TAP BACK TO RETURN HOME</span>
   </div>
+</div>
 
-</div><!-- /hourly -->
+<!-- ════════════════════════════
+     SCREEN 3: CHESS PUZZLE
+════════════════════════════ -->
+<div id="chess-screen" class="screen hidden">
+  <div class="chess-header">
+    <div class="back-btn" onclick="showDash()"><span class="back-arrow">&#8592;</span> BACK</div>
+    <div class="chess-title-block">
+      <div class="chess-screen-title">PUZZLE OF THE DAY</div>
+      <div class="chess-screen-sub" id="cs-date">--</div>
+    </div>
+    <div class="chess-header-meta">
+      <div class="chess-rating-big" id="cs-rating">----</div>
+      <div class="chess-rating-sub">Puzzle Rating</div>
+    </div>
+  </div>
 
-<!-- News modal -->
-<div id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:600;align-items:center;justify-content:center;">
-  <div style="background:var(--panel);border:1px solid var(--cyan-mid);box-shadow:0 0 40px var(--cyan-dim);padding:36px;width:760px;position:relative;">
-    <button onclick="closeModal()" style="position:absolute;top:14px;right:18px;background:transparent;border:none;color:var(--grey);font-size:24px;cursor:pointer;line-height:1;">&#215;</button>
-    <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">// headline</div>
-    <div id="modal-title" style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;color:var(--white);line-height:1.4;margin-bottom:24px;"></div>
-    <a id="modal-link" href="#" target="_blank" style="display:inline-block;padding:11px 22px;border:1px solid var(--cyan-mid);background:var(--cyan-dim);color:var(--cyan);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;margin-right:12px;transition:all .15s;">Read Story ↗</a>
-    <button onclick="closeModal()" style="display:inline-block;padding:11px 22px;border:1px solid var(--border);background:transparent;color:var(--grey);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .15s;">Close</button>
+  <div class="chess-body">
+    <div class="chess-board-area">
+      <div class="board-with-labels">
+        <div class="board-row-labels" id="row-labels"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div class="chess-board-full" id="chess-board"></div>
+          <div class="board-col-labels" id="col-labels"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chess-sidebar">
+      <div>
+        <div class="puzzle-turn-label">// your move</div>
+        <div class="puzzle-turn"><span class="turn-color" id="cs-turn-color">--</span> TO MOVE</div>
+        <div class="puzzle-instruction" id="cs-instruction">Find the best sequence of moves.</div>
+      </div>
+
+      <div>
+        <div class="puzzle-divider"></div>
+        <div class="puzzle-msg" id="cs-msg">Tap a piece to select it, then tap the destination square.</div>
+        <div class="puzzle-progress" id="cs-progress"></div>
+      </div>
+
+      <div>
+        <div class="puzzle-divider2"></div>
+        <div class="puzzle-actions">
+          <button class="pz-btn primary" onclick="resetPuzzle()">&#8635; Reset</button>
+          <button class="pz-btn" onclick="revealSolution()">Reveal Answer</button>
+        </div>
+        <div class="puzzle-themes" id="cs-themes"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="statusbar">
+    <span>LICHESS PUZZLE OF THE DAY</span>
+    <span id="cs-refreshed">--</span>
+    <span>TAP BACK TO RETURN HOME</span>
   </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════
-//  WEATHER DATA STORE
-// ═══════════════════════════════════════════
-let weatherData = null;
+// ════════════════════════════════════════════
+//  SCREEN ROUTING
+// ════════════════════════════════════════════
+function switchScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+  const el = document.getElementById(id);
+  el.classList.remove('hidden');
+  el.style.animation = 'none';
+  el.offsetHeight;
+  el.style.animation = '';
+}
+function showDash()   { switchScreen('dash'); }
+function showHourly(dayIndex) { buildHourlyScreen(dayIndex); switchScreen('hourly'); }
+function showChess()  { switchScreen('chess-screen'); }
 
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════
 //  QUOTES
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════
 const QUOTES = [
   { text:"The impediment to action advances action. What stands in the way becomes the way.", author:"Marcus Aurelius" },
   { text:"You have power over your mind, not outside events. Realize this, and you will find strength.", author:"Marcus Aurelius" },
@@ -779,16 +713,15 @@ const QUOTES = [
   { text:"Flow with whatever may happen and let your mind be free.", author:"Zhuangzi" },
   { text:"Do the difficult things while they are easy and the great things while they are small.", author:"Lao Tzu" },
 ];
-
 (function(){
   const q = QUOTES[Math.floor(Date.now()/86400000) % QUOTES.length];
   document.getElementById('quote-text').textContent   = q.text;
   document.getElementById('quote-author').textContent = `— ${q.author}`;
 })();
 
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════
 //  CLOCK
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════
 const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const MONS   = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
@@ -797,9 +730,9 @@ const DAYS_S = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 function tick() {
   const n = new Date(), h = n.getHours(), m = n.getMinutes().toString().padStart(2,'0');
   const ampm = h >= 12 ? 'PM' : 'AM', h12 = (h%12||12).toString().padStart(2,'0');
-  document.getElementById('clock').textContent     = `${h12}:${m}`;
-  document.getElementById('ampm').textContent      = ampm;
-  document.getElementById('tb-date').textContent   = `${DAYS[n.getDay()].toUpperCase()}  ·  ${MONTHS[n.getMonth()].toUpperCase()} ${n.getDate()}, ${n.getFullYear()}`;
+  document.getElementById('clock').textContent   = `${h12}:${m}`;
+  document.getElementById('ampm').textContent    = ampm;
+  document.getElementById('tb-date').textContent = `${DAYS[n.getDay()].toUpperCase()}  ·  ${MONTHS[n.getMonth()].toUpperCase()} ${n.getDate()}, ${n.getFullYear()}`;
   document.getElementById('d-num').textContent     = n.getDate().toString().padStart(2,'0');
   document.getElementById('d-month').textContent   = MONS[n.getMonth()];
   document.getElementById('d-year').textContent    = n.getFullYear();
@@ -807,15 +740,13 @@ function tick() {
 }
 setInterval(tick, 1000); tick();
 
-// ═══════════════════════════════════════════
-//  WEATHER CODES
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════
+//  WEATHER
+// ════════════════════════════════════════════
 const WMO  = {0:'Clear',1:'Mostly Clear',2:'Partly Cloudy',3:'Overcast',45:'Fog',48:'Icy Fog',51:'Lt Drizzle',53:'Drizzle',55:'Hvy Drizzle',61:'Lt Rain',63:'Rain',65:'Hvy Rain',71:'Lt Snow',73:'Snow',75:'Hvy Snow',80:'Showers',81:'Showers',82:'Hvy Showers',85:'Snow Showers',95:'Thunderstorm',96:'Tstorm',99:'Severe Tstorm'};
 const WMOS = {0:'CLR',1:'CLR',2:'PTLY',3:'OVCT',45:'FOG',48:'FOG',51:'DRZL',53:'DRZL',55:'DRZL',61:'RAIN',63:'RAIN',65:'RAIN',71:'SNOW',73:'SNOW',75:'SNOW',80:'SHWR',81:'SHWR',82:'SHWR',85:'SNOW',95:'STRM',96:'STRM',99:'STRM'};
+let weatherData = null;
 
-// ═══════════════════════════════════════════
-//  LOAD WEATHER
-// ═══════════════════════════════════════════
 async function loadWeather() {
   try {
     const r = await fetch(
@@ -828,14 +759,12 @@ async function loadWeather() {
     );
     weatherData = await r.json();
     const c = weatherData.current;
-
     document.getElementById('today-temp').textContent = Math.round(c.temperature_2m);
     document.getElementById('today-cond').textContent = WMO[c.weather_code] || 'Unknown';
     document.getElementById('today-meta').textContent =
       `Feels like ${Math.round(c.apparent_temperature)}°\nHumidity ${c.relative_humidity_2m}%\nWind ${Math.round(c.wind_speed_10m)} mph`;
     document.getElementById('today-hilo').textContent =
       `H:${Math.round(weatherData.daily.temperature_2m_max[0])}°  L:${Math.round(weatherData.daily.temperature_2m_min[0])}°`;
-
     for (let i = 1; i <= 4; i++) {
       const dt  = new Date(weatherData.daily.time[i]+'T12:00:00');
       const pop = weatherData.daily.precipitation_probability_max[i];
@@ -846,7 +775,6 @@ async function loadWeather() {
       document.getElementById(`d${i}-lo`).textContent   = `${Math.round(weatherData.daily.temperature_2m_min[i])}°`;
       document.getElementById(`d${i}-cond`).textContent = pop > 20 ? `${pop}% precip` : '';
     }
-
     document.getElementById('dot-w').classList.add('on');
     stamp();
   } catch { document.getElementById('today-cond').textContent = 'Unavailable'; }
@@ -854,136 +782,529 @@ async function loadWeather() {
 loadWeather();
 setInterval(loadWeather, 600000);
 
-// ═══════════════════════════════════════════
-//  HOURLY SCREEN
-// ═══════════════════════════════════════════
-function showHourly(dayIndex) {
+// ════════════════════════════════════════════
+//  HOURLY SCREEN BUILD
+// ════════════════════════════════════════════
+function buildHourlyScreen(dayIndex) {
   if (!weatherData) return;
+  const dayDate = weatherData.daily.time[dayIndex];
+  const dt      = new Date(dayDate + 'T12:00:00');
+  const hiTemp  = Math.round(weatherData.daily.temperature_2m_max[dayIndex]);
+  const loTemp  = Math.round(weatherData.daily.temperature_2m_min[dayIndex]);
+  const dayCond = WMO[weatherData.daily.weather_code[dayIndex]] || '--';
+  const nowHour = new Date().getHours();
+  const isToday = dayDate === weatherData.daily.time[0];
 
-  const dayDate  = weatherData.daily.time[dayIndex];          // e.g. "2026-03-14"
-  const dt       = new Date(dayDate + 'T12:00:00');
-  const hiTemp   = Math.round(weatherData.daily.temperature_2m_max[dayIndex]);
-  const loTemp   = Math.round(weatherData.daily.temperature_2m_min[dayIndex]);
-  const dayCond  = WMO[weatherData.daily.weather_code[dayIndex]] || '--';
-  const nowHour  = new Date().getHours();
-  const isToday  = dayDate === weatherData.daily.time[0];
-
-  // update header
   document.getElementById('h-dayname').textContent = DAYS[dt.getDay()].toUpperCase();
   document.getElementById('h-daydate').textContent = `${MONTHS[dt.getMonth()].toUpperCase()} ${dt.getDate()}, ${dt.getFullYear()}`;
   document.getElementById('h-hilo').textContent    = `H:${hiTemp}°  L:${loTemp}°`;
   document.getElementById('h-cond').textContent    = dayCond.toUpperCase();
 
-  // find hourly indices for this day (24 entries per day)
-  // open-meteo returns hourly for all days — find where dayDate starts
   const startIdx = weatherData.hourly.time.findIndex(t => t.startsWith(dayDate));
-  if (startIdx < 0) {
-    document.getElementById('hourly-grid').innerHTML =
-      '<div class="hourly-loading">Hourly data unavailable</div>';
-    switchScreen('hourly');
-    return;
-  }
+  if (startIdx < 0) { document.getElementById('hourly-grid').innerHTML = '<div class="hourly-loading">Hourly data unavailable</div>'; return; }
 
-  // pick 8 representative hours across the day: 12am,3am,6am,9am,12pm,3pm,6pm,9pm
-  const hours   = [0, 3, 6, 9, 12, 15, 18, 21];
-  const grid    = document.getElementById('hourly-grid');
+  const hours = [0,3,6,9,12,15,18,21];
+  const grid  = document.getElementById('hourly-grid');
   grid.innerHTML = '';
-
   hours.forEach(h => {
     const idx  = startIdx + h;
     const temp = Math.round(weatherData.hourly.temperature_2m[idx]);
     const code = weatherData.hourly.weather_code[idx];
     const pop  = weatherData.hourly.precipitation_probability[idx] || 0;
     const wind = Math.round(weatherData.hourly.wind_speed_10m[idx]);
-    const isNow = isToday && h === Math.floor(nowHour / 3) * 3;
-
-    const label = h === 0 ? '12 AM' : h < 12 ? `${h} AM` : h === 12 ? '12 PM' : `${h-12} PM`;
-
-    const card = document.createElement('div');
-    card.className = `hour-card${isNow ? ' is-now' : ''}`;
-    card.innerHTML = `
-      <div class="h-time">${label}</div>
-      <div class="h-icon">${WMOS[code] || '---'}</div>
-      <div class="h-temp">${temp}°</div>
-      <div class="h-divider"></div>
-      <div class="h-precip">${pop}% rain</div>
-      <div class="h-wind">${wind} mph</div>
-    `;
+    const isNow = isToday && h === Math.floor(nowHour/3)*3;
+    const label = h===0?'12 AM':h<12?`${h} AM`:h===12?'12 PM':`${h-12} PM`;
+    const card  = document.createElement('div');
+    card.className = `hour-card${isNow?' is-now':''}`;
+    card.innerHTML = `<div class="h-time">${label}</div><div class="h-icon">${WMOS[code]||'---'}</div><div class="h-temp">${temp}°</div><div class="h-divider"></div><div class="h-precip">${pop}% rain</div><div class="h-wind">${wind} mph</div>`;
     grid.appendChild(card);
   });
-
-  const t = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('h-refreshed').textContent = `SYNC ${t}`;
-
-  switchScreen('hourly');
+  document.getElementById('h-refreshed').textContent = `SYNC ${new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}`;
 }
 
-function showDash() { switchScreen('dash'); }
+// ════════════════════════════════════════════
+//  CHESS PUZZLE ENGINE
+// ════════════════════════════════════════════
+const PIECES = {
+  'K':'♔','Q':'♕','R':'♖','B':'♗','N':'♘','P':'♙',
+  'k':'♚','q':'♛','r':'♜','b':'♝','n':'♞','p':'♟'
+};
 
-function switchScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
-  const el = document.getElementById(id);
-  el.classList.remove('hidden');
-  // re-trigger animation
-  el.style.animation = 'none';
-  el.offsetHeight; // reflow
-  el.style.animation = '';
+let puzzleData   = null;
+let board        = [];
+let initBoard    = [];
+let solMoves     = [];
+let moveIdx      = 0;
+let selectedSq   = null;
+let playerColor  = 'w';
+let lastFrom     = null;
+let lastTo       = null;
+let puzzleSolved = false;
+let legalTargets = [];
+
+function fenToBoard(fen) {
+  const rows = fen.split(' ')[0].split('/');
+  return rows.map(row => {
+    const r = [];
+    for (const ch of row) {
+      if (/\d/.test(ch)) for (let i=0;i<+ch;i++) r.push('');
+      else r.push(ch);
+    }
+    return r;
+  });
 }
 
-// ═══════════════════════════════════════════
-//  NEWS
-// ═══════════════════════════════════════════
-const FEEDS = [
-  {url:'https://feeds.npr.org/1001/rss.xml',                        name:'NPR'},
-  {url:'https://feeds.bbci.co.uk/news/rss.xml',                     name:'BBC'},
-  {url:'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml', name:'NYT'},
-];
-let headlines = [], fi = 0;
+function uciCoords(uci) {
+  return {
+    fr: 8 - parseInt(uci[1]),
+    fc: uci.charCodeAt(0) - 97,
+    tr: 8 - parseInt(uci[3]),
+    tc: uci.charCodeAt(2) - 97,
+    promo: uci[4] || null
+  };
+}
 
-async function loadNews() {
-  for (let i = 0; i < FEEDS.length; i++) {
-    const f = FEEDS[fi % FEEDS.length]; fi++;
-    try {
-      const r = await fetch(
-        'https://api.rss2json.com/v1/api.json?rss_url=' +
-        encodeURIComponent(f.url) + '&count=5'
-      );
-      if (!r.ok) throw 0;
-      const d = await r.json();
-      if (d.status !== 'ok' || !d.items?.length) throw 0;
-      headlines = d.items.map(item => ({
-        title: item.title?.trim() || '',
-        link:  item.link  || '#',
-        src:   f.name
-      }));
-      document.getElementById('news-list').innerHTML = headlines.map((h,i) =>
-        `<div class="news-item" onclick="openModal(${i})">
-          <span class="news-num">${i+1}</span>
-          <span class="news-hl">${esc(h.title)}</span>
-          <span class="news-src">${h.src}</span>
-        </div>`).join('');
-      document.getElementById('dot-n').classList.add('on');
-      stamp(); return;
-    } catch { console.warn('Feed failed:', f.name); }
+function applyMove(b, uci) {
+  const nb = b.map(r => [...r]);
+  const {fr,fc,tr,tc,promo} = uciCoords(uci);
+  const piece = nb[fr][fc];
+  if (!piece) return nb;
+  const isWhite = piece === piece.toUpperCase();
+  nb[tr][tc] = promo ? (isWhite ? promo.toUpperCase() : promo.toLowerCase()) : piece;
+  nb[fr][fc] = '';
+  // castling
+  if (piece==='K'&&fc===4&&tc===6){ nb[7][5]=nb[7][7]; nb[7][7]=''; }
+  if (piece==='K'&&fc===4&&tc===2){ nb[7][3]=nb[7][0]; nb[7][0]=''; }
+  if (piece==='k'&&fc===4&&tc===6){ nb[0][5]=nb[0][7]; nb[0][7]=''; }
+  if (piece==='k'&&fc===4&&tc===2){ nb[0][3]=nb[0][0]; nb[0][0]=''; }
+  // en passant
+  if ((piece==='P'||piece==='p') && fc!==tc && nb[tr][tc]===piece) {
+    nb[fr][tc]='';
   }
-  document.getElementById('news-list').innerHTML = '<div class="news-empty">Headlines unavailable</div>';
+  return nb;
 }
-loadNews();
-setInterval(loadNews, 900000);
 
-function openModal(i) {
-  document.getElementById('modal-title').textContent = headlines[i].title;
-  document.getElementById('modal-link').href = headlines[i].link;
-  document.getElementById('modal').style.display = 'flex';
+// Generate basic legal destination squares for a piece (for hints)
+function getLegalTargets(b, r, c) {
+  const piece = b[r][c];
+  if (!piece) return [];
+  const isWhite = piece === piece.toUpperCase();
+  const targets = [];
+  const p = piece.toLowerCase();
+
+  const inBounds = (r,c) => r>=0&&r<8&&c>=0&&c<8;
+  const isEnemy  = (r,c) => b[r][c] && (b[r][c]===b[r][c].toUpperCase()) !== isWhite;
+  const isEmpty  = (r,c) => inBounds(r,c) && !b[r][c];
+  const canLand  = (r,c) => inBounds(r,c) && (!b[r][c] || isEnemy(r,c));
+
+  const slide = (dr, dc) => {
+    let nr=r+dr, nc=c+dc;
+    while(inBounds(nr,nc)) {
+      if (b[nr][nc]) { if(isEnemy(nr,nc)) targets.push([nr,nc]); break; }
+      targets.push([nr,nc]); nr+=dr; nc+=dc;
+    }
+  };
+
+  if (p==='p') {
+    const dir = isWhite ? -1 : 1;
+    const start = isWhite ? 6 : 1;
+    if (isEmpty(r+dir,c)) { targets.push([r+dir,c]); if(r===start && isEmpty(r+2*dir,c)) targets.push([r+2*dir,c]); }
+    [[r+dir,c-1],[r+dir,c+1]].forEach(([nr,nc])=>{ if(inBounds(nr,nc)&&isEnemy(nr,nc)) targets.push([nr,nc]); });
+  } else if (p==='n') {
+    [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]].forEach(([dr,dc])=>{ if(canLand(r+dr,c+dc)) targets.push([r+dr,c+dc]); });
+  } else if (p==='b') {
+    [[-1,-1],[-1,1],[1,-1],[1,1]].forEach(([dr,dc])=>slide(dr,dc));
+  } else if (p==='r') {
+    [[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc])=>slide(dr,dc));
+  } else if (p==='q') {
+    [[-1,-1],[-1,1],[1,-1],[1,1],[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc])=>slide(dr,dc));
+  } else if (p==='k') {
+    [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]].forEach(([dr,dc])=>{ if(canLand(r+dr,c+dc)) targets.push([r+dr,c+dc]); });
+  }
+  return targets;
 }
-function closeModal() { document.getElementById('modal').style.display = 'none'; }
-document.getElementById('modal').addEventListener('click', e => {
-  if (e.target === document.getElementById('modal')) closeModal();
-});
 
-// ═══════════════════════════════════════════
+function renderBoard() {
+  const el = document.getElementById('chess-board');
+  if (!el) return;
+  el.innerHTML = '';
+
+  // Row and col labels
+  const rowLabels = document.getElementById('row-labels');
+  const colLabels = document.getElementById('col-labels');
+  if (rowLabels) {
+    rowLabels.innerHTML = '';
+    for (let r=0;r<8;r++) {
+      const span = document.createElement('div');
+      span.textContent = 8-r;
+      span.style.cssText = 'height:64px;display:flex;align-items:center;font-family:DM Mono,monospace;font-size:11px;color:var(--grey);';
+      rowLabels.appendChild(span);
+    }
+  }
+  if (colLabels) {
+    colLabels.innerHTML = '';
+    'abcdefgh'.split('').forEach(l => {
+      const span = document.createElement('div');
+      span.textContent = l;
+      span.style.cssText = 'width:64px;text-align:center;font-family:DM Mono,monospace;font-size:11px;color:var(--grey);';
+      colLabels.appendChild(span);
+    });
+  }
+
+  for (let r=0;r<8;r++) {
+    for (let c=0;c<8;c++) {
+      const sq  = document.createElement('div');
+      const isLight = (r+c)%2===0;
+      sq.className  = `sq ${isLight?'light':'dark'}`;
+      sq.dataset.r  = r;
+      sq.dataset.c  = c;
+
+      if (lastFrom && lastFrom[0]===r && lastFrom[1]===c) sq.classList.add('last-from');
+      if (lastTo   && lastTo[0]===r   && lastTo[1]===c)   sq.classList.add('last-to');
+      if (selectedSq && selectedSq[0]===r && selectedSq[1]===c) sq.classList.add('selected');
+      if (legalTargets.some(([tr,tc])=>tr===r&&tc===c)) sq.classList.add('hint');
+
+      const piece = board[r]?.[c];
+      if (piece && PIECES[piece]) {
+        sq.textContent  = PIECES[piece];
+        // color the piece text
+        sq.style.color  = piece===piece.toUpperCase() ? '#f0f4f8' : '#00e5ff';
+        sq.style.textShadow = piece===piece.toUpperCase()
+          ? '0 1px 3px rgba(0,0,0,0.8)'
+          : '0 0 8px rgba(0,229,255,0.6)';
+      }
+
+      sq.addEventListener('click', () => handleSquareClick(r, c));
+      el.appendChild(sq);
+    }
+  }
+}
+
+function handleSquareClick(r, c) {
+  if (puzzleSolved) return;
+
+  const piece = board[r]?.[c];
+  const isPlayerPiece = piece && (
+    (playerColor==='w' && piece===piece.toUpperCase()) ||
+    (playerColor==='b' && piece===piece.toLowerCase() && piece!==piece.toUpperCase())
+  );
+
+  // If clicking a hint square (legal target) — attempt move
+  if (selectedSq && legalTargets.some(([tr,tc])=>tr===r&&tc===c)) {
+    attemptMove(selectedSq[0], selectedSq[1], r, c);
+    return;
+  }
+
+  // If clicking own piece — select it
+  if (isPlayerPiece) {
+    selectedSq   = [r, c];
+    legalTargets = getLegalTargets(board, r, c);
+    renderBoard();
+    return;
+  }
+
+  // Clicking elsewhere — deselect
+  selectedSq   = null;
+  legalTargets = [];
+  renderBoard();
+}
+
+function squareToUCI(r, c) {
+  return String.fromCharCode(97+c) + (8-r);
+}
+
+function attemptMove(fr, fc, tr, tc) {
+  const uci  = squareToUCI(fr,fc) + squareToUCI(tr,tc);
+  const expected = solMoves[moveIdx];
+
+  // Accept with or without promotion suffix for simplicity
+  const matches = uci === expected || uci === expected.slice(0,4);
+
+  if (matches) {
+    // Apply player move
+    board    = applyMove(board, expected);
+    lastFrom = [fr,fc]; lastTo = [tr,tc];
+    selectedSq = null; legalTargets = [];
+    moveIdx++;
+
+    const remaining = solMoves.length - moveIdx;
+
+    if (moveIdx >= solMoves.length) {
+      // Solved!
+      puzzleSolved = true;
+      setMsg('Puzzle solved! Well played.', 'solved');
+      setProgress('Complete');
+      document.getElementById('dot-c').classList.add('on');
+      renderBoard();
+      return;
+    }
+
+    setMsg('Correct! Keep going...', 'correct');
+    setProgress(`Move ${moveIdx} of ${solMoves.length}`);
+    renderBoard();
+
+    // Play opponent's response after short delay
+    setTimeout(() => {
+      const oppMove = solMoves[moveIdx];
+      const {fr:ofr,fc:ofc,tr:otr,tc:otc} = uciCoords(oppMove);
+      board    = applyMove(board, oppMove);
+      lastFrom = [ofr,ofc]; lastTo = [otr,otc];
+      moveIdx++;
+
+      if (moveIdx >= solMoves.length) {
+        puzzleSolved = true;
+        setMsg('Puzzle solved! Well played.', 'solved');
+        setProgress('Complete');
+        document.getElementById('dot-c').classList.add('on');
+      } else {
+        setMsg('Your turn again.', '');
+        setProgress(`Move ${moveIdx+1} of ${solMoves.length}`);
+      }
+      renderBoard();
+    }, 600);
+
+  } else {
+    // Wrong move
+    setMsg('Not quite — try again.', 'wrong');
+    selectedSq = null; legalTargets = [];
+    renderBoard();
+    // Flash wrong then clear
+    setTimeout(() => {
+      setMsg('Find the best move.', '');
+    }, 1500);
+  }
+}
+
+function setMsg(text, cls) {
+  const el = document.getElementById('cs-msg');
+  el.textContent = text;
+  el.className   = `puzzle-msg${cls?' '+cls:''}`;
+}
+
+function setProgress(text) {
+  document.getElementById('cs-progress').textContent = text;
+}
+
+function resetPuzzle() {
+  if (!puzzleData) return;
+  board        = initBoard.map(r=>[...r]);
+  moveIdx      = 0;
+  selectedSq   = null;
+  legalTargets = [];
+  lastFrom     = null;
+  lastTo       = null;
+  puzzleSolved = false;
+  setMsg('Tap a piece to select it, then tap the destination square.', '');
+  setProgress(`Move 1 of ${solMoves.length}`);
+  renderBoard();
+}
+
+function revealSolution() {
+  if (!puzzleData) return;
+  // Show moves as UCI notation
+  const moveList = solMoves.map((m,i) => `${i+1}. ${m}`).join('  ');
+  setMsg(`Solution: ${moveList}`, 'solved');
+  puzzleSolved = true;
+  // Play through full solution visually
+  let i = 0;
+  board = initBoard.map(r=>[...r]);
+  const step = () => {
+    if (i >= solMoves.length) return;
+    const m = solMoves[i];
+    const {fr,fc,tr,tc} = uciCoords(m);
+    board = applyMove(board, m);
+    lastFrom = [fr,fc]; lastTo = [tr,tc];
+    renderBoard();
+    i++;
+    if (i < solMoves.length) setTimeout(step, 800);
+  };
+  setTimeout(step, 300);
+}
+
+// ── PGN → UCI converter ─────────────────────
+// Converts algebraic PGN moves to UCI format by replaying on a board
+// Uses a full move generator to resolve ambiguous piece moves
+
+const INIT_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+
+function initBoardFromFen(fen) {
+  return fenToBoard(fen);
+}
+
+// Get all pseudo-legal moves for color as UCI strings
+function allMoves(b, color) {
+  const moves = [];
+  for (let r=0;r<8;r++) {
+    for (let c=0;c<8;c++) {
+      const piece = b[r][c];
+      if (!piece) continue;
+      const isW = piece === piece.toUpperCase();
+      if ((color==='w') !== isW) continue;
+      const targets = getLegalTargets(b, r, c);
+      for (const [tr,tc] of targets) {
+        const uci = squareToUCI(r,c) + squareToUCI(tr,tc);
+        // pawn promotion
+        if ((piece==='P'&&tr===0)||(piece==='p'&&tr===7)) {
+          for (const promo of ['q','r','b','n']) moves.push(uci+promo);
+        } else {
+          moves.push(uci);
+        }
+      }
+    }
+  }
+  return moves;
+}
+
+// Parse a single SAN move into UCI given current board and turn
+function sanToUci(b, san, color) {
+  // strip check/mate indicators and annotations
+  const clean = san.replace(/[+#!?]/g,'').trim();
+
+  // Castling
+  if (clean==='O-O'||clean==='0-0') {
+    return color==='w' ? 'e1g1' : 'e8g8';
+  }
+  if (clean==='O-O-O'||clean==='0-0-0') {
+    return color==='w' ? 'e1c1' : 'e8c8';
+  }
+
+  // Parse SAN: [piece][fromHint][x][toSquare][=promo]
+  let piece = 'P', fromFile='', fromRank='', toSq='', promo='';
+  let s = clean;
+
+  // promotion
+  if (s.includes('=')) { const sp=s.split('='); s=sp[0]; promo=sp[1].toLowerCase(); }
+
+  // piece type
+  if (/^[KQRBN]/.test(s)) { piece=s[0]; s=s.slice(1); }
+
+  // capture indicator
+  s = s.replace('x','');
+
+  // destination is last 2 chars
+  toSq = s.slice(-2);
+  s    = s.slice(0,-2);
+
+  // remainder is disambiguation hint
+  if (s.length===2) { fromFile=s[0]; fromRank=s[1]; }
+  else if (s.length===1) { if(/[a-h]/.test(s)) fromFile=s; else fromRank=s; }
+
+  const tr = 8 - parseInt(toSq[1]);
+  const tc = toSq.charCodeAt(0) - 97;
+
+  // Find matching move
+  const candidates = allMoves(b, color).filter(uci => {
+    const {fr,fc,tr:utr,tc:utc,promo:upromo} = uciCoords(uci);
+    if (utr!==tr||utc!==tc) return false;
+    if (promo && upromo !== promo) return false;
+    const p = b[fr][fc];
+    if (!p) return false;
+    const pl = p.toLowerCase();
+    // piece match
+    if (piece==='P' && pl!=='p') return false;
+    if (piece!=='P' && pl!==piece.toLowerCase()) return false;
+    // disambiguation
+    const file = String.fromCharCode(97+fc);
+    const rank = String(8-fr);
+    if (fromFile && file!==fromFile) return false;
+    if (fromRank && rank!==fromRank) return false;
+    return true;
+  });
+
+  return candidates[0] || null;
+}
+
+// Replay PGN to given ply count, return board
+function replayPgn(pgn, targetPly) {
+  // Strip move numbers and comments
+  let text = pgn
+    .replace(/\{[^}]*\}/g,'')
+    .replace(/\([^)]*\)/g,'')
+    .replace(/\d+\.\s*/g,' ')
+    .replace(/1-0|0-1|1\/2-1\/2|\*/g,'')
+    .trim();
+
+  const tokens = text.split(/\s+/).filter(t=>t.length>0);
+  let b     = initBoardFromFen(INIT_FEN);
+  let color = 'w';
+  let ply   = 0;
+
+  for (const san of tokens) {
+    if (ply >= targetPly) break;
+    const uci = sanToUci(b, san, color);
+    if (!uci) { console.warn('SAN parse failed:', san, 'ply', ply); break; }
+    b     = applyMove(b, uci);
+    color = color==='w' ? 'b' : 'w';
+    ply++;
+  }
+  return { board: b, turn: color };
+}
+
+async function loadPuzzle() {
+  try {
+    const r = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://lichess.org/api/puzzle/daily'));
+    if (!r.ok) throw 0;
+    const wrapper = await r.json();
+    puzzleData = JSON.parse(wrapper.contents);
+
+    const p          = puzzleData.puzzle;
+    const game       = puzzleData.game;
+    const pgn        = game.pgn;
+    const initialPly = p.initialPly;  // number of half-moves to replay before puzzle starts
+
+    // Replay game up to initialPly to get the pre-puzzle position
+    const { board: replayedBoard, turn: replayedTurn } = replayPgn(pgn, initialPly);
+
+    // The first solution move is actually the OPPONENT'S move that sets up the puzzle.
+    // Apply it immediately, then the player solves from there.
+    const setupMove = p.solution[0];
+    const {fr,fc,tr,tc} = uciCoords(setupMove);
+    const startBoard = applyMove(replayedBoard, setupMove);
+    const playerTurn = replayedTurn === 'w' ? 'b' : 'w';  // after opponent moves, it's player's turn
+
+    playerColor = playerTurn;
+    board       = startBoard;
+    initBoard   = startBoard.map(row=>[...row]);
+    solMoves    = p.solution.slice(1);  // player solves the rest
+    moveIdx     = 0;
+    selectedSq   = null;
+    legalTargets = [];
+    lastFrom     = [fr,fc];
+    lastTo       = [tr,tc];
+    puzzleSolved = false;
+
+    const rating  = p.rating || '----';
+    const themes  = (p.themes || []).slice(0,5);
+    const dateStr = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+
+    document.getElementById('cs-rating').textContent    = rating;
+    document.getElementById('launch-rating').textContent = rating;
+    document.getElementById('cs-date').textContent      = dateStr;
+    document.getElementById('cs-turn-color').textContent = playerTurn==='w' ? 'WHITE' : 'BLACK';
+    document.getElementById('cs-instruction').textContent = `Find the best sequence of moves for ${playerTurn==='w'?'white':'black'}.`;
+    document.getElementById('cs-themes').innerHTML = themes.map(t =>
+      `<span class="theme-tag">${t}</span>`).join('');
+
+    setMsg('Tap a piece to select it, then tap the destination square.', '');
+    setProgress(`Move 1 of ${solMoves.length}`);
+
+    document.getElementById('cs-refreshed').textContent =
+      `SYNC ${new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}`;
+
+    renderBoard();
+    document.getElementById('dot-c').classList.add('on');
+    stamp();
+  } catch(e) {
+    console.warn('Puzzle load failed:', e);
+    document.getElementById('launch-rating').textContent = 'N/A';
+    document.getElementById('cs-msg').textContent = 'Could not load puzzle. Check connection.';
+  }
+}
+loadPuzzle();
+
+// ════════════════════════════════════════════
 //  MARKETS
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════
 const TICKERS = [
   {sym:'^GSPC', id:'sp',  btc:false},
   {sym:'^IXIC', id:'nq',  btc:false},
@@ -1020,14 +1341,13 @@ async function loadMarkets() {
 loadMarkets();
 setInterval(loadMarkets, 300000);
 
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════
 //  UTILS
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════
 function stamp() {
   const t = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
   document.getElementById('refreshed').textContent = `SYNC ${t}`;
 }
-const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 </script>
 </body>
 </html>
