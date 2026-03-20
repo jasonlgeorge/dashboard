@@ -37,7 +37,6 @@ body::before {
   background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,229,255,0.010) 2px, rgba(0,229,255,0.010) 4px);
   pointer-events: none; z-index: 1000;
 }
-
 body::after {
   content: '';
   position: fixed; top: 0; left: 0; right: 0; height: 2px;
@@ -46,121 +45,62 @@ body::after {
   z-index: 900;
 }
 
-/* ── SCREEN MANAGEMENT ── */
 .screen { position: absolute; inset: 0; width: 1280px; height: 800px; }
 .screen.hidden { display: none !important; }
 
 /* ════════════════════════════════════
    SCREEN 1 — MAIN DASHBOARD
+   56px topbar | 510px main | 210px bottom | 24px status
 ════════════════════════════════════ */
 #dash { display: grid; grid-template-rows: 56px 510px 210px 24px; }
 
+/* TOP BAR */
 .topbar {
   display: grid; grid-template-columns: 1fr auto 1fr;
   align-items: center; padding: 0 28px;
-  border-bottom: 1px solid var(--border);
-  background: var(--panel);
+  border-bottom: 1px solid var(--border); background: var(--panel);
 }
-.tb-left {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px; color: var(--grey);
-  letter-spacing: 3px; text-transform: uppercase;
-}
+.tb-left { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--grey); letter-spacing: 3px; text-transform: uppercase; }
 .tb-left span { color: var(--cyan); margin-right: 10px; }
-.tb-clock {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 44px; color: var(--white);
-  letter-spacing: 4px; line-height: 1; text-align: center;
-}
-.tb-clock .ap {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 14px; font-weight: 700;
-  color: var(--cyan); letter-spacing: 3px;
-  margin-left: 8px; vertical-align: middle;
-}
-.tb-right {
-  text-align: right; font-family: 'DM Mono', monospace;
-  font-size: 12px; color: var(--grey); letter-spacing: 1px;
-}
+.tb-clock { font-family: 'Bebas Neue', sans-serif; font-size: 44px; color: var(--white); letter-spacing: 4px; line-height: 1; text-align: center; }
+.tb-clock .ap { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: var(--cyan); letter-spacing: 3px; margin-left: 8px; vertical-align: middle; }
+.tb-right { text-align: right; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--grey); letter-spacing: 1px; }
 
 /* MAIN ROW */
-.main {
-  display: grid; grid-template-columns: 320px 1fr 250px;
-  border-bottom: 1px solid var(--border);
-}
+.main { display: grid; grid-template-columns: 320px 1fr 250px; border-bottom: 1px solid var(--border); }
 
 .today {
-  border-right: 1px solid var(--border);
-  padding: 26px 26px 20px;
+  border-right: 1px solid var(--border); padding: 26px 26px 20px;
   display: flex; flex-direction: column; justify-content: space-between;
   background: var(--panel); position: relative; overflow: hidden;
 }
 .today::before {
-  content: ''; position: absolute; top: -60px; left: -60px;
-  width: 220px; height: 220px;
-  background: radial-gradient(circle, #00e5ff14 0%, transparent 70%);
-  pointer-events: none;
+  content: ''; position: absolute; top: -60px; left: -60px; width: 220px; height: 220px;
+  background: radial-gradient(circle, #00e5ff14 0%, transparent 70%); pointer-events: none;
 }
-.loc-tag {
-  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
-  letter-spacing: 3px; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px;
-}
-.big-temp {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 170px; line-height: 0.88; color: var(--white); letter-spacing: -3px;
-}
-.big-temp-unit {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 64px; color: var(--cyan); vertical-align: super; line-height: 1;
-}
-.cond-label {
-  font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 3px; color: var(--white); margin: 8px 0 6px;
-}
+.loc-tag { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.big-temp { font-family: 'Bebas Neue', sans-serif; font-size: 170px; line-height: 0.88; color: var(--white); letter-spacing: -3px; }
+.big-temp-unit { font-family: 'Bebas Neue', sans-serif; font-size: 64px; color: var(--cyan); vertical-align: super; line-height: 1; }
+.cond-label { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--white); margin: 8px 0 6px; }
 .meta-text { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--grey); line-height: 2; }
 .hilo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--grey); letter-spacing: 2px; margin-top: 10px; }
 
 .middle { display: grid; grid-template-rows: 1fr 2px 200px; border-right: 1px solid var(--border); }
-
 .quote-block { padding: 28px 30px 20px; display: flex; flex-direction: column; justify-content: center; }
-.q-tag {
-  font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
-  letter-spacing: 4px; text-transform: uppercase; color: var(--cyan); margin-bottom: 12px; opacity: 0.7;
-}
-.q-text {
-  font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600;
-  color: var(--white); line-height: 1.55;
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-}
+.q-tag { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--cyan); margin-bottom: 12px; opacity: 0.7; }
+.q-text { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: var(--white); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .q-author { margin-top: 14px; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--cyan); letter-spacing: 2px; }
-
 .divider { background: var(--border); }
 
 .forecast { display: grid; grid-template-columns: repeat(4, 1fr); }
-.fc {
-  padding: 16px 14px; border-right: 1px solid var(--border);
-  display: flex; flex-direction: column; justify-content: space-between;
-  cursor: pointer; transition: background 0.2s; position: relative;
-}
+.fc { padding: 16px 14px; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; transition: background 0.2s; position: relative; }
 .fc:last-child { border-right: none; }
 .fc:hover { background: var(--cyan-dim); }
 .fc:hover .fc-day { color: var(--cyan); }
-.fc::after {
-  content: 'TAP FOR HOURLY';
-  position: absolute; bottom: 6px; right: 8px;
-  font-family: 'DM Mono', monospace; font-size: 7px; letter-spacing: 1px;
-  color: var(--cyan-mid); opacity: 0; transition: opacity 0.2s;
-}
+.fc::after { content: 'TAP FOR HOURLY'; position: absolute; bottom: 6px; right: 8px; font-family: 'DM Mono', monospace; font-size: 7px; letter-spacing: 1px; color: var(--cyan-mid); opacity: 0; transition: opacity 0.2s; }
 .fc:hover::after { opacity: 1; }
-.fc-day {
-  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
-  letter-spacing: 3px; text-transform: uppercase; color: var(--grey); transition: color 0.2s;
-}
-.fc-badge {
-  display: inline-block; font-family: 'Space Grotesk', sans-serif;
-  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--cyan); padding: 3px 7px; border: 1px solid var(--cyan-mid); margin: 8px 0 4px; line-height: 1;
-}
+.fc-day { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--grey); transition: color 0.2s; }
+.fc-badge { display: inline-block; font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); padding: 3px 7px; border: 1px solid var(--cyan-mid); margin: 8px 0 4px; line-height: 1; }
 .fc-hi { font-family: 'Bebas Neue', sans-serif; font-size: 54px; color: var(--white); line-height: 1; letter-spacing: 1px; }
 .fc-lo { font-family: 'DM Mono', monospace; font-size: 14px; color: var(--grey); margin-top: 3px; }
 .fc-cond { font-size: 11px; font-weight: 500; color: var(--grey); margin-top: 8px; line-height: 1.3; }
@@ -169,110 +109,70 @@ body::after {
 .d-num { font-family: 'Bebas Neue', sans-serif; font-size: 96px; line-height: 0.88; color: var(--white); letter-spacing: 1px; }
 .d-month { font-family: 'Bebas Neue', sans-serif; font-size: 44px; color: var(--cyan); letter-spacing: 4px; margin-top: 4px; }
 .d-year { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--grey); letter-spacing: 3px; margin-top: 6px; }
-.d-weekday {
-  font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700;
-  letter-spacing: 5px; text-transform: uppercase; color: var(--white);
-  text-align: center; padding: 10px 12px;
-  border: 1px solid var(--cyan-mid); background: var(--cyan-dim); margin-top: auto;
-}
+.d-weekday { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: var(--white); text-align: center; padding: 10px 12px; border: 1px solid var(--cyan-mid); background: var(--cyan-dim); margin-top: auto; }
 
-/* BOTTOM ROW */
-.bottom { display: grid; grid-template-columns: 1fr 480px; }
+/* BOTTOM ROW — 4 equal panels */
+.bottom { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; }
 
-/* CHESS LAUNCH PANEL */
-.chess-launch {
+.bot-panel {
   border-right: 1px solid var(--border);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 16px; padding: 20px;
-  background: var(--panel);
-  position: relative; overflow: hidden;
+  padding: 14px 18px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  overflow: hidden; position: relative;
 }
-.chess-launch::before {
-  content: '';
-  position: absolute; bottom: -40px; left: -40px;
-  width: 200px; height: 200px;
-  background: radial-gradient(circle, #2979ff18 0%, transparent 70%);
-  pointer-events: none;
-}
-.chess-launch-label {
-  font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
-  letter-spacing: 4px; text-transform: uppercase; color: var(--cyan); opacity: 0.7;
-}
-.chess-launch-btn {
-  display: flex; align-items: center; gap: 14px;
-  padding: 18px 32px;
-  border: 1px solid var(--cyan-mid);
-  background: var(--cyan-dim);
-  color: var(--white);
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 26px; letter-spacing: 4px;
-  cursor: pointer; transition: all 0.2s;
-  text-transform: uppercase;
-}
-.chess-launch-btn:hover {
-  background: var(--cyan); color: var(--bg);
-  box-shadow: 0 0 30px var(--cyan-mid);
-}
-.chess-launch-btn .chess-icon { font-size: 32px; line-height: 1; }
-.chess-launch-meta {
-  font-family: 'DM Mono', monospace; font-size: 11px;
-  color: var(--grey); letter-spacing: 2px; text-transform: uppercase;
-}
-.chess-launch-rating {
-  font-family: 'Bebas Neue', sans-serif; font-size: 20px;
-  color: var(--cyan); letter-spacing: 2px;
-}
+.bot-panel:last-child { border-right: none; }
 
-.markets-panel { padding: 14px 24px 28px; display: flex; flex-direction: column; }
 .panel-label {
   font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
   letter-spacing: 4px; text-transform: uppercase;
-  color: var(--cyan); margin-bottom: 10px; flex-shrink: 0; opacity: 0.8;
+  color: var(--cyan); margin-bottom: 8px; flex-shrink: 0; opacity: 0.8;
 }
-.mkt-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; flex: 1; }
-.mkt {
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 6px 10px; border-right: 1px solid var(--border);
+
+/* CHESS LAUNCH */
+.chess-launch-btn {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px; margin-top: 4px;
+  border: 1px solid var(--cyan-mid); background: var(--cyan-dim);
+  color: var(--white); font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px; letter-spacing: 3px; cursor: pointer;
+  transition: all 0.2s; text-transform: uppercase; width: 100%;
 }
-.mkt:last-child { border-right: none; }
-.mkt-name { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--grey); margin-bottom: 4px; }
-.mkt-price { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--white); line-height: 1; letter-spacing: 1px; }
-.mkt-chg { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; margin-top: 2px; }
-.up   { color: var(--green); }
-.down { color: var(--red); }
-.flat { color: var(--grey); }
+.chess-launch-btn:hover { background: var(--cyan); color: var(--bg); box-shadow: 0 0 20px var(--cyan-mid); }
+.chess-icon { font-size: 22px; line-height: 1; }
+.chess-meta { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey); letter-spacing: 1px; margin-top: 8px; }
+.chess-rating-inline { color: var(--cyan); font-weight: 700; }
+
+/* MOON */
+.moon-glyph { font-size: 56px; line-height: 1; text-align: center; margin: 4px 0; }
+.moon-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--white); letter-spacing: 3px; }
+.moon-pct { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey); letter-spacing: 2px; margin-top: 4px; }
+
+/* VINYL */
+.vinyl-artist { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--cyan); letter-spacing: 2px; line-height: 1; margin-bottom: 4px; }
+.vinyl-album { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: var(--white); line-height: 1.3; margin-bottom: 6px; }
+.vinyl-year { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey); letter-spacing: 2px; }
+.vinyl-disc { font-size: 32px; position: absolute; bottom: 14px; right: 14px; opacity: 0.15; }
+
+/* SUN / UV */
+.sun-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--border); }
+.sun-row:last-child { border-bottom: none; }
+.sun-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--grey); letter-spacing: 2px; text-transform: uppercase; }
+.sun-val { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--white); letter-spacing: 1px; }
+.sun-val.uv-low    { color: var(--green); }
+.sun-val.uv-mod    { color: var(--amber); }
+.sun-val.uv-high   { color: var(--red); }
 
 /* STATUS BAR */
-.statusbar {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 0 24px; background: var(--panel); border-top: 1px solid var(--border);
-  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--grey);
-  letter-spacing: 2px; text-transform: uppercase;
-}
-.sdot {
-  display: inline-block; width: 5px; height: 5px; border-radius: 50%;
-  background: var(--grey); margin-right: 6px; vertical-align: middle;
-}
+.statusbar { display: flex; justify-content: space-between; align-items: center; padding: 0 24px; background: var(--panel); border-top: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 10px; color: var(--grey); letter-spacing: 2px; text-transform: uppercase; }
+.sdot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--grey); margin-right: 6px; vertical-align: middle; }
 .sdot.on { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
 
 /* ════════════════════════════════════
    SCREEN 2 — HOURLY FORECAST
 ════════════════════════════════════ */
 #hourly { display: grid; grid-template-rows: 80px 1fr 24px; background: var(--bg); }
-
-.hourly-header {
-  display: grid; grid-template-columns: auto 1fr auto;
-  align-items: center; gap: 24px; padding: 0 32px;
-  border-bottom: 1px solid var(--border); background: var(--panel);
-}
-.back-btn {
-  display: flex; align-items: center; gap: 10px; cursor: pointer;
-  font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700;
-  letter-spacing: 3px; text-transform: uppercase; color: var(--cyan);
-  padding: 12px 20px; border: 1px solid var(--cyan-mid); background: var(--cyan-dim);
-  transition: all 0.2s; user-select: none;
-}
+.hourly-header { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px; padding: 0 32px; border-bottom: 1px solid var(--border); background: var(--panel); }
+.back-btn { display: flex; align-items: center; gap: 10px; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--cyan); padding: 12px 20px; border: 1px solid var(--cyan-mid); background: var(--cyan-dim); transition: all 0.2s; user-select: none; }
 .back-btn:hover { background: var(--cyan); color: var(--bg); }
 .back-arrow { font-size: 20px; line-height: 1; }
 .hourly-title { text-align: center; }
@@ -281,198 +181,70 @@ body::after {
 .hourly-summary { text-align: right; }
 .hourly-hi-lo { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--white); letter-spacing: 2px; }
 .hourly-cond-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--cyan); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
-
 .hourly-body { padding: 20px 24px 16px; overflow: hidden; display: flex; flex-direction: column; }
-.hourly-section-label {
-  font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
-  letter-spacing: 4px; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; opacity: 0.7;
-}
+.hourly-section-label { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; opacity: 0.7; }
 .hourly-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; flex: 1; }
-
-.hour-card {
-  background: var(--panel); border: 1px solid var(--border);
-  padding: 14px 10px; display: flex; flex-direction: column;
-  align-items: center; justify-content: space-between;
-  transition: border-color 0.15s, background 0.15s; position: relative;
-}
+.hour-card { background: var(--panel); border: 1px solid var(--border); padding: 14px 10px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; transition: border-color 0.15s, background 0.15s; position: relative; }
 .hour-card:hover { border-color: var(--cyan-mid); background: var(--cyan-dim); }
 .hour-card.is-now { border-color: var(--cyan); background: var(--cyan-dim); }
-.hour-card.is-now::before {
-  content: 'NOW'; position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
-  background: var(--cyan); color: var(--bg);
-  font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 700; letter-spacing: 2px; padding: 2px 6px; line-height: 1.4;
-}
+.hour-card.is-now::before { content: 'NOW'; position: absolute; top: -1px; left: 50%; transform: translateX(-50%); background: var(--cyan); color: var(--bg); font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 700; letter-spacing: 2px; padding: 2px 6px; line-height: 1.4; }
 .h-time { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; color: var(--grey); letter-spacing: 1px; text-align: center; }
-.h-icon {
-  font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 700;
-  letter-spacing: 1px; text-transform: uppercase; color: var(--cyan);
-  padding: 2px 5px; border: 1px solid var(--cyan-mid); margin: 6px 0; line-height: 1; text-align: center;
-}
+.h-icon { font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--cyan); padding: 2px 5px; border: 1px solid var(--cyan-mid); margin: 6px 0; line-height: 1; text-align: center; }
 .h-temp { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--white); line-height: 1; letter-spacing: 1px; }
 .h-divider { width: 100%; height: 1px; background: var(--border); margin: 6px 0; }
 .h-precip { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--grey); margin-top: 4px; text-align: center; }
 .h-wind { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--grey); text-align: center; }
-.hourly-loading {
-  display: flex; align-items: center; justify-content: center; flex: 1;
-  font-family: 'DM Mono', monospace; font-size: 14px; color: var(--grey);
-  letter-spacing: 3px; text-transform: uppercase;
-}
+.hourly-loading { display: flex; align-items: center; justify-content: center; flex: 1; font-family: 'DM Mono', monospace; font-size: 14px; color: var(--grey); letter-spacing: 3px; text-transform: uppercase; }
 
 /* ════════════════════════════════════
    SCREEN 3 — CHESS PUZZLE
 ════════════════════════════════════ */
 #chess-screen { display: grid; grid-template-rows: 80px 1fr 24px; background: var(--bg); }
-
-.chess-header {
-  display: grid; grid-template-columns: auto 1fr auto;
-  align-items: center; gap: 24px; padding: 0 32px;
-  border-bottom: 1px solid var(--border); background: var(--panel);
-}
+.chess-header { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px; padding: 0 32px; border-bottom: 1px solid var(--border); background: var(--panel); }
 .chess-title-block { text-align: center; }
 .chess-screen-title { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--white); letter-spacing: 6px; line-height: 1; }
 .chess-screen-sub { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey); letter-spacing: 3px; text-transform: uppercase; margin-top: 4px; }
 .chess-header-meta { text-align: right; }
 .chess-rating-big { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--cyan); letter-spacing: 3px; line-height: 1; }
 .chess-rating-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--grey); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
-
-.chess-body {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-/* BOARD AREA */
-.chess-board-area {
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 24px 32px;
-  border-right: 1px solid var(--border);
-  background: var(--panel);
-}
-
-.board-coords-wrap {
-  display: flex; flex-direction: column; align-items: center;
-}
-
-.board-row-labels {
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: space-around;
-  height: 512px; /* 8 * 64px */
-  margin-right: 6px;
-  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey);
-}
-
+.chess-body { display: grid; grid-template-columns: auto 1fr; overflow: hidden; }
+.chess-board-area { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 32px; border-right: 1px solid var(--border); background: var(--panel); }
 .board-with-labels { display: flex; flex-direction: row; align-items: flex-start; }
-
-.chess-board-full {
-  display: grid;
-  grid-template-columns: repeat(8, 64px);
-  grid-template-rows: repeat(8, 64px);
-  border: 2px solid var(--cyan-mid);
-  box-shadow: 0 0 30px var(--cyan-dim), 0 0 60px rgba(0,229,255,0.06);
-}
-
-.sq {
-  width: 64px; height: 64px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 40px; line-height: 1;
-  cursor: pointer; user-select: none;
-  transition: background 0.1s;
-  position: relative;
-}
+.board-row-labels { display: flex; flex-direction: column; align-items: center; justify-content: space-around; height: 512px; margin-right: 6px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey); }
+.chess-board-full { display: grid; grid-template-columns: repeat(8, 64px); grid-template-rows: repeat(8, 64px); border: 2px solid var(--cyan-mid); box-shadow: 0 0 30px var(--cyan-dim), 0 0 60px rgba(0,229,255,0.06); }
+.sq { width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-size: 40px; line-height: 1; cursor: pointer; user-select: none; transition: background 0.1s; position: relative; }
 .sq.light { background: #1e2d42; }
 .sq.dark  { background: #0f1a28; }
 .sq.selected { background: rgba(0,229,255,0.25) !important; outline: 2px solid var(--cyan); outline-offset: -2px; }
-.sq.hint     { background: rgba(0,230,118,0.25) !important; }
+.sq.hint { background: rgba(0,230,118,0.25) !important; }
 .sq.hint::after { content: ''; position: absolute; width: 22px; height: 22px; border-radius: 50%; background: rgba(0,230,118,0.5); }
 .sq.last-from { background: rgba(255,171,0,0.15) !important; }
 .sq.last-to   { background: rgba(255,171,0,0.25) !important; }
-
-.board-col-labels {
-  display: flex; flex-direction: row; justify-content: space-around;
-  width: 512px; /* 8 * 64px */
-  margin-top: 6px;
-  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey);
-}
-
-/* PUZZLE SIDEBAR */
-.chess-sidebar {
-  padding: 32px 40px;
-  display: flex; flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden;
-}
-
-.puzzle-turn-label {
-  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
-  letter-spacing: 4px; text-transform: uppercase; color: var(--cyan);
-  opacity: 0.8; margin-bottom: 10px;
-}
-.puzzle-turn {
-  font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--white);
-  letter-spacing: 3px; line-height: 1; margin-bottom: 4px;
-}
+.board-col-labels { display: flex; flex-direction: row; justify-content: space-around; width: 512px; margin-top: 6px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey); }
+.chess-sidebar { padding: 32px 40px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+.puzzle-turn-label { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--cyan); opacity: 0.8; margin-bottom: 10px; }
+.puzzle-turn { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--white); letter-spacing: 3px; line-height: 1; margin-bottom: 4px; }
 .puzzle-turn .turn-color { color: var(--cyan); }
-
-.puzzle-instruction {
-  font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 500;
-  color: var(--grey); line-height: 1.5; margin-top: 8px;
-}
-
+.puzzle-instruction { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 500; color: var(--grey); line-height: 1.5; margin-top: 8px; }
 .puzzle-divider { width: 100%; height: 1px; background: var(--border); margin: 20px 0; }
-
-.puzzle-msg {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 20px; font-weight: 700;
-  color: var(--white); line-height: 1.4;
-  min-height: 60px;
-}
+.puzzle-msg { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--white); line-height: 1.4; min-height: 60px; }
 .puzzle-msg.correct { color: var(--green); }
 .puzzle-msg.wrong   { color: var(--red); }
 .puzzle-msg.solved  { color: var(--cyan); }
-
-.puzzle-progress {
-  font-family: 'DM Mono', monospace; font-size: 12px; color: var(--grey);
-  letter-spacing: 2px; text-transform: uppercase; margin-top: 8px;
-}
-
+.puzzle-progress { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--grey); letter-spacing: 2px; text-transform: uppercase; margin-top: 8px; }
 .puzzle-divider2 { width: 100%; height: 1px; background: var(--border); margin: 20px 0; }
-
 .puzzle-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-
-.pz-btn {
-  padding: 12px 20px;
-  border: 1px solid var(--border);
-  background: transparent; color: var(--grey);
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 13px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase;
-  cursor: pointer; transition: all 0.15s;
-}
+.pz-btn { padding: 12px 20px; border: 1px solid var(--border); background: transparent; color: var(--grey); font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.15s; }
 .pz-btn:hover { border-color: var(--cyan-mid); color: var(--cyan); }
-.pz-btn.primary {
-  border-color: var(--cyan-mid); background: var(--cyan-dim); color: var(--cyan);
-}
+.pz-btn.primary { border-color: var(--cyan-mid); background: var(--cyan-dim); color: var(--cyan); }
 .pz-btn.primary:hover { background: var(--cyan); color: var(--bg); }
-
-.puzzle-themes {
-  margin-top: 16px;
-  display: flex; flex-wrap: wrap; gap: 6px;
-}
-.theme-tag {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  letter-spacing: 1px; text-transform: uppercase;
-  color: var(--grey); padding: 3px 8px;
-  border: 1px solid var(--border);
-}
+.puzzle-themes { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+.theme-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--grey); padding: 3px 8px; border: 1px solid var(--border); }
 
 /* animations */
 @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
 @keyframes slideIn { from { opacity:0; transform:translateX(30px); } to { opacity:1; transform:translateX(0); } }
 @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-
 #dash         { animation: fadeIn  0.4s ease both; }
 #hourly       { animation: slideIn 0.3s ease both; }
 #chess-screen { animation: slideUp 0.3s ease both; }
@@ -480,9 +252,7 @@ body::after {
 </head>
 <body>
 
-<!-- ════════════════════════════
-     SCREEN 1: MAIN DASHBOARD
-════════════════════════════ -->
+<!-- ════════════════ SCREEN 1: DASHBOARD ════════════════ -->
 <div id="dash" class="screen">
 
   <div class="topbar">
@@ -511,22 +281,22 @@ body::after {
       <div class="divider"></div>
       <div class="forecast">
         <div class="fc" onclick="showHourly(1)">
-          <div class="fc-day"  id="d1-name">--</div>
+          <div class="fc-day" id="d1-name">--</div>
           <div><span class="fc-badge" id="d1-icon">---</span></div>
           <div><div class="fc-hi" id="d1-hi">--</div><div class="fc-lo" id="d1-lo">--</div><div class="fc-cond" id="d1-cond"></div></div>
         </div>
         <div class="fc" onclick="showHourly(2)">
-          <div class="fc-day"  id="d2-name">--</div>
+          <div class="fc-day" id="d2-name">--</div>
           <div><span class="fc-badge" id="d2-icon">---</span></div>
           <div><div class="fc-hi" id="d2-hi">--</div><div class="fc-lo" id="d2-lo">--</div><div class="fc-cond" id="d2-cond"></div></div>
         </div>
         <div class="fc" onclick="showHourly(3)">
-          <div class="fc-day"  id="d3-name">--</div>
+          <div class="fc-day" id="d3-name">--</div>
           <div><span class="fc-badge" id="d3-icon">---</span></div>
           <div><div class="fc-hi" id="d3-hi">--</div><div class="fc-lo" id="d3-lo">--</div><div class="fc-cond" id="d3-cond"></div></div>
         </div>
         <div class="fc" onclick="showHourly(4)">
-          <div class="fc-day"  id="d4-name">--</div>
+          <div class="fc-day" id="d4-name">--</div>
           <div><span class="fc-badge" id="d4-icon">---</span></div>
           <div><div class="fc-hi" id="d4-hi">--</div><div class="fc-lo" id="d4-lo">--</div><div class="fc-cond" id="d4-cond"></div></div>
         </div>
@@ -535,54 +305,84 @@ body::after {
 
     <div class="dateblock">
       <div>
-        <div class="d-num"     id="d-num">--</div>
-        <div class="d-month"   id="d-month">---</div>
-        <div class="d-year"    id="d-year">----</div>
+        <div class="d-num"   id="d-num">--</div>
+        <div class="d-month" id="d-month">---</div>
+        <div class="d-year"  id="d-year">----</div>
       </div>
-      <div class="d-weekday"   id="d-weekday">---</div>
+      <div class="d-weekday" id="d-weekday">---</div>
     </div>
-  </div>
+  </div><!-- /main -->
 
+  <!-- BOTTOM: 4 panels -->
   <div class="bottom">
 
-    <!-- CHESS LAUNCH -->
-    <div class="chess-launch">
-      <div class="chess-launch-label">// daily challenge</div>
+    <!-- 1: CHESS -->
+    <div class="bot-panel">
+      <div class="panel-label">// daily challenge</div>
       <button class="chess-launch-btn" onclick="showChess()">
         <span class="chess-icon">♟</span>
-        PLAY CHESS PUZZLE OF THE DAY
+        CHESS PUZZLE
       </button>
-      <div class="chess-launch-meta">
-        Today's Rating: <span class="chess-launch-rating" id="launch-rating">Loading...</span>
+      <div class="chess-meta">Rating: <span class="chess-rating-inline" id="launch-rating">Loading...</span></div>
+    </div>
+
+    <!-- 2: MOON -->
+    <div class="bot-panel">
+      <div class="panel-label">// moon phase</div>
+      <div class="moon-glyph" id="moon-glyph">🌑</div>
+      <div>
+        <div class="moon-name" id="moon-name">--</div>
+        <div class="moon-pct"  id="moon-pct">--</div>
       </div>
     </div>
 
-    <!-- MARKETS -->
-    <div class="markets-panel">
-      <div class="panel-label">// markets</div>
-      <div class="mkt-grid">
-        <div class="mkt"><div class="mkt-name">S&amp;P 500</div><div class="mkt-price" id="sp-price">--</div><div class="mkt-chg flat" id="sp-chg">--</div></div>
-        <div class="mkt"><div class="mkt-name">Nasdaq</div><div class="mkt-price" id="nq-price">--</div><div class="mkt-chg flat" id="nq-chg">--</div></div>
-        <div class="mkt"><div class="mkt-name">Dow</div><div class="mkt-price" id="dj-price">--</div><div class="mkt-chg flat" id="dj-chg">--</div></div>
-        <div class="mkt"><div class="mkt-name">Bitcoin</div><div class="mkt-price" id="btc-price">--</div><div class="mkt-chg flat" id="btc-chg">--</div></div>
+    <!-- 3: VINYL -->
+    <div class="bot-panel">
+      <div class="panel-label">// spin today</div>
+      <div>
+        <div class="vinyl-artist" id="vinyl-artist">--</div>
+        <div class="vinyl-album"  id="vinyl-album">--</div>
+        <div class="vinyl-year"   id="vinyl-year">--</div>
+      </div>
+      <div class="vinyl-disc">💿</div>
+    </div>
+
+    <!-- 4: SUN / UV -->
+    <div class="bot-panel">
+      <div class="panel-label">// sun &amp; uv</div>
+      <div>
+        <div class="sun-row">
+          <span class="sun-label">Sunrise</span>
+          <span class="sun-val" id="sun-rise">--</span>
+        </div>
+        <div class="sun-row">
+          <span class="sun-label">Sunset</span>
+          <span class="sun-val" id="sun-set">--</span>
+        </div>
+        <div class="sun-row">
+          <span class="sun-label">UV Index</span>
+          <span class="sun-val" id="uv-val">--</span>
+        </div>
+        <div class="sun-row">
+          <span class="sun-label">Daylight</span>
+          <span class="sun-val" id="daylight">--</span>
+        </div>
       </div>
     </div>
 
-  </div>
+  </div><!-- /bottom -->
 
   <div class="statusbar">
     <span><span class="sdot" id="dot-w"></span>WEATHER</span>
     <span><span class="sdot" id="dot-m"></span>MARKETS</span>
     <span><span class="sdot" id="dot-c"></span>PUZZLE</span>
     <span id="refreshed">--</span>
-    <span>DASHBOARD v3.0</span>
+    <span>DASHBOARD v4.0</span>
   </div>
 
-</div>
+</div><!-- /dash -->
 
-<!-- ════════════════════════════
-     SCREEN 2: HOURLY FORECAST
-════════════════════════════ -->
+<!-- ════════════════ SCREEN 2: HOURLY ════════════════ -->
 <div id="hourly" class="screen hidden">
   <div class="hourly-header">
     <div class="back-btn" onclick="showDash()"><span class="back-arrow">&#8592;</span> BACK</div>
@@ -597,21 +397,16 @@ body::after {
   </div>
   <div class="hourly-body">
     <div class="hourly-section-label">// hour by hour forecast</div>
-    <div class="hourly-grid" id="hourly-grid">
-      <div class="hourly-loading">Loading hourly data...</div>
-    </div>
+    <div class="hourly-grid" id="hourly-grid"><div class="hourly-loading">Loading...</div></div>
   </div>
   <div class="statusbar">
-    <span>HOURLY FORECAST</span>
-    <span>Benton Harbor, MI</span>
+    <span>HOURLY FORECAST · BENTON HARBOR, MI</span>
     <span id="h-refreshed">--</span>
     <span>TAP BACK TO RETURN HOME</span>
   </div>
 </div>
 
-<!-- ════════════════════════════
-     SCREEN 3: CHESS PUZZLE
-════════════════════════════ -->
+<!-- ════════════════ SCREEN 3: CHESS ════════════════ -->
 <div id="chess-screen" class="screen hidden">
   <div class="chess-header">
     <div class="back-btn" onclick="showDash()"><span class="back-arrow">&#8592;</span> BACK</div>
@@ -624,7 +419,6 @@ body::after {
       <div class="chess-rating-sub">Puzzle Rating</div>
     </div>
   </div>
-
   <div class="chess-body">
     <div class="chess-board-area">
       <div class="board-with-labels">
@@ -635,20 +429,17 @@ body::after {
         </div>
       </div>
     </div>
-
     <div class="chess-sidebar">
       <div>
         <div class="puzzle-turn-label">// your move</div>
         <div class="puzzle-turn"><span class="turn-color" id="cs-turn-color">--</span> TO MOVE</div>
         <div class="puzzle-instruction" id="cs-instruction">Find the best sequence of moves.</div>
       </div>
-
       <div>
         <div class="puzzle-divider"></div>
         <div class="puzzle-msg" id="cs-msg">Tap a piece to select it, then tap the destination square.</div>
         <div class="puzzle-progress" id="cs-progress"></div>
       </div>
-
       <div>
         <div class="puzzle-divider2"></div>
         <div class="puzzle-actions">
@@ -659,7 +450,6 @@ body::after {
       </div>
     </div>
   </div>
-
   <div class="statusbar">
     <span>LICHESS PUZZLE OF THE DAY</span>
     <span id="cs-refreshed">--</span>
@@ -675,13 +465,11 @@ function switchScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
   const el = document.getElementById(id);
   el.classList.remove('hidden');
-  el.style.animation = 'none';
-  el.offsetHeight;
-  el.style.animation = '';
+  el.style.animation = 'none'; el.offsetHeight; el.style.animation = '';
 }
-function showDash()   { switchScreen('dash'); }
-function showHourly(dayIndex) { buildHourlyScreen(dayIndex); switchScreen('hourly'); }
-function showChess()  { switchScreen('chess-screen'); }
+function showDash()            { switchScreen('dash'); }
+function showHourly(dayIndex)  { buildHourlyScreen(dayIndex); switchScreen('hourly'); }
+function showChess()           { switchScreen('chess-screen'); }
 
 // ════════════════════════════════════════════
 //  QUOTES
@@ -729,7 +517,7 @@ const DAYS_S = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 
 function tick() {
   const n = new Date(), h = n.getHours(), m = n.getMinutes().toString().padStart(2,'0');
-  const ampm = h >= 12 ? 'PM' : 'AM', h12 = (h%12||12).toString().padStart(2,'0');
+  const ampm = h>=12?'PM':'AM', h12=(h%12||12).toString().padStart(2,'0');
   document.getElementById('clock').textContent   = `${h12}:${m}`;
   document.getElementById('ampm').textContent    = ampm;
   document.getElementById('tb-date').textContent = `${DAYS[n.getDay()].toUpperCase()}  ·  ${MONTHS[n.getMonth()].toUpperCase()} ${n.getDate()}, ${n.getFullYear()}`;
@@ -741,11 +529,119 @@ function tick() {
 setInterval(tick, 1000); tick();
 
 // ════════════════════════════════════════════
+//  MOON PHASE — pure math, no API
+// ════════════════════════════════════════════
+function getMoonPhase() {
+  const now  = new Date();
+  const year = now.getFullYear(), month = now.getMonth()+1, day = now.getDate();
+  // Known new moon reference: Jan 6 2000
+  const ref  = new Date(2000, 0, 6);
+  const diff = (now - ref) / (1000*60*60*24);
+  const cycle = 29.53058867;
+  const age   = ((diff % cycle) + cycle) % cycle;
+  const pct   = Math.round((age / cycle) * 100);
+
+  let name, glyph;
+  if      (age < 1.85)  { name='New Moon';        glyph='🌑'; }
+  else if (age < 7.38)  { name='Waxing Crescent';  glyph='🌒'; }
+  else if (age < 9.22)  { name='First Quarter';    glyph='🌓'; }
+  else if (age < 14.76) { name='Waxing Gibbous';   glyph='🌔'; }
+  else if (age < 16.61) { name='Full Moon';         glyph='🌕'; }
+  else if (age < 22.15) { name='Waning Gibbous';   glyph='🌖'; }
+  else if (age < 23.99) { name='Last Quarter';      glyph='🌗'; }
+  else if (age < 29.53) { name='Waning Crescent';  glyph='🌘'; }
+  else                  { name='New Moon';          glyph='🌑'; }
+
+  document.getElementById('moon-glyph').textContent = glyph;
+  document.getElementById('moon-name').textContent  = name.toUpperCase();
+  document.getElementById('moon-pct').textContent   = `${pct}% illuminated`;
+}
+getMoonPhase();
+
+// ════════════════════════════════════════════
+//  VINYL PICK OF THE DAY
+// ════════════════════════════════════════════
+const VINYL = [
+  { artist:'Stevie Wonder',      album:'Songs in the Key of Life',     year:'1976' },
+  { artist:'Marvin Gaye',        album:"What's Going On",              year:'1971' },
+  { artist:'James Brown',        album:'Funky Drummer',                year:'1986' },
+  { artist:'Earth Wind & Fire',  album:'That\'s the Way of the World', year:'1975' },
+  { artist:'Sly & the Family Stone', album:'There\'s a Riot Goin On',  year:'1971' },
+  { artist:'Curtis Mayfield',    album:'Superfly',                     year:'1972' },
+  { artist:'Al Green',           album:'Let\'s Stay Together',         year:'1972' },
+  { artist:'Funkadelic',         album:'Maggot Brain',                 year:'1971' },
+  { artist:'Parliament',         album:'Mothership Connection',        year:'1975' },
+  { artist:'Isaac Hayes',        album:'Hot Buttered Soul',            year:'1969' },
+  { artist:'D\'Angelo',          album:'Voodoo',                       year:'2000' },
+  { artist:'Erykah Badu',        album:'Mama\'s Gun',                  year:'2000' },
+  { artist:'Lauryn Hill',        album:'The Miseducation of Lauryn Hill', year:'1998' },
+  { artist:'Maxwell',            album:'Urban Hang Suite',             year:'1996' },
+  { artist:'Jungle',             album:'Jungle',                       year:'2014' },
+  { artist:'Jungle',             album:'For Ever',                     year:'2018' },
+  { artist:'Jungle',             album:'Loving in Stereo',             year:'2021' },
+  { artist:'Jamiroquai',         album:'The Return of the Space Cowboy', year:'1994' },
+  { artist:'Jamiroquai',         album:'Travelling Without Moving',    year:'1996' },
+  { artist:'Jamiroquai',         album:'Synkronized',                  year:'1999' },
+  { artist:'Miles Davis',        album:'Kind of Blue',                 year:'1959' },
+  { artist:'Miles Davis',        album:'Bitches Brew',                 year:'1970' },
+  { artist:'John Coltrane',      album:'A Love Supreme',               year:'1965' },
+  { artist:'Herbie Hancock',     album:'Head Hunters',                 year:'1973' },
+  { artist:'Herbie Hancock',     album:'Thrust',                       year:'1974' },
+  { artist:'Roy Ayers',          album:'Everybody Loves the Sunshine', year:'1976' },
+  { artist:'Gil Scott-Heron',    album:'Pieces of a Man',              year:'1971' },
+  { artist:'Donny Hathaway',     album:'Donny Hathaway Live',          year:'1972' },
+  { artist:'Leon Bridges',       album:'Coming Home',                  year:'2015' },
+  { artist:'Anderson .Paak',     album:'Malibu',                       year:'2016' },
+  { artist:'Anderson .Paak',     album:'Ventura',                      year:'2019' },
+  { artist:'Hiatus Kaiyote',     album:'Choose Your Weapon',           year:'2015' },
+  { artist:'Thundercat',         album:'Drunk',                        year:'2017' },
+  { artist:'Thundercat',         album:'It Is What It Is',             year:'2020' },
+  { artist:'Kamasi Washington',  album:'The Epic',                     year:'2015' },
+  { artist:'Robert Glasper',     album:'Black Radio',                  year:'2012' },
+  { artist:'Sade',               album:'Diamond Life',                 year:'1984' },
+  { artist:'Sade',               album:'Stronger Than Pride',          year:'1988' },
+  { artist:'Nina Simone',        album:'Little Girl Blue',             year:'1958' },
+  { artist:'Bill Withers',       album:'Still Bill',                   year:'1972' },
+  { artist:'Prince',             album:'Sign \'O\' the Times',         year:'1987' },
+  { artist:'Prince',             album:'Purple Rain',                  year:'1984' },
+  { artist:'Chaka Khan',         album:'Chaka',                        year:'1978' },
+  { artist:'Terence Trent D\'Arby', album:'Introducing the Hardline', year:'1987' },
+  { artist:'Outkast',            album:'Aquemini',                     year:'1998' },
+  { artist:'Outkast',            album:'Stankonia',                    year:'2000' },
+  { artist:'The Roots',          album:'Things Fall Apart',            year:'1999' },
+  { artist:'Common',             album:'Like Water for Chocolate',     year:'2000' },
+  { artist:'Madlib',             album:'Shades of Blue',               year:'2003' },
+  { artist:'J Dilla',            album:'Donuts',                       year:'2006' },
+  { artist:'Little Dragon',      album:'Nabuma Rubberband',            year:'2014' },
+  { artist:'FKJ',                album:'French Kiwi Juice',            year:'2017' },
+  { artist:'Tom Misch',          album:'Geography',                    year:'2018' },
+  { artist:'Franc Moody',        album:'Dream in Colour',              year:'2020' },
+  { artist:'Parcels',            album:'Parcels',                      year:'2018' },
+  { artist:'Durand Jones',       album:'Private Space',                year:'2021' },
+  { artist:'Black Pumas',        album:'Black Pumas',                  year:'2019' },
+  { artist:'Lake Street Dive',   album:'Bad Self Portraits',           year:'2014' },
+];
+
+(function(){
+  const v = VINYL[Math.floor(Date.now()/86400000) % VINYL.length];
+  document.getElementById('vinyl-artist').textContent = v.artist.toUpperCase();
+  document.getElementById('vinyl-album').textContent  = v.album;
+  document.getElementById('vinyl-year').textContent   = v.year;
+})();
+
+// ════════════════════════════════════════════
 //  WEATHER
 // ════════════════════════════════════════════
 const WMO  = {0:'Clear',1:'Mostly Clear',2:'Partly Cloudy',3:'Overcast',45:'Fog',48:'Icy Fog',51:'Lt Drizzle',53:'Drizzle',55:'Hvy Drizzle',61:'Lt Rain',63:'Rain',65:'Hvy Rain',71:'Lt Snow',73:'Snow',75:'Hvy Snow',80:'Showers',81:'Showers',82:'Hvy Showers',85:'Snow Showers',95:'Thunderstorm',96:'Tstorm',99:'Severe Tstorm'};
 const WMOS = {0:'CLR',1:'CLR',2:'PTLY',3:'OVCT',45:'FOG',48:'FOG',51:'DRZL',53:'DRZL',55:'DRZL',61:'RAIN',63:'RAIN',65:'RAIN',71:'SNOW',73:'SNOW',75:'SNOW',80:'SHWR',81:'SHWR',82:'SHWR',85:'SNOW',95:'STRM',96:'STRM',99:'STRM'};
 let weatherData = null;
+
+function fmtTime(iso) {
+  const d = new Date(iso);
+  let h = d.getHours(), m = d.getMinutes().toString().padStart(2,'0');
+  const ap = h>=12?'PM':'AM'; h=h%12||12;
+  return `${h}:${m} ${ap}`;
+}
 
 async function loadWeather() {
   try {
@@ -753,28 +649,48 @@ async function loadWeather() {
       'https://api.open-meteo.com/v1/forecast' +
       '?latitude=42.116&longitude=-86.454' +
       '&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code' +
-      '&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max' +
+      '&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max,uv_index_max,sunrise,sunset' +
       '&hourly=temperature_2m,weather_code,precipitation_probability,wind_speed_10m' +
       '&temperature_unit=fahrenheit&wind_speed_unit=mph&forecast_days=5&timezone=America%2FChicago'
     );
     weatherData = await r.json();
-    const c = weatherData.current;
+    const c = weatherData.current, d = weatherData.daily;
+
     document.getElementById('today-temp').textContent = Math.round(c.temperature_2m);
     document.getElementById('today-cond').textContent = WMO[c.weather_code] || 'Unknown';
     document.getElementById('today-meta').textContent =
       `Feels like ${Math.round(c.apparent_temperature)}°\nHumidity ${c.relative_humidity_2m}%\nWind ${Math.round(c.wind_speed_10m)} mph`;
     document.getElementById('today-hilo').textContent =
-      `H:${Math.round(weatherData.daily.temperature_2m_max[0])}°  L:${Math.round(weatherData.daily.temperature_2m_min[0])}°`;
-    for (let i = 1; i <= 4; i++) {
-      const dt  = new Date(weatherData.daily.time[i]+'T12:00:00');
-      const pop = weatherData.daily.precipitation_probability_max[i];
-      const cd  = weatherData.daily.weather_code[i];
+      `H:${Math.round(d.temperature_2m_max[0])}°  L:${Math.round(d.temperature_2m_min[0])}°`;
+
+    for (let i=1;i<=4;i++) {
+      const dt  = new Date(d.time[i]+'T12:00:00');
+      const pop = d.precipitation_probability_max[i];
+      const cd  = d.weather_code[i];
       document.getElementById(`d${i}-name`).textContent = DAYS_S[dt.getDay()];
-      document.getElementById(`d${i}-icon`).textContent = WMOS[cd] || '---';
-      document.getElementById(`d${i}-hi`).textContent   = `${Math.round(weatherData.daily.temperature_2m_max[i])}°`;
-      document.getElementById(`d${i}-lo`).textContent   = `${Math.round(weatherData.daily.temperature_2m_min[i])}°`;
-      document.getElementById(`d${i}-cond`).textContent = pop > 20 ? `${pop}% precip` : '';
+      document.getElementById(`d${i}-icon`).textContent = WMOS[cd]||'---';
+      document.getElementById(`d${i}-hi`).textContent   = `${Math.round(d.temperature_2m_max[i])}°`;
+      document.getElementById(`d${i}-lo`).textContent   = `${Math.round(d.temperature_2m_min[i])}°`;
+      document.getElementById(`d${i}-cond`).textContent = pop>20?`${pop}% precip`:'';
     }
+
+    // Sun & UV
+    const sunrise  = fmtTime(d.sunrise[0]);
+    const sunset   = fmtTime(d.sunset[0]);
+    const uv       = d.uv_index_max[0];
+    const riseMs   = new Date(d.sunrise[0]).getTime();
+    const setMs    = new Date(d.sunset[0]).getTime();
+    const daylightMin = Math.round((setMs - riseMs) / 60000);
+    const dlH = Math.floor(daylightMin/60), dlM = daylightMin%60;
+
+    document.getElementById('sun-rise').textContent  = sunrise;
+    document.getElementById('sun-set').textContent   = sunset;
+    document.getElementById('daylight').textContent  = `${dlH}H ${dlM}M`;
+
+    const uvEl = document.getElementById('uv-val');
+    uvEl.textContent = uv;
+    uvEl.className   = `sun-val ${uv<=2?'uv-low':uv<=5?'uv-mod':'uv-high'}`;
+
     document.getElementById('dot-w').classList.add('on');
     stamp();
   } catch { document.getElementById('today-cond').textContent = 'Unavailable'; }
@@ -783,15 +699,15 @@ loadWeather();
 setInterval(loadWeather, 600000);
 
 // ════════════════════════════════════════════
-//  HOURLY SCREEN BUILD
+//  HOURLY SCREEN
 // ════════════════════════════════════════════
 function buildHourlyScreen(dayIndex) {
   if (!weatherData) return;
   const dayDate = weatherData.daily.time[dayIndex];
-  const dt      = new Date(dayDate + 'T12:00:00');
+  const dt      = new Date(dayDate+'T12:00:00');
   const hiTemp  = Math.round(weatherData.daily.temperature_2m_max[dayIndex]);
   const loTemp  = Math.round(weatherData.daily.temperature_2m_min[dayIndex]);
-  const dayCond = WMO[weatherData.daily.weather_code[dayIndex]] || '--';
+  const dayCond = WMO[weatherData.daily.weather_code[dayIndex]]||'--';
   const nowHour = new Date().getHours();
   const isToday = dayDate === weatherData.daily.time[0];
 
@@ -801,18 +717,18 @@ function buildHourlyScreen(dayIndex) {
   document.getElementById('h-cond').textContent    = dayCond.toUpperCase();
 
   const startIdx = weatherData.hourly.time.findIndex(t => t.startsWith(dayDate));
-  if (startIdx < 0) { document.getElementById('hourly-grid').innerHTML = '<div class="hourly-loading">Hourly data unavailable</div>'; return; }
+  if (startIdx<0) { document.getElementById('hourly-grid').innerHTML='<div class="hourly-loading">Data unavailable</div>'; return; }
 
-  const hours = [0,3,6,9,12,15,18,21];
-  const grid  = document.getElementById('hourly-grid');
-  grid.innerHTML = '';
+  const hours=[0,3,6,9,12,15,18,21];
+  const grid = document.getElementById('hourly-grid');
+  grid.innerHTML='';
   hours.forEach(h => {
-    const idx  = startIdx + h;
+    const idx  = startIdx+h;
     const temp = Math.round(weatherData.hourly.temperature_2m[idx]);
     const code = weatherData.hourly.weather_code[idx];
-    const pop  = weatherData.hourly.precipitation_probability[idx] || 0;
+    const pop  = weatherData.hourly.precipitation_probability[idx]||0;
     const wind = Math.round(weatherData.hourly.wind_speed_10m[idx]);
-    const isNow = isToday && h === Math.floor(nowHour/3)*3;
+    const isNow = isToday && h===Math.floor(nowHour/3)*3;
     const label = h===0?'12 AM':h<12?`${h} AM`:h===12?'12 PM':`${h-12} PM`;
     const card  = document.createElement('div');
     card.className = `hour-card${isNow?' is-now':''}`;
@@ -823,473 +739,243 @@ function buildHourlyScreen(dayIndex) {
 }
 
 // ════════════════════════════════════════════
-//  CHESS PUZZLE ENGINE
+//  CHESS ENGINE
 // ════════════════════════════════════════════
 const PIECES = {
   'K':'♔','Q':'♕','R':'♖','B':'♗','N':'♘','P':'♙',
   'k':'♚','q':'♛','r':'♜','b':'♝','n':'♞','p':'♟'
 };
+const INIT_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
-let puzzleData   = null;
-let board        = [];
-let initBoard    = [];
-let solMoves     = [];
-let moveIdx      = 0;
-let selectedSq   = null;
-let playerColor  = 'w';
-let lastFrom     = null;
-let lastTo       = null;
-let puzzleSolved = false;
-let legalTargets = [];
+let puzzleData=null, board=[], initBoard=[], solMoves=[], moveIdx=0;
+let selectedSq=null, playerColor='w', lastFrom=null, lastTo=null;
+let puzzleSolved=false, legalTargets=[];
 
 function fenToBoard(fen) {
-  const rows = fen.split(' ')[0].split('/');
-  return rows.map(row => {
-    const r = [];
-    for (const ch of row) {
-      if (/\d/.test(ch)) for (let i=0;i<+ch;i++) r.push('');
-      else r.push(ch);
-    }
+  return fen.split(' ')[0].split('/').map(row => {
+    const r=[];
+    for (const ch of row) { if(/\d/.test(ch)) for(let i=0;i<+ch;i++) r.push(''); else r.push(ch); }
     return r;
   });
 }
 
 function uciCoords(uci) {
-  return {
-    fr: 8 - parseInt(uci[1]),
-    fc: uci.charCodeAt(0) - 97,
-    tr: 8 - parseInt(uci[3]),
-    tc: uci.charCodeAt(2) - 97,
-    promo: uci[4] || null
-  };
+  return { fr:8-parseInt(uci[1]), fc:uci.charCodeAt(0)-97, tr:8-parseInt(uci[3]), tc:uci.charCodeAt(2)-97, promo:uci[4]||null };
 }
 
+function squareToUCI(r,c) { return String.fromCharCode(97+c)+(8-r); }
+
 function applyMove(b, uci) {
-  const nb = b.map(r => [...r]);
-  const {fr,fc,tr,tc,promo} = uciCoords(uci);
-  const piece = nb[fr][fc];
-  if (!piece) return nb;
-  const isWhite = piece === piece.toUpperCase();
-  nb[tr][tc] = promo ? (isWhite ? promo.toUpperCase() : promo.toLowerCase()) : piece;
-  nb[fr][fc] = '';
-  // castling
-  if (piece==='K'&&fc===4&&tc===6){ nb[7][5]=nb[7][7]; nb[7][7]=''; }
-  if (piece==='K'&&fc===4&&tc===2){ nb[7][3]=nb[7][0]; nb[7][0]=''; }
-  if (piece==='k'&&fc===4&&tc===6){ nb[0][5]=nb[0][7]; nb[0][7]=''; }
-  if (piece==='k'&&fc===4&&tc===2){ nb[0][3]=nb[0][0]; nb[0][0]=''; }
-  // en passant
-  if ((piece==='P'||piece==='p') && fc!==tc && nb[tr][tc]===piece) {
-    nb[fr][tc]='';
-  }
+  const nb=b.map(r=>[...r]);
+  const {fr,fc,tr,tc,promo}=uciCoords(uci);
+  const piece=nb[fr][fc];
+  if(!piece) return nb;
+  const isW=piece===piece.toUpperCase();
+  nb[tr][tc]=promo?(isW?promo.toUpperCase():promo.toLowerCase()):piece;
+  nb[fr][fc]='';
+  if(piece==='K'&&fc===4&&tc===6){nb[7][5]=nb[7][7];nb[7][7]='';}
+  if(piece==='K'&&fc===4&&tc===2){nb[7][3]=nb[7][0];nb[7][0]='';}
+  if(piece==='k'&&fc===4&&tc===6){nb[0][5]=nb[0][7];nb[0][7]='';}
+  if(piece==='k'&&fc===4&&tc===2){nb[0][3]=nb[0][0];nb[0][0]='';}
+  if((piece==='P'||piece==='p')&&fc!==tc&&!nb[tr][tc]) nb[fr][tc]='';
   return nb;
 }
 
-// Generate basic legal destination squares for a piece (for hints)
-function getLegalTargets(b, r, c) {
-  const piece = b[r][c];
-  if (!piece) return [];
-  const isWhite = piece === piece.toUpperCase();
-  const targets = [];
-  const p = piece.toLowerCase();
-
-  const inBounds = (r,c) => r>=0&&r<8&&c>=0&&c<8;
-  const isEnemy  = (r,c) => b[r][c] && (b[r][c]===b[r][c].toUpperCase()) !== isWhite;
-  const isEmpty  = (r,c) => inBounds(r,c) && !b[r][c];
-  const canLand  = (r,c) => inBounds(r,c) && (!b[r][c] || isEnemy(r,c));
-
-  const slide = (dr, dc) => {
-    let nr=r+dr, nc=c+dc;
-    while(inBounds(nr,nc)) {
-      if (b[nr][nc]) { if(isEnemy(nr,nc)) targets.push([nr,nc]); break; }
-      targets.push([nr,nc]); nr+=dr; nc+=dc;
-    }
-  };
-
-  if (p==='p') {
-    const dir = isWhite ? -1 : 1;
-    const start = isWhite ? 6 : 1;
-    if (isEmpty(r+dir,c)) { targets.push([r+dir,c]); if(r===start && isEmpty(r+2*dir,c)) targets.push([r+2*dir,c]); }
-    [[r+dir,c-1],[r+dir,c+1]].forEach(([nr,nc])=>{ if(inBounds(nr,nc)&&isEnemy(nr,nc)) targets.push([nr,nc]); });
-  } else if (p==='n') {
-    [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]].forEach(([dr,dc])=>{ if(canLand(r+dr,c+dc)) targets.push([r+dr,c+dc]); });
-  } else if (p==='b') {
-    [[-1,-1],[-1,1],[1,-1],[1,1]].forEach(([dr,dc])=>slide(dr,dc));
-  } else if (p==='r') {
-    [[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc])=>slide(dr,dc));
-  } else if (p==='q') {
-    [[-1,-1],[-1,1],[1,-1],[1,1],[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc])=>slide(dr,dc));
-  } else if (p==='k') {
-    [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]].forEach(([dr,dc])=>{ if(canLand(r+dr,c+dc)) targets.push([r+dr,c+dc]); });
-  }
+function getLegalTargets(b,r,c) {
+  const piece=b[r][c]; if(!piece) return [];
+  const isW=piece===piece.toUpperCase(), targets=[], p=piece.toLowerCase();
+  const inB=(r,c)=>r>=0&&r<8&&c>=0&&c<8;
+  const isEn=(r,c)=>b[r][c]&&(b[r][c]===b[r][c].toUpperCase())!==isW;
+  const isEmpty=(r,c)=>inB(r,c)&&!b[r][c];
+  const canLand=(r,c)=>inB(r,c)&&(!b[r][c]||isEn(r,c));
+  const slide=(dr,dc)=>{ let nr=r+dr,nc=c+dc; while(inB(nr,nc)){if(b[nr][nc]){if(isEn(nr,nc))targets.push([nr,nc]);break;} targets.push([nr,nc]);nr+=dr;nc+=dc;} };
+  if(p==='p'){const dir=isW?-1:1,start=isW?6:1; if(isEmpty(r+dir,c)){targets.push([r+dir,c]);if(r===start&&isEmpty(r+2*dir,c))targets.push([r+2*dir,c]);} [[r+dir,c-1],[r+dir,c+1]].forEach(([nr,nc])=>{if(inB(nr,nc)&&isEn(nr,nc))targets.push([nr,nc]);});}
+  else if(p==='n'){[[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]].forEach(([dr,dc])=>{if(canLand(r+dr,c+dc))targets.push([r+dr,c+dc]);});}
+  else if(p==='b'){[[-1,-1],[-1,1],[1,-1],[1,1]].forEach(([dr,dc])=>slide(dr,dc));}
+  else if(p==='r'){[[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc])=>slide(dr,dc));}
+  else if(p==='q'){[[-1,-1],[-1,1],[1,-1],[1,1],[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc])=>slide(dr,dc));}
+  else if(p==='k'){[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]].forEach(([dr,dc])=>{if(canLand(r+dr,c+dc))targets.push([r+dr,c+dc]);});}
   return targets;
 }
 
-function renderBoard() {
-  const el = document.getElementById('chess-board');
-  if (!el) return;
-  el.innerHTML = '';
-
-  // Row and col labels
-  const rowLabels = document.getElementById('row-labels');
-  const colLabels = document.getElementById('col-labels');
-  if (rowLabels) {
-    rowLabels.innerHTML = '';
-    for (let r=0;r<8;r++) {
-      const span = document.createElement('div');
-      span.textContent = 8-r;
-      span.style.cssText = 'height:64px;display:flex;align-items:center;font-family:DM Mono,monospace;font-size:11px;color:var(--grey);';
-      rowLabels.appendChild(span);
-    }
-  }
-  if (colLabels) {
-    colLabels.innerHTML = '';
-    'abcdefgh'.split('').forEach(l => {
-      const span = document.createElement('div');
-      span.textContent = l;
-      span.style.cssText = 'width:64px;text-align:center;font-family:DM Mono,monospace;font-size:11px;color:var(--grey);';
-      colLabels.appendChild(span);
-    });
-  }
-
-  for (let r=0;r<8;r++) {
-    for (let c=0;c<8;c++) {
-      const sq  = document.createElement('div');
-      const isLight = (r+c)%2===0;
-      sq.className  = `sq ${isLight?'light':'dark'}`;
-      sq.dataset.r  = r;
-      sq.dataset.c  = c;
-
-      if (lastFrom && lastFrom[0]===r && lastFrom[1]===c) sq.classList.add('last-from');
-      if (lastTo   && lastTo[0]===r   && lastTo[1]===c)   sq.classList.add('last-to');
-      if (selectedSq && selectedSq[0]===r && selectedSq[1]===c) sq.classList.add('selected');
-      if (legalTargets.some(([tr,tc])=>tr===r&&tc===c)) sq.classList.add('hint');
-
-      const piece = board[r]?.[c];
-      if (piece && PIECES[piece]) {
-        sq.textContent  = PIECES[piece];
-        // color the piece text
-        sq.style.color  = piece===piece.toUpperCase() ? '#f0f4f8' : '#00e5ff';
-        sq.style.textShadow = piece===piece.toUpperCase()
-          ? '0 1px 3px rgba(0,0,0,0.8)'
-          : '0 0 8px rgba(0,229,255,0.6)';
-      }
-
-      sq.addEventListener('click', () => handleSquareClick(r, c));
-      el.appendChild(sq);
-    }
-  }
-}
-
-function handleSquareClick(r, c) {
-  if (puzzleSolved) return;
-
-  const piece = board[r]?.[c];
-  const isPlayerPiece = piece && (
-    (playerColor==='w' && piece===piece.toUpperCase()) ||
-    (playerColor==='b' && piece===piece.toLowerCase() && piece!==piece.toUpperCase())
-  );
-
-  // If clicking a hint square (legal target) — attempt move
-  if (selectedSq && legalTargets.some(([tr,tc])=>tr===r&&tc===c)) {
-    attemptMove(selectedSq[0], selectedSq[1], r, c);
-    return;
-  }
-
-  // If clicking own piece — select it
-  if (isPlayerPiece) {
-    selectedSq   = [r, c];
-    legalTargets = getLegalTargets(board, r, c);
-    renderBoard();
-    return;
-  }
-
-  // Clicking elsewhere — deselect
-  selectedSq   = null;
-  legalTargets = [];
-  renderBoard();
-}
-
-function squareToUCI(r, c) {
-  return String.fromCharCode(97+c) + (8-r);
-}
-
-function attemptMove(fr, fc, tr, tc) {
-  const uci  = squareToUCI(fr,fc) + squareToUCI(tr,tc);
-  const expected = solMoves[moveIdx];
-
-  // Accept with or without promotion suffix for simplicity
-  const matches = uci === expected || uci === expected.slice(0,4);
-
-  if (matches) {
-    // Apply player move
-    board    = applyMove(board, expected);
-    lastFrom = [fr,fc]; lastTo = [tr,tc];
-    selectedSq = null; legalTargets = [];
-    moveIdx++;
-
-    const remaining = solMoves.length - moveIdx;
-
-    if (moveIdx >= solMoves.length) {
-      // Solved!
-      puzzleSolved = true;
-      setMsg('Puzzle solved! Well played.', 'solved');
-      setProgress('Complete');
-      document.getElementById('dot-c').classList.add('on');
-      renderBoard();
-      return;
-    }
-
-    setMsg('Correct! Keep going...', 'correct');
-    setProgress(`Move ${moveIdx} of ${solMoves.length}`);
-    renderBoard();
-
-    // Play opponent's response after short delay
-    setTimeout(() => {
-      const oppMove = solMoves[moveIdx];
-      const {fr:ofr,fc:ofc,tr:otr,tc:otc} = uciCoords(oppMove);
-      board    = applyMove(board, oppMove);
-      lastFrom = [ofr,ofc]; lastTo = [otr,otc];
-      moveIdx++;
-
-      if (moveIdx >= solMoves.length) {
-        puzzleSolved = true;
-        setMsg('Puzzle solved! Well played.', 'solved');
-        setProgress('Complete');
-        document.getElementById('dot-c').classList.add('on');
-      } else {
-        setMsg('Your turn again.', '');
-        setProgress(`Move ${moveIdx+1} of ${solMoves.length}`);
-      }
-      renderBoard();
-    }, 600);
-
-  } else {
-    // Wrong move
-    setMsg('Not quite — try again.', 'wrong');
-    selectedSq = null; legalTargets = [];
-    renderBoard();
-    // Flash wrong then clear
-    setTimeout(() => {
-      setMsg('Find the best move.', '');
-    }, 1500);
-  }
-}
-
-function setMsg(text, cls) {
-  const el = document.getElementById('cs-msg');
-  el.textContent = text;
-  el.className   = `puzzle-msg${cls?' '+cls:''}`;
-}
-
-function setProgress(text) {
-  document.getElementById('cs-progress').textContent = text;
-}
-
-function resetPuzzle() {
-  if (!puzzleData) return;
-  board        = initBoard.map(r=>[...r]);
-  moveIdx      = 0;
-  selectedSq   = null;
-  legalTargets = [];
-  lastFrom     = null;
-  lastTo       = null;
-  puzzleSolved = false;
-  setMsg('Tap a piece to select it, then tap the destination square.', '');
-  setProgress(`Move 1 of ${solMoves.length}`);
-  renderBoard();
-}
-
-function revealSolution() {
-  if (!puzzleData) return;
-  // Show moves as UCI notation
-  const moveList = solMoves.map((m,i) => `${i+1}. ${m}`).join('  ');
-  setMsg(`Solution: ${moveList}`, 'solved');
-  puzzleSolved = true;
-  // Play through full solution visually
-  let i = 0;
-  board = initBoard.map(r=>[...r]);
-  const step = () => {
-    if (i >= solMoves.length) return;
-    const m = solMoves[i];
-    const {fr,fc,tr,tc} = uciCoords(m);
-    board = applyMove(board, m);
-    lastFrom = [fr,fc]; lastTo = [tr,tc];
-    renderBoard();
-    i++;
-    if (i < solMoves.length) setTimeout(step, 800);
-  };
-  setTimeout(step, 300);
-}
-
-// ── PGN → UCI converter ─────────────────────
-// Converts algebraic PGN moves to UCI format by replaying on a board
-// Uses a full move generator to resolve ambiguous piece moves
-
-const INIT_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-
-function initBoardFromFen(fen) {
-  return fenToBoard(fen);
-}
-
-// Get all pseudo-legal moves for color as UCI strings
-function allMoves(b, color) {
-  const moves = [];
-  for (let r=0;r<8;r++) {
-    for (let c=0;c<8;c++) {
-      const piece = b[r][c];
-      if (!piece) continue;
-      const isW = piece === piece.toUpperCase();
-      if ((color==='w') !== isW) continue;
-      const targets = getLegalTargets(b, r, c);
-      for (const [tr,tc] of targets) {
-        const uci = squareToUCI(r,c) + squareToUCI(tr,tc);
-        // pawn promotion
-        if ((piece==='P'&&tr===0)||(piece==='p'&&tr===7)) {
-          for (const promo of ['q','r','b','n']) moves.push(uci+promo);
-        } else {
-          moves.push(uci);
-        }
-      }
+function allMoves(b,color) {
+  const moves=[];
+  for(let r=0;r<8;r++) for(let c=0;c<8;c++){
+    const piece=b[r][c]; if(!piece) continue;
+    const isW=piece===piece.toUpperCase();
+    if((color==='w')!==isW) continue;
+    for(const [tr,tc] of getLegalTargets(b,r,c)){
+      const uci=squareToUCI(r,c)+squareToUCI(tr,tc);
+      if((piece==='P'&&tr===0)||(piece==='p'&&tr===7)) for(const p of ['q','r','b','n']) moves.push(uci+p);
+      else moves.push(uci);
     }
   }
   return moves;
 }
 
-// Parse a single SAN move into UCI given current board and turn
-function sanToUci(b, san, color) {
-  // strip check/mate indicators and annotations
-  const clean = san.replace(/[+#!?]/g,'').trim();
-
-  // Castling
-  if (clean==='O-O'||clean==='0-0') {
-    return color==='w' ? 'e1g1' : 'e8g8';
-  }
-  if (clean==='O-O-O'||clean==='0-0-0') {
-    return color==='w' ? 'e1c1' : 'e8c8';
-  }
-
-  // Parse SAN: [piece][fromHint][x][toSquare][=promo]
-  let piece = 'P', fromFile='', fromRank='', toSq='', promo='';
-  let s = clean;
-
-  // promotion
-  if (s.includes('=')) { const sp=s.split('='); s=sp[0]; promo=sp[1].toLowerCase(); }
-
-  // piece type
-  if (/^[KQRBN]/.test(s)) { piece=s[0]; s=s.slice(1); }
-
-  // capture indicator
-  s = s.replace('x','');
-
-  // destination is last 2 chars
-  toSq = s.slice(-2);
-  s    = s.slice(0,-2);
-
-  // remainder is disambiguation hint
-  if (s.length===2) { fromFile=s[0]; fromRank=s[1]; }
-  else if (s.length===1) { if(/[a-h]/.test(s)) fromFile=s; else fromRank=s; }
-
-  const tr = 8 - parseInt(toSq[1]);
-  const tc = toSq.charCodeAt(0) - 97;
-
-  // Find matching move
-  const candidates = allMoves(b, color).filter(uci => {
-    const {fr,fc,tr:utr,tc:utc,promo:upromo} = uciCoords(uci);
-    if (utr!==tr||utc!==tc) return false;
-    if (promo && upromo !== promo) return false;
-    const p = b[fr][fc];
-    if (!p) return false;
-    const pl = p.toLowerCase();
-    // piece match
-    if (piece==='P' && pl!=='p') return false;
-    if (piece!=='P' && pl!==piece.toLowerCase()) return false;
-    // disambiguation
-    const file = String.fromCharCode(97+fc);
-    const rank = String(8-fr);
-    if (fromFile && file!==fromFile) return false;
-    if (fromRank && rank!==fromRank) return false;
+function sanToUci(b,san,color) {
+  const clean=san.replace(/[+#!?]/g,'').trim();
+  if(clean==='O-O'||clean==='0-0')   return color==='w'?'e1g1':'e8g8';
+  if(clean==='O-O-O'||clean==='0-0-0') return color==='w'?'e1c1':'e8c8';
+  let piece='P',fromFile='',fromRank='',promo='',s=clean;
+  if(s.includes('=')){const sp=s.split('=');s=sp[0];promo=sp[1].toLowerCase();}
+  if(/^[KQRBN]/.test(s)){piece=s[0];s=s.slice(1);}
+  s=s.replace('x','');
+  const toSq=s.slice(-2); s=s.slice(0,-2);
+  if(s.length===2){fromFile=s[0];fromRank=s[1];}
+  else if(s.length===1){if(/[a-h]/.test(s))fromFile=s;else fromRank=s;}
+  const tr=8-parseInt(toSq[1]),tc=toSq.charCodeAt(0)-97;
+  const candidates=allMoves(b,color).filter(uci=>{
+    const {fr,fc,tr:utr,tc:utc,promo:up}=uciCoords(uci);
+    if(utr!==tr||utc!==tc) return false;
+    if(promo&&up!==promo) return false;
+    const p=b[fr][fc]; if(!p) return false;
+    const pl=p.toLowerCase();
+    if(piece==='P'&&pl!=='p') return false;
+    if(piece!=='P'&&pl!==piece.toLowerCase()) return false;
+    const file=String.fromCharCode(97+fc),rank=String(8-fr);
+    if(fromFile&&file!==fromFile) return false;
+    if(fromRank&&rank!==fromRank) return false;
     return true;
   });
-
-  return candidates[0] || null;
+  return candidates[0]||null;
 }
 
-// Replay PGN to given ply count, return board
-function replayPgn(pgn, targetPly) {
-  // Strip move numbers and comments
-  let text = pgn
-    .replace(/\{[^}]*\}/g,'')
-    .replace(/\([^)]*\)/g,'')
-    .replace(/\d+\.\s*/g,' ')
-    .replace(/1-0|0-1|1\/2-1\/2|\*/g,'')
-    .trim();
-
-  const tokens = text.split(/\s+/).filter(t=>t.length>0);
-  let b     = initBoardFromFen(INIT_FEN);
-  let color = 'w';
-  let ply   = 0;
-
-  for (const san of tokens) {
-    if (ply >= targetPly) break;
-    const uci = sanToUci(b, san, color);
-    if (!uci) { console.warn('SAN parse failed:', san, 'ply', ply); break; }
-    b     = applyMove(b, uci);
-    color = color==='w' ? 'b' : 'w';
-    ply++;
+function replayPgn(pgn,targetPly) {
+  let text=pgn.replace(/\{[^}]*\}/g,'').replace(/\([^)]*\)/g,'').replace(/\d+\.\s*/g,' ').replace(/1-0|0-1|1\/2-1\/2|\*/g,'').trim();
+  const tokens=text.split(/\s+/).filter(t=>t.length>0);
+  let b=fenToBoard(INIT_FEN),color='w',ply=0;
+  for(const san of tokens){
+    if(ply>=targetPly) break;
+    const uci=sanToUci(b,san,color);
+    if(!uci){console.warn('SAN failed:',san,'ply',ply);break;}
+    b=applyMove(b,uci); color=color==='w'?'b':'w'; ply++;
   }
-  return { board: b, turn: color };
+  return {board:b,turn:color};
+}
+
+function renderBoard() {
+  const el=document.getElementById('chess-board'); if(!el) return;
+  el.innerHTML='';
+  const rowL=document.getElementById('row-labels');
+  const colL=document.getElementById('col-labels');
+  if(rowL){rowL.innerHTML='';for(let r=0;r<8;r++){const s=document.createElement('div');s.textContent=8-r;s.style.cssText='height:64px;display:flex;align-items:center;font-family:DM Mono,monospace;font-size:11px;color:var(--grey);';rowL.appendChild(s);}}
+  if(colL){colL.innerHTML='';'abcdefgh'.split('').forEach(l=>{const s=document.createElement('div');s.textContent=l;s.style.cssText='width:64px;text-align:center;font-family:DM Mono,monospace;font-size:11px;color:var(--grey);';colL.appendChild(s);});}
+  for(let r=0;r<8;r++) for(let c=0;c<8;c++){
+    const sq=document.createElement('div');
+    sq.className=`sq ${(r+c)%2===0?'light':'dark'}`;
+    sq.dataset.r=r; sq.dataset.c=c;
+    if(lastFrom&&lastFrom[0]===r&&lastFrom[1]===c) sq.classList.add('last-from');
+    if(lastTo  &&lastTo[0]===r  &&lastTo[1]===c)   sq.classList.add('last-to');
+    if(selectedSq&&selectedSq[0]===r&&selectedSq[1]===c) sq.classList.add('selected');
+    if(legalTargets.some(([tr,tc])=>tr===r&&tc===c)) sq.classList.add('hint');
+    const piece=board[r]?.[c];
+    if(piece&&PIECES[piece]){
+      sq.textContent=PIECES[piece];
+      sq.style.color=piece===piece.toUpperCase()?'#f0f4f8':'#00e5ff';
+      sq.style.textShadow=piece===piece.toUpperCase()?'0 1px 3px rgba(0,0,0,0.8)':'0 0 8px rgba(0,229,255,0.6)';
+    }
+    sq.addEventListener('click',()=>handleSquareClick(r,c));
+    el.appendChild(sq);
+  }
+}
+
+function handleSquareClick(r,c) {
+  if(puzzleSolved) return;
+  const piece=board[r]?.[c];
+  const isPlayerPiece=piece&&((playerColor==='w'&&piece===piece.toUpperCase())||(playerColor==='b'&&piece!==piece.toUpperCase()&&piece===piece.toLowerCase()));
+  if(selectedSq&&legalTargets.some(([tr,tc])=>tr===r&&tc===c)){attemptMove(selectedSq[0],selectedSq[1],r,c);return;}
+  if(isPlayerPiece){selectedSq=[r,c];legalTargets=getLegalTargets(board,r,c);renderBoard();return;}
+  selectedSq=null;legalTargets=[];renderBoard();
+}
+
+function attemptMove(fr,fc,tr,tc) {
+  const uci=squareToUCI(fr,fc)+squareToUCI(tr,tc);
+  const expected=solMoves[moveIdx];
+  const matches=uci===expected||uci===expected.slice(0,4);
+  if(matches){
+    board=applyMove(board,expected);
+    lastFrom=[fr,fc];lastTo=[tr,tc];
+    selectedSq=null;legalTargets=[];
+    moveIdx++;
+    if(moveIdx>=solMoves.length){puzzleSolved=true;setMsg('Puzzle solved! Well played.','solved');setProgress('Complete');document.getElementById('dot-c').classList.add('on');renderBoard();return;}
+    setMsg('Correct! Keep going...','correct');
+    setProgress(`Move ${moveIdx} of ${solMoves.length}`);
+    renderBoard();
+    setTimeout(()=>{
+      const opp=solMoves[moveIdx];
+      const {fr:of,fc:oc,tr:ot,tc:otc}=uciCoords(opp);
+      board=applyMove(board,opp);lastFrom=[of,oc];lastTo=[ot,otc];moveIdx++;
+      if(moveIdx>=solMoves.length){puzzleSolved=true;setMsg('Puzzle solved! Well played.','solved');setProgress('Complete');document.getElementById('dot-c').classList.add('on');}
+      else{setMsg('Your turn again.','');setProgress(`Move ${moveIdx+1} of ${solMoves.length}`);}
+      renderBoard();
+    },600);
+  } else {
+    setMsg('Not quite — try again.','wrong');selectedSq=null;legalTargets=[];renderBoard();
+    setTimeout(()=>setMsg('Find the best move.',''),1500);
+  }
+}
+
+function setMsg(text,cls){const el=document.getElementById('cs-msg');el.textContent=text;el.className=`puzzle-msg${cls?' '+cls:''}`;}
+function setProgress(text){document.getElementById('cs-progress').textContent=text;}
+
+function resetPuzzle(){
+  if(!puzzleData) return;
+  board=initBoard.map(r=>[...r]);moveIdx=0;selectedSq=null;legalTargets=[];
+  lastFrom=null;lastTo=null;puzzleSolved=false;
+  setMsg('Tap a piece to select it, then tap the destination square.','');
+  setProgress(`Move 1 of ${solMoves.length}`);
+  renderBoard();
+}
+
+function revealSolution(){
+  if(!puzzleData) return;
+  setMsg(`Solution: ${solMoves.join('  ')}`, 'solved');
+  puzzleSolved=true;
+  let i=0; board=initBoard.map(r=>[...r]);
+  const step=()=>{if(i>=solMoves.length)return;const m=solMoves[i];const{fr,fc,tr,tc}=uciCoords(m);board=applyMove(board,m);lastFrom=[fr,fc];lastTo=[tr,tc];renderBoard();i++;if(i<solMoves.length)setTimeout(step,800);};
+  setTimeout(step,300);
 }
 
 async function loadPuzzle() {
   try {
-    const r = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://lichess.org/api/puzzle/daily'));
-    if (!r.ok) throw 0;
-    const wrapper = await r.json();
-    puzzleData = JSON.parse(wrapper.contents);
+    const r = await fetch('https://api.codetabs.com/v1/proxy?quest=https://lichess.org/api/puzzle/daily');
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
+    puzzleData = await r.json();
 
     const p          = puzzleData.puzzle;
-    const game       = puzzleData.game;
-    const pgn        = game.pgn;
-    const initialPly = p.initialPly;  // number of half-moves to replay before puzzle starts
+    const pgn        = puzzleData.game.pgn;
+    const initialPly = p.initialPly;
 
-    // Replay game up to initialPly to get the pre-puzzle position
-    const { board: replayedBoard, turn: replayedTurn } = replayPgn(pgn, initialPly);
+    const {board:replayedBoard, turn:replayedTurn} = replayPgn(pgn, initialPly);
 
-    // The first solution move is actually the OPPONENT'S move that sets up the puzzle.
-    // Apply it immediately, then the player solves from there.
+    // Apply the opponent's setup move (solution[0]) automatically
     const setupMove = p.solution[0];
     const {fr,fc,tr,tc} = uciCoords(setupMove);
     const startBoard = applyMove(replayedBoard, setupMove);
-    const playerTurn = replayedTurn === 'w' ? 'b' : 'w';  // after opponent moves, it's player's turn
+    const playerTurn = replayedTurn==='w'?'b':'w';
 
-    playerColor = playerTurn;
-    board       = startBoard;
-    initBoard   = startBoard.map(row=>[...row]);
-    solMoves    = p.solution.slice(1);  // player solves the rest
-    moveIdx     = 0;
-    selectedSq   = null;
-    legalTargets = [];
-    lastFrom     = [fr,fc];
-    lastTo       = [tr,tc];
-    puzzleSolved = false;
+    playerColor  = playerTurn;
+    board        = startBoard;
+    initBoard    = startBoard.map(row=>[...row]);
+    solMoves     = p.solution.slice(1);
+    moveIdx      = 0; selectedSq=null; legalTargets=[];
+    lastFrom     = [fr,fc]; lastTo=[tr,tc]; puzzleSolved=false;
 
-    const rating  = p.rating || '----';
-    const themes  = (p.themes || []).slice(0,5);
+    const rating  = p.rating||'----';
+    const themes  = (p.themes||[]).slice(0,5);
     const dateStr = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
 
-    document.getElementById('cs-rating').textContent    = rating;
+    document.getElementById('cs-rating').textContent     = rating;
     document.getElementById('launch-rating').textContent = rating;
-    document.getElementById('cs-date').textContent      = dateStr;
-    document.getElementById('cs-turn-color').textContent = playerTurn==='w' ? 'WHITE' : 'BLACK';
-    document.getElementById('cs-instruction').textContent = `Find the best sequence of moves for ${playerTurn==='w'?'white':'black'}.`;
-    document.getElementById('cs-themes').innerHTML = themes.map(t =>
-      `<span class="theme-tag">${t}</span>`).join('');
+    document.getElementById('cs-date').textContent       = dateStr;
+    document.getElementById('cs-turn-color').textContent = playerTurn==='w'?'WHITE':'BLACK';
+    document.getElementById('cs-instruction').textContent= `Find the best sequence of moves for ${playerTurn==='w'?'white':'black'}.`;
+    document.getElementById('cs-themes').innerHTML = themes.map(t=>`<span class="theme-tag">${t}</span>`).join('');
 
-    setMsg('Tap a piece to select it, then tap the destination square.', '');
+    setMsg('Tap a piece to select it, then tap the destination square.','');
     setProgress(`Move 1 of ${solMoves.length}`);
-
-    document.getElementById('cs-refreshed').textContent =
-      `SYNC ${new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}`;
+    document.getElementById('cs-refreshed').textContent = `SYNC ${new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}`;
 
     renderBoard();
     document.getElementById('dot-c').classList.add('on');
@@ -1305,48 +991,34 @@ loadPuzzle();
 // ════════════════════════════════════════════
 //  MARKETS
 // ════════════════════════════════════════════
-const TICKERS = [
-  {sym:'^GSPC', id:'sp',  btc:false},
-  {sym:'^IXIC', id:'nq',  btc:false},
-  {sym:'^DJI',  id:'dj',  btc:false},
-  {sym:'BTC-USD',id:'btc',btc:true},
+const TICKERS=[
+  {sym:'^GSPC',id:'sp',btc:false},{sym:'^IXIC',id:'nq',btc:false},
+  {sym:'^DJI',id:'dj',btc:false},{sym:'BTC-USD',id:'btc',btc:true},
 ];
-
-function fmt(p, btc) {
-  if (btc) return '$' + Math.round(p).toLocaleString();
-  if (p > 10000) return Math.round(p).toLocaleString();
-  return p.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-}
-
-async function loadMarkets() {
-  let ok = false;
-  for (const t of TICKERS) {
-    try {
-      const url = `https://query1.finance.yahoo.com/v8/finance/chart/${t.sym}?interval=1d&range=2d`;
-      const r   = await fetch('https://corsproxy.io/?' + encodeURIComponent(url));
-      const d   = await r.json();
-      const meta  = d.chart.result[0].meta;
-      const price = meta.regularMarketPrice;
-      const prev  = meta.previousClose || meta.chartPreviousClose;
-      const chg   = price - prev, pct = (chg/prev)*100, up = chg >= 0;
-      document.getElementById(`${t.id}-price`).textContent = fmt(price, t.btc);
-      const el = document.getElementById(`${t.id}-chg`);
-      el.textContent = `${up?'+':''}${pct.toFixed(2)}%`;
-      el.className   = `mkt-chg ${up ? 'up' : 'down'}`;
-      ok = true;
-    } catch { /* skip */ }
+function fmt(p,btc){if(btc)return'$'+Math.round(p).toLocaleString();if(p>10000)return Math.round(p).toLocaleString();return p.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+async function loadMarkets(){
+  let ok=false;
+  for(const t of TICKERS){
+    try{
+      const url=`https://query1.finance.yahoo.com/v8/finance/chart/${t.sym}?interval=1d&range=2d`;
+      const r=await fetch('https://corsproxy.io/?'+encodeURIComponent(url));
+      const d=await r.json();
+      const meta=d.chart.result[0].meta, price=meta.regularMarketPrice, prev=meta.previousClose||meta.chartPreviousClose;
+      const chg=price-prev, pct=(chg/prev)*100, up=chg>=0;
+      document.getElementById(`${t.id}-price`).textContent=fmt(price,t.btc);
+      const el=document.getElementById(`${t.id}-chg`);
+      el.textContent=`${up?'+':''}${pct.toFixed(2)}%`;
+      el.className=`mkt-chg ${up?'up':'down'}`;
+      ok=true;
+    }catch{}
   }
-  if (ok) { document.getElementById('dot-m').classList.add('on'); stamp(); }
+  if(ok){document.getElementById('dot-m').classList.add('on');stamp();}
 }
 loadMarkets();
-setInterval(loadMarkets, 300000);
+setInterval(loadMarkets,300000);
 
-// ════════════════════════════════════════════
-//  UTILS
-// ════════════════════════════════════════════
-function stamp() {
-  const t = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('refreshed').textContent = `SYNC ${t}`;
+function stamp(){
+  document.getElementById('refreshed').textContent=`SYNC ${new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}`;
 }
 </script>
 </body>
