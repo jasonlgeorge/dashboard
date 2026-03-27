@@ -129,18 +129,16 @@ body::after {
 }
 
 /* CHESS LAUNCH */
-.chess-launch-btn {
-  display: flex; align-items: center; gap: 10px;
-  padding: 14px 16px; margin-top: 4px;
-  border: 1px solid var(--cyan-mid); background: var(--cyan-dim);
-  color: var(--white); font-family: 'Bebas Neue', sans-serif;
-  font-size: 18px; letter-spacing: 3px; cursor: pointer;
-  transition: all 0.2s; text-transform: uppercase; width: 100%;
+.list-launch-btn {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  width: 100%; flex: 1; margin-top: 6px;
+  border: 3px solid #ffffff; background: #ffffff;
+  color: #000000; font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px; letter-spacing: 4px; cursor: pointer;
+  transition: all 0.2s; text-transform: uppercase;
 }
-.chess-launch-btn:hover { background: var(--cyan); color: var(--bg); box-shadow: 0 0 20px var(--cyan-mid); }
-.chess-icon { font-size: 22px; line-height: 1; }
-.chess-meta { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey); letter-spacing: 1px; margin-top: 8px; }
-.chess-rating-inline { color: var(--cyan); font-weight: 700; }
+.list-launch-btn:hover { background: #000; color: #fff; }
+.list-launch-icon { font-size: 28px; line-height: 1; }
 
 /* MOON */
 .moon-glyph { font-size: 56px; line-height: 1; text-align: center; margin: 4px 0; }
@@ -316,14 +314,13 @@ body::after {
   <!-- BOTTOM: 4 panels -->
   <div class="bottom">
 
-    <!-- 1: CHESS -->
-    <div class="bot-panel">
-      <div class="panel-label">// daily challenge</div>
-      <button class="chess-launch-btn" onclick="showChess()">
-        <span class="chess-icon">♟</span>
-        CHESS PUZZLE
+    <!-- 1: SHOPPING LIST -->
+    <div class="bot-panel" style="display:flex;flex-direction:column;">
+      <div class="panel-label">// shopping list</div>
+      <button class="list-launch-btn" onclick="showList()">
+        <span class="list-launch-icon">🛒</span>
+        GROCERY LIST
       </button>
-      <div class="chess-meta">Rating: <span class="chess-rating-inline" id="launch-rating">Loading...</span></div>
     </div>
 
     <!-- 2: MOON -->
@@ -375,7 +372,7 @@ body::after {
   <div class="statusbar">
     <span><span class="sdot" id="dot-w"></span>WEATHER</span>
     <span><span class="sdot" id="dot-m"></span>MARKETS</span>
-    <span><span class="sdot" id="dot-c"></span>PUZZLE</span>
+    <span><span class="sdot" id="dot-l"></span>LIST</span>
     <span id="refreshed">--</span>
     <span>DASHBOARD v4.0</span>
   </div>
@@ -406,55 +403,46 @@ body::after {
   </div>
 </div>
 
-<!-- ════════════════ SCREEN 3: CHESS ════════════════ -->
-<div id="chess-screen" class="screen hidden">
-  <div class="chess-header">
-    <div class="back-btn" onclick="showDash()"><span class="back-arrow">&#8592;</span> BACK</div>
-    <div class="chess-title-block">
-      <div class="chess-screen-title">PUZZLE OF THE DAY</div>
-      <div class="chess-screen-sub" id="cs-date">--</div>
+<!-- ════════════════ SCREEN 3: SHOPPING LIST ════════════════ -->
+<div id="list-screen" class="screen hidden" style="background:#000;display:grid;grid-template-rows:80px 1fr 320px 24px;">
+
+  <!-- Header -->
+  <div style="display:grid;grid-template-columns:auto 1fr;align-items:center;gap:24px;padding:0 32px;border-bottom:2px solid #333;background:#000;">
+    <div class="back-btn" onclick="showDash()" style="border-color:#444;background:#111;color:#fff;">
+      <span class="back-arrow">&#8592;</span> BACK
     </div>
-    <div class="chess-header-meta">
-      <div class="chess-rating-big" id="cs-rating">----</div>
-      <div class="chess-rating-sub">Puzzle Rating</div>
-    </div>
-  </div>
-  <div class="chess-body">
-    <div class="chess-board-area">
-      <div class="board-with-labels">
-        <div class="board-row-labels" id="row-labels"></div>
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <div class="chess-board-full" id="chess-board"></div>
-          <div class="board-col-labels" id="col-labels"></div>
-        </div>
-      </div>
-    </div>
-    <div class="chess-sidebar">
-      <div>
-        <div class="puzzle-turn-label">// your move</div>
-        <div class="puzzle-turn"><span class="turn-color" id="cs-turn-color">--</span> TO MOVE</div>
-        <div class="puzzle-instruction" id="cs-instruction">Find the best sequence of moves.</div>
-      </div>
-      <div>
-        <div class="puzzle-divider"></div>
-        <div class="puzzle-msg" id="cs-msg">Tap a piece to select it, then tap the destination square.</div>
-        <div class="puzzle-progress" id="cs-progress"></div>
-      </div>
-      <div>
-        <div class="puzzle-divider2"></div>
-        <div class="puzzle-actions">
-          <button class="pz-btn primary" onclick="resetPuzzle()">&#8635; Reset</button>
-          <button class="pz-btn" onclick="revealSolution()">Reveal Answer</button>
-        </div>
-        <div class="puzzle-themes" id="cs-themes"></div>
-      </div>
+    <div style="text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:#fff;letter-spacing:6px;line-height:1;">GROCERY LIST</div>
     </div>
   </div>
-  <div class="statusbar">
-    <span>LICHESS PUZZLE OF THE DAY</span>
-    <span id="cs-refreshed">--</span>
-    <span>TAP BACK TO RETURN HOME</span>
+
+  <!-- List area -->
+  <div style="overflow-y:auto;padding:24px 48px;" id="list-items">
+    <div id="list-empty" style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#333;letter-spacing:4px;text-align:center;margin-top:60px;">LIST IS EMPTY</div>
   </div>
+
+  <!-- On-screen keyboard -->
+  <div style="background:#111;border-top:2px solid #333;padding:12px 16px;display:flex;flex-direction:column;gap:8px;">
+
+    <!-- Input row -->
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:4px;">
+      <div id="kb-input" style="flex:1;background:#000;border:2px solid #555;padding:12px 20px;font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;letter-spacing:3px;min-height:58px;"></div>
+      <button onclick="kbAdd()" style="padding:12px 28px;background:#fff;border:none;color:#000;font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;cursor:pointer;">ADD</button>
+      <button onclick="kbBackspace()" style="padding:12px 20px;background:#333;border:none;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:24px;cursor:pointer;">⌫</button>
+    </div>
+
+    <!-- Keys rows -->
+    <div id="kb-keys" style="display:flex;flex-direction:column;gap:6px;"></div>
+  </div>
+
+  <!-- Status -->
+  <div class="statusbar" style="background:#000;border-top:1px solid #222;">
+    <span>GROCERY LIST</span>
+    <span id="list-count">0 ITEMS</span>
+    <button onclick="clearChecked()" style="background:transparent;border:none;color:#555;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">CLEAR CHECKED</button>
+    <span>TAP ITEM TO CHECK OFF</span>
+  </div>
+
 </div>
 
 <script>
@@ -469,7 +457,7 @@ function switchScreen(id) {
 }
 function showDash()            { switchScreen('dash'); }
 function showHourly(dayIndex)  { buildHourlyScreen(dayIndex); switchScreen('hourly'); }
-function showChess()           { switchScreen('chess-screen'); }
+function showList()  { switchScreen('list-screen'); buildKeyboard(); }
 
 // ════════════════════════════════════════════
 //  QUOTES
@@ -1020,6 +1008,127 @@ setInterval(loadMarkets,300000);
 function stamp(){
   document.getElementById('refreshed').textContent=`SYNC ${new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}`;
 }
+
+// ════════════════════════════════════════════
+//  SHOPPING LIST
+// ════════════════════════════════════════════
+let listItems  = [];
+let kbValue    = '';
+let kbBuilt    = false;
+let kbShift    = false;
+
+const KB_ROWS = [
+  ['Q','W','E','R','T','Y','U','I','O','P'],
+  ['A','S','D','F','G','H','J','K','L'],
+  ['SHIFT','Z','X','C','V','B','N','M','BKSP'],
+  ['SPACE','1','2','3','4','5','6','7','8','9','0']
+];
+
+function buildKeyboard() {
+  if (kbBuilt) return;
+  kbBuilt = true;
+  const container = document.getElementById('kb-keys');
+  container.innerHTML = '';
+  KB_ROWS.forEach(row => {
+    const rowEl = document.createElement('div');
+    rowEl.style.cssText = 'display:flex;gap:6px;justify-content:center;';
+    row.forEach(key => {
+      const btn = document.createElement('button');
+      btn.dataset.key = key;
+      let w = '58px';
+      if (key === 'SPACE') w = '360px';
+      if (key === 'SHIFT') w = '88px';
+      if (key === 'BKSP')  w = '88px';
+      btn.style.cssText = 'width:'+w+';height:52px;background:#222;border:1px solid #444;color:#fff;font-family:Space Grotesk,sans-serif;font-size:'+(key==='SPACE'?'14':'18')+'px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:background 0.1s;border-radius:4px;flex-shrink:0;';
+      btn.textContent = key === 'SPACE' ? 'SPACE' : key === 'BKSP' ? '⌫' : key;
+      btn.addEventListener('click', () => kbPress(key));
+      rowEl.appendChild(btn);
+    });
+    container.appendChild(rowEl);
+  });
+}
+
+function kbPress(key) {
+  if (key === 'BKSP')  { kbBackspace(); return; }
+  if (key === 'SHIFT') { kbShift = !kbShift; updateShiftDisplay(); return; }
+  if (key === 'SPACE') { kbValue += ' '; }
+  else {
+    kbValue += kbShift ? key.toUpperCase() : key.toLowerCase();
+    if (kbShift) { kbShift = false; updateShiftDisplay(); }
+  }
+  updateKbInput();
+}
+
+function updateShiftDisplay() {
+  document.querySelectorAll('#kb-keys button[data-key]').forEach(btn => {
+    const k = btn.dataset.key;
+    if (k.length === 1 && /[A-Z]/.test(k)) {
+      btn.textContent = kbShift ? k.toUpperCase() : k.toLowerCase();
+      btn.style.background = kbShift ? '#555' : '#222';
+    }
+  });
+}
+
+function updateKbInput() {
+  document.getElementById('kb-input').textContent = kbValue;
+}
+
+function kbBackspace() {
+  kbValue = kbValue.slice(0, -1);
+  updateKbInput();
+}
+
+function kbAdd() {
+  const text = kbValue.trim();
+  if (!text) return;
+  listItems.push({ text, checked: false });
+  kbValue = '';
+  updateKbInput();
+  renderList();
+}
+
+function renderList() {
+  const container = document.getElementById('list-items');
+  const empty     = document.getElementById('list-empty');
+  if (listItems.length === 0) {
+    container.innerHTML = '';
+    container.appendChild(empty);
+    empty.style.display = 'block';
+    document.getElementById('list-count').textContent = '0 ITEMS';
+    return;
+  }
+  empty.style.display = 'none';
+  container.innerHTML = '';
+  listItems.forEach((item, i) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:20px;padding:16px 0;border-bottom:1px solid #222;cursor:pointer;' + (item.checked ? 'opacity:0.35;' : '');
+    row.onclick = () => toggleItem(i);
+
+    const check = document.createElement('div');
+    check.style.cssText = 'width:40px;height:40px;border:3px solid '+(item.checked?'#fff':'#444')+';border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+(item.checked?'#fff':'transparent')+';font-size:24px;color:#000;font-weight:900;';
+    check.textContent = item.checked ? '✓' : '';
+
+    const label = document.createElement('div');
+    label.style.cssText = 'font-family:Bebas Neue,sans-serif;font-size:40px;font-weight:700;color:#fff;letter-spacing:3px;flex:1;' + (item.checked ? 'text-decoration:line-through;color:#444;' : '');
+    label.textContent = item.text.toUpperCase();
+
+    const del = document.createElement('button');
+    del.style.cssText = 'background:transparent;border:none;color:#333;font-size:32px;cursor:pointer;padding:0 10px;flex-shrink:0;line-height:1;';
+    del.textContent = '×';
+    del.onclick = (e) => { e.stopPropagation(); deleteItem(i); };
+    del.addEventListener('mouseenter', () => del.style.color = '#ff5252');
+    del.addEventListener('mouseleave', () => del.style.color = '#333');
+
+    row.appendChild(check); row.appendChild(label); row.appendChild(del);
+    container.appendChild(row);
+  });
+  const total = listItems.length, checked = listItems.filter(x=>x.checked).length;
+  document.getElementById('list-count').textContent = (total-checked)+' OF '+total+' REMAINING';
+}
+
+function toggleItem(i)  { listItems[i].checked = !listItems[i].checked; renderList(); }
+function deleteItem(i)  { listItems.splice(i,1); renderList(); }
+function clearChecked() { listItems = listItems.filter(x=>!x.checked); renderList(); }
 </script>
 </body>
 </html>
